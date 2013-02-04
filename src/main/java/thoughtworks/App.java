@@ -1,4 +1,4 @@
-package thoughtworks.com;
+package thoughtworks;
 
 /**
  * Hello world!
