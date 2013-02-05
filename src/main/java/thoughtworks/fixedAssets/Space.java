@@ -1,12 +1,12 @@
 package thoughtworks.fixedAssets;
 
 public class Space {
-	public static final String symbol = "0";
-	public static final int level = 0;
+	private final String symbol = "0";
+	private final int level = 0;
 	protected int positionNumber;
-	protected int buyFunds;
-	protected int upgradeFunds;
-	protected int passToll;
+	private int buyFunds;
+	private int upgradeFunds;
+	private int passToll;
 	
 	public Space(int positionNumber){
 		this.positionNumber = positionNumber;
@@ -25,6 +25,14 @@ public class Space {
 		passToll = buyFunds / 2;
 	}
 	
+	public String getSymbol(){
+		return symbol;
+	}
+	
+	public int getLevel(){
+		return level;
+	}
+	
 	public int getPositionNumber(){
 		return positionNumber;
 	}
@@ -34,10 +42,14 @@ public class Space {
 	}
 	
 	public int getUpgradeFunds(){
-		return buyFunds;
+		return upgradeFunds;
 	}
 	
 	public int getPassToll(){
 		return passToll;
+	}
+	
+	public Space upgrade(){
+		return new Cottage(positionNumber);
 	}
 }

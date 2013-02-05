@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import thoughtworks.fixedAssets.Space;
+import thoughtworks.fixedAssets.*;
 
 public class PlayerEstateBuildTest {
 	private Space space;
@@ -32,9 +32,18 @@ public class PlayerEstateBuildTest {
 	}
 	
 	@Test
-	public void shouldAfterUpgradeSpaceFundsRemainBe9600(){
+	public void shouldAfterUpgradeSpaceFundsAndNumberRemainRight(){
 		player.buySpace(space);
-		player.upgradeFixedAssets(space);
-		assertThat(player.getFunds(), is(9800));
+		assertThat(player.getNumberOfSpaces(), is(1));
+		player.upgradeFixedAssets(space.getPositionNumber());
+		assertThat(player.getFunds(), is(9600));
+		assertThat(player.getNumberOfSpaces(), is(0));
+		assertThat(player.getNumberOfCottages(), is(1));
+		player.upgradeFixedAssets(space.getPositionNumber());
+		assertThat(player.getFunds(), is(9400));
+		assertThat(player.getNumberOfHouses(), is(1));
+		player.upgradeFixedAssets(space.getPositionNumber());
+		assertThat(player.getFunds(), is(9200));
+		assertThat(player.getNumberOfSkyscrapers(), is(1));
 	}
 }

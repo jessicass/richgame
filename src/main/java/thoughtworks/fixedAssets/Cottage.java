@@ -3,10 +3,10 @@ package thoughtworks.fixedAssets;
 import java.text.DecimalFormat;
 
 public class Cottage extends Space {
-	public static final String symbol = "1";
-	public static final int level = 1;
-	protected int upgradeFunds;
-	protected int passToll;
+	private final String symbol = "1";
+	private final int level = 1;
+	private int upgradeFunds;
+	private int passToll;
 	
 	public Cottage(int positionNumber){
 		super(positionNumber);
@@ -15,11 +15,23 @@ public class Cottage extends Space {
 				new DecimalFormat("0").format(Math.pow(2, level)));
 	}
 	
+	public String getSymbol(){
+		return symbol;
+	}
+	
+	public int getLevel(){
+		return level;
+	}
+	
 	public int getUpgradeFunds(){
 		return this.upgradeFunds;
 	}
 	
 	public int getPassToll(){
 		return this.passToll;
+	}
+	
+	public Space upgrade(){
+		return new House(positionNumber);
 	}
 }

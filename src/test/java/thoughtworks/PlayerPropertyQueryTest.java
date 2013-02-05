@@ -34,10 +34,10 @@ public class PlayerPropertyQueryTest {
 	
 	@Test
 	public void shouldInitialFixedAssetsSpaceBe0(){
-		assertThat(newPlayer.getFixedAssetsSpace(), is(0));
-		assertThat(newPlayer.getFixedAssetsCottage(), is(0));
-		assertThat(newPlayer.getFixedAssetsHouse(), is(0));
-		assertThat(newPlayer.getFixedAssetsSkyscraper(), is(0));
+		assertThat(newPlayer.getNumberOfSpaces(), is(0));
+		assertThat(newPlayer.getNumberOfCottages(), is(0));
+		assertThat(newPlayer.getNumberOfHouses(), is(0));
+		assertThat(newPlayer.getNumberOfSkyscrapers(), is(0));
 	}
 	
 	@Test

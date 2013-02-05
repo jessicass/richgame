@@ -49,19 +49,19 @@ public class Player {
 		return shortName;
 	}
 	
-	public int getFixedAssetsSpace(){
+	public int getNumberOfSpaces(){
 		return numberOfSpaces;
 	}
 	
-	public int getFixedAssetsCottage(){
+	public int getNumberOfCottages(){
 		return numberOfCottages;
 	}
 	
-	public int getFixedAssetsHouse(){
+	public int getNumberOfHouses(){
 		return numberOfHouses;
 	}
 	
-	public int getFixedAssetsSkyscraper(){
+	public int getNumberOfSkyscrapers(){
 		return numberOfSkyscrapers;
 	}
 	
@@ -84,16 +84,51 @@ public class Player {
 	public boolean buySpace(Space space){
 		if(funds >= space.getBuyFunds()){
 			funds = funds-space.getBuyFunds();
+			spaces.add(space);
+			numberOfSpaces++;
 			return true;
 		}
 		return false;
 	}
 	
-	//////////upgrade
-	public boolean upgradeFixedAssets(Space space){
-		if(funds >= space.getUpgradeFunds()){
-			return true;
+	//暂时没用到
+	public Space getSpace(int number){
+		for(Space space :spaces){
+			if(space.getPositionNumber() == number)
+				return space;
 		}
-		return false;
+		return null;
+	}
+	
+	public int getIndexOfSpaces(int number){
+		for(Space space :spaces){
+			if(space.getPositionNumber() == number)
+				return spaces.indexOf(space);
+		}
+		return -1;
+	}
+	
+	public void upgradeFixedAssets(int number){
+		Space spaceUpgrade = getSpace(number);
+		if(funds >= spaceUpgrade.getUpgradeFunds()){
+			funds = funds-spaceUpgrade.getUpgradeFunds();
+			spaces.remove(getIndexOfSpaces(number));
+			Space newSpace = spaceUpgrade.upgrade();
+			spaces.add(newSpace);
+			switch(spaceUpgrade.getLevel()){
+		        case 0 :
+		    	    numberOfSpaces--;
+		    	    numberOfCottages++;
+					return;
+		        case 1 :
+		        	numberOfCottages--;
+		    	    numberOfHouses++;
+					return;
+		        case 2 :
+		        	numberOfHouses--;
+		    	    numberOfSkyscrapers++;
+					return;
+		    }
+		}
 	}
 }
