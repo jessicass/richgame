@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import thoughtworks.Player;
+import thoughtworks.players.Player;
 
 public class PlayerPropertyQueryTest {
 	private Player newPlayer;
@@ -14,12 +14,6 @@ public class PlayerPropertyQueryTest {
 	@Before
 	public void setUp(){
 		newPlayer = new Player(1);
-	}
-	
-	@Test
-	public void shouldPlayerNameTest(){
-		assertThat(newPlayer.getPlayerName(), is("«Æ∑Ú»À"));
-		assertThat(newPlayer.getShortName(), is("Q"));
 	}
 	
 	@Test
@@ -42,8 +36,8 @@ public class PlayerPropertyQueryTest {
 	
 	@Test
 	public void shouldInitialToolsBlockBe0(){
-		assertThat(newPlayer.getToolsBlock(), is(0));
-		assertThat(newPlayer.getToolsBomb(), is(0));
-		assertThat(newPlayer.getToolsRobot(), is(0));
+		assertThat(newPlayer.getNumberOfBlocks(), is(0));
+		assertThat(newPlayer.getNumberOfBombs(), is(0));
+		assertThat(newPlayer.getNumberOfRobots(), is(0));
 	}
 }

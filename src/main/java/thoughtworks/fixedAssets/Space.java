@@ -1,28 +1,40 @@
 package thoughtworks.fixedAssets;
 
-public class Space {
+import thoughtworks.MapObject;
+
+public class Space implements MapObject{
 	private final String symbol = "0";
 	private final int level = 0;
-	protected int positionNumber;
+	protected int position;
 	private int buyFunds;
 	private int upgradeFunds;
 	private int passToll;
+	protected boolean isOwned;
 	
-	public Space(int positionNumber){
-		this.positionNumber = positionNumber;
-		if((positionNumber>0 && positionNumber<14)
-				||(positionNumber>14 && positionNumber<28)){
+	public Space(int position){
+		this.position = position;
+		this.isOwned = false;
+		if((position>0 && position<14)
+				||(position>14 && position<28)){
 			buyFunds = 200;
 		}
-		else if(positionNumber>28 && positionNumber<35){
+		else if(position>28 && position<35){
 			buyFunds = 500;
 		}
-		else if((positionNumber>35 && positionNumber<49)
-				||(positionNumber>49 && positionNumber<63)){
+		else if((position>35 && position<49)
+				||(position>49 && position<63)){
 			buyFunds = 300;
 		}
 		upgradeFunds = buyFunds;
 		passToll = buyFunds / 2;
+	}
+	
+	public void toBeOwned(){
+		isOwned = true;
+	}
+	
+	public boolean isOwned(){
+		return isOwned;
 	}
 	
 	public String getSymbol(){
@@ -34,7 +46,7 @@ public class Space {
 	}
 	
 	public int getPositionNumber(){
-		return positionNumber;
+		return position;
 	}
 	
 	public int getBuyFunds(){
@@ -50,6 +62,6 @@ public class Space {
 	}
 	
 	public Space upgrade(){
-		return new Cottage(positionNumber);
+		return new Cottage(position);
 	}
 }

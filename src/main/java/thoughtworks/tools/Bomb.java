@@ -1,19 +1,8 @@
 package thoughtworks.tools;
 
 public class Bomb {
-	private final int buyPoints = 50;
-	private final String symbol = "@";
-	private final int setRange = 10;
-	
-	public String getSymbol(){
-		return symbol;
-	}
-	
-	public int getBuyPoints(){
-		return buyPoints;
-	}
-	
-	public int getSetRange(){
-		return setRange;
-	}	
+	public static final int toolNumber = 3;
+	public static final int buyPoints = 50;
+	public static final String symbol = "@";
+	public static final int setRange = 10;
 }

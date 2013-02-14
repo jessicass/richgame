@@ -1,4 +1,4 @@
-package thoughtworks;
+package thoughtworks.players;
 
 public enum PlayerName {
 	Q("钱夫人",1),A("阿土伯",2),S("孙小美",3),J("金贝贝",4);
