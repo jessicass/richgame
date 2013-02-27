@@ -21,11 +21,26 @@ public class CreatPlayerListTest {
 	
 	@Test
 	public void shouldPlayerShortNameBeQAndA(){
-		game.isCreatPlayerListSuccess("12");
+		assertThat(game.isCreatPlayerListSuccess(12), is(true));
 		players = game.getPlayers();
 		assertThat(players.get(0).getPlayerName(), is("«Æ∑Ú»À"));
 		assertThat(players.get(0).getShortName(), is("Q"));
 		assertThat(players.get(1).getPlayerName(), is("∞¢Õ¡≤Æ"));
 		assertThat(players.get(1).getShortName(), is("A"));
+	}
+	
+	@Test
+	public void shouldRoleNumbersBeyondLimit(){
+		assertThat(game.isCreatPlayerListSuccess(5), is(false));
+	}
+	
+	@Test
+	public void shouldRoleNumbersRepeat(){
+		assertThat(game.isCreatPlayerListSuccess(11), is(false));
+	}
+	
+	@Test
+	public void shouldNumberOfPlayersBeyondLimit(){
+		assertThat(game.isCreatPlayerListSuccess(12345), is(false));
 	}
 }

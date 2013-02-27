@@ -1,5 +1,7 @@
 package thoughtworks.publicPlace;
 
+import thoughtworks.Game;
+import thoughtworks.Input;
 import thoughtworks.MapObject;
 import thoughtworks.players.Player;
 import thoughtworks.tools.*;
@@ -8,11 +10,13 @@ public class ToolRoom implements MapObject {
 	public static final String symbol = "T";
 	public static final int position = 28;
 	public static final int LIMIT_NUMBER_OF_TOOLS = 10;
-	public static final String WELCOME = 
-			"欢迎光临道具屋，请选择您所需要的道具：";
-	public static final String NUMBER_OF_TOOLS_BEYOND_LIMIT = 
-			"您已经拥有10个道具";
+	public static final String WELCOME = "欢迎光临道具屋，请选择您所需要的道具：";
+	public static final String NUMBER_OF_TOOLS_BEYOND_LIMIT = "您已经拥有10个道具";
+	public static final String QUIT_TOOLROOM = "f";
 	public static final int MAX_TOOL_NUMBER = 3;
+	public static final int MIN_TOOL_NUMBER = 1;
+	private boolean hasBlock;
+	private boolean hasBomb;
 	
 	public static int buyToolPoints(int toolNumber) {
 		switch(toolNumber){
@@ -26,28 +30,95 @@ public class ToolRoom implements MapObject {
 		return -1;
 	}
 	
-	public static boolean isPointsOfPlayerEnough(Player player){
+	public static boolean isPointsEnoughToBuyAllTool(int points){
 		for(int i = 0; i < MAX_TOOL_NUMBER; i++){
-			if(player.getPoints() > buyToolPoints(i + 1)){
+			if(points > buyToolPoints(i + 1)){
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public static String playerBuyTool(Player player , int toolNumber){
-		if(player.getTotalNumberOfTools() == LIMIT_NUMBER_OF_TOOLS){
-			return NUMBER_OF_TOOLS_BEYOND_LIMIT;
+	public static boolean isPointsEnoughToBuyToolWithNumber(
+			int points, int toolNumber){
+		if(points < buyToolPoints(toolNumber)){
+			return false;
 		}
-		else if(player.getPoints() < buyToolPoints(toolNumber)){
-			return "您当前剩余的点数为" + player.getPoints() + 
-					"，不足以购买" + toolNumber + "道具";
+		return true;
+	}
+	
+	public static boolean isNumberOfTotalToolsNotBeyondLimits(
+			int NumberOfTotalTools) {
+		if (NumberOfTotalTools < LIMIT_NUMBER_OF_TOOLS) {
+			return true;
 		}
-		else
-			return null;
+		return false;
 	}
 	
 	public String getSymbol(){
+		if(hasBlock){
+			return Block.symbol;
+		}
+		if(hasBomb){
+			return Bomb.symbol;
+		}
 		return symbol;
+	}
+	
+	public int getPosition(){
+		return position;
+	}
+	
+	public void setBlock(){
+		hasBlock = true;
+	}
+	
+	public void resetBlock(){
+		hasBlock = false;
+	}
+	
+	public boolean hasBlock(){
+		return hasBlock;
+	}
+	
+	public void setBomb(){
+		hasBomb = true;
+	}
+	
+	public void resetBomb(){
+		hasBomb = false;
+	}
+	
+	public boolean hasBomb(){
+		return hasBomb;
+	}
+
+	public void playerPassOnHere(Player passer, Game game) {
+		while (isPointsEnoughToBuyAllTool(passer.getPoints()) && 
+				isNumberOfTotalToolsNotBeyondLimits(passer
+						.getToolsOfPlayer().getTotalNumberOfTools())) {
+			System.out.println((new ToolInfo()).toolInfoShow());
+			System.out.println(WELCOME);
+			String input = Input.getString();
+			if (input.matches(QUIT_TOOLROOM)) {
+				return;
+			}
+			if (!Input.isIntegerInArea(Input.getInteger(), 
+					MAX_TOOL_NUMBER, MIN_TOOL_NUMBER)){
+				continue;
+			}
+			if(isPointsEnoughToBuyToolWithNumber(passer.getPoints(), 
+					Integer.valueOf(input))){
+				passer.buyTool(Integer.valueOf(input));
+			}
+			else{
+				System.out.println("您当前剩余的点数为" + passer.getPoints() + 
+						"，不足以购买" + Integer.valueOf(input) + "道具" + "\n");
+			}
+		}
+	}
+	
+	public MapObject upgrade(){
+		return null;
 	}
 }

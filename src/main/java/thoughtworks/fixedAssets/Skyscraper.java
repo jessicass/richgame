@@ -2,10 +2,13 @@ package thoughtworks.fixedAssets;
 
 import java.text.DecimalFormat;
 import thoughtworks.MapObject;
+import thoughtworks.tools.Block;
+import thoughtworks.tools.Bomb;
 
 public class Skyscraper extends Space implements MapObject {
-	private final String symbol = "3";
-	private final int level = 3;
+	public final String symbol = "3";
+	public static final String name = "Ä¦ÌìÂ¥";
+	public final int level = 3;
 	private int passToll;
 	
 	public Skyscraper(int position){
@@ -15,6 +18,12 @@ public class Skyscraper extends Space implements MapObject {
 	}
 	
 	public String getSymbol(){
+		if(hasBlock){
+			return Block.symbol;
+		}
+		if(hasBomb){
+			return Bomb.symbol;
+		}
 		return symbol;
 	}
 	
@@ -24,5 +33,13 @@ public class Skyscraper extends Space implements MapObject {
 	
 	public int getPassToll(){
 		return this.passToll;
+	}
+	
+	public MapObject upgrade(){
+		return null;
+	}
+	
+	public Space sell(){
+		return new Space(position);
 	}
 }

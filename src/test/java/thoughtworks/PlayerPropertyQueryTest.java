@@ -1,43 +1,96 @@
 package thoughtworks;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import thoughtworks.fixedAssets.Cottage;
+import thoughtworks.fixedAssets.House;
+import thoughtworks.fixedAssets.Skyscraper;
+import thoughtworks.fixedAssets.Space;
 import thoughtworks.players.Player;
+import thoughtworks.publicPlace.Mine;
+import thoughtworks.tools.Block;
+import thoughtworks.tools.Bomb;
+import thoughtworks.tools.Robot;
 
 public class PlayerPropertyQueryTest {
-	private Player newPlayer;
+	private Player player;
+	private Space space;
+	private Mine mine;
+	private Game game = new Game();
 	
 	@Before
 	public void setUp(){
-		newPlayer = new Player(1);
+		player = new Player(1);
+		space = new Space(1);
+		mine = new Mine(64);
+	}
+	
+	public String getString(int funds, int points, int[] fixedAssets, int[] tools){
+		String fundInfo = "资金：" + funds + "元；"; 
+		String pointInfo = "点数：" + points + "点；";
+		String fixedAssetInfo =	"地产：" + 
+		    Space.name + fixedAssets[0] + "处；" + 
+	        Cottage.name + fixedAssets[1] + "处；" + 
+	        House.name + fixedAssets[2] + "处；" + 
+	        Skyscraper.name + fixedAssets[3] + "处；";
+		String toolInfo = "道具：" + 
+	        Block.name + tools[0] + "个；" + 
+		    Robot.name + tools[1] + "个；" + 
+		    Bomb.name + tools[2] + "个；";
+		return fundInfo + "\n" + pointInfo + "\n" + fixedAssetInfo + 
+				"\n" + toolInfo + "\n";
 	}
 	
 	@Test
-	public void shouldInitialFundsBe10000(){
-		assertThat(newPlayer.getFunds(), is(10000));
+	public void initialPropertyTest(){
+		int[] num = {0,0,0,0};
+		assertThat(player.queryProperty(), is(getString(10000, 0, num, num)));
 	}
 	
 	@Test
-	public void shouldInitialPointsBe0(){
-		assertThat(newPlayer.getPoints(), is(0));
+	public void queryPropertyWithOneSpaceTest(){
+		mine.playerPassOnHere(player, game);
+		player.buySpace(space);
+		player.buyTool(Block.toolNumber);
+		int[] numOfFixedAssets = {1,0,0,0};
+		int[] numOfTools = {1,0,0};
+		assertThat(player.queryProperty(), is(getString(9800, 10, numOfFixedAssets, numOfTools)));
 	}
 	
 	@Test
-	public void shouldInitialFixedAssetsSpaceBe0(){
-		assertThat(newPlayer.getNumberOfSpaces(), is(0));
-		assertThat(newPlayer.getNumberOfCottages(), is(0));
-		assertThat(newPlayer.getNumberOfHouses(), is(0));
-		assertThat(newPlayer.getNumberOfSkyscrapers(), is(0));
+	public void queryPropertyWithOneCottageTest(){
+		mine.playerPassOnHere(player, game);
+		player.buySpace(space);
+		player.upgradeOwnFixedAssets(space.upgrade());
+		player.buyTool(Bomb.toolNumber);
+		int[] numOfFixedAssets = {0,1,0,0};
+		int[] numOfTools = {0,0,1};
+		assertThat(player.queryProperty(), is(getString(9600, 10, numOfFixedAssets, numOfTools)));
 	}
 	
 	@Test
-	public void shouldInitialToolsBlockBe0(){
-		assertThat(newPlayer.getNumberOfBlocks(), is(0));
-		assertThat(newPlayer.getNumberOfBombs(), is(0));
-		assertThat(newPlayer.getNumberOfRobots(), is(0));
+	public void queryPropertyWithOneHouseTest(){
+		mine.playerPassOnHere(player, game);
+		player.buySpace(space);
+		player.upgradeOwnFixedAssets(space.upgrade());
+		player.upgradeOwnFixedAssets(space.upgrade().upgrade());
+		player.buyTool(Robot.toolNumber);
+		int[] numOfFixedAssets = {0,0,1,0};
+		int[] numOfTools = {0,1,0};
+		assertThat(player.queryProperty(), is(getString(9400, 30, numOfFixedAssets, numOfTools)));
+	}
+	
+	@Test
+	public void queryPropertyWithOneSkyscraperTest(){
+		player.buySpace(space);
+		player.upgradeOwnFixedAssets(space.upgrade());
+		player.upgradeOwnFixedAssets(space.upgrade().upgrade());
+		player.upgradeOwnFixedAssets(space.upgrade().upgrade().upgrade());
+		int[] numOfFixedAssets = {0,0,0,1};
+		int[] numOfTools = {0,0,0};
+		assertThat(player.queryProperty(), is(getString(9200, 0, numOfFixedAssets, numOfTools)));
 	}
 }

@@ -2,10 +2,13 @@ package thoughtworks.fixedAssets;
 
 import java.text.DecimalFormat;
 import thoughtworks.MapObject;
+import thoughtworks.tools.Block;
+import thoughtworks.tools.Bomb;
 
 public class Cottage extends Space implements MapObject {
-	private final String symbol = "1";
-	private final int level = 1;
+	public final String symbol = "1";
+	public static final String name = "Ã©ÎÝ";
+	public final int level = 1;
 	private int upgradeFunds;
 	private int passToll;
 	
@@ -17,6 +20,12 @@ public class Cottage extends Space implements MapObject {
 	}
 	
 	public String getSymbol(){
+		if(hasBlock){
+			return Block.symbol;
+		}
+		if(hasBomb){
+			return Bomb.symbol;
+		}
 		return symbol;
 	}
 	
@@ -32,7 +41,16 @@ public class Cottage extends Space implements MapObject {
 		return this.passToll;
 	}
 	
-	public Space upgrade(){
-		return new House(position);
+	public MapObject upgrade(){
+		House house = new House(position);
+		house.totalCost = totalCost + upgradeFunds;
+		house.isOwned = isOwned;
+		house.hasBlock = hasBlock;
+		house.hasBomb = hasBomb;
+		return house;
+	}
+	
+	public Space sell(){
+		return new Space(position);
 	}
 }

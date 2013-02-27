@@ -8,15 +8,7 @@ public class RoleNumberTransfer {
 	public static final int MIN_ROLE_NUMBER = 1;
 	public static final int MAX_ROLE_NUMBER = 4;
 	
-	public static ArrayList<Integer> getRoleNumberListFromInput(String input){
-		ArrayList<Integer> roleNumbers = new ArrayList<Integer>();
-		for(int i = 0; i < input.length(); i++){
-			roleNumbers.add(Integer.parseInt(String.valueOf(input.charAt(i))));
-		}
-		return roleNumbers;
-	}
-	
-	public static int[] parseRoleNumberListToArray(ArrayList<Integer> roleNumbers){
+	public static int[] transferRoleNumberListToArray(ArrayList<Integer> roleNumbers){
 		int[] roleNumberArray = new int[roleNumbers.size()];
 		for(int i = 0; i < roleNumbers.size(); i++){
 			roleNumberArray[i] = roleNumbers.get(i).intValue(); 
@@ -51,5 +43,18 @@ public class RoleNumberTransfer {
 			}
 		}
 		return true;
+	}
+	
+	public static int[] transferInputToRoleNumberArray(int input){
+		ArrayList<Integer> roleNumber = new ArrayList<Integer>();
+		while(input != 0){
+			roleNumber.add(input % 10);
+			input /= 10;
+		}
+		ArrayList<Integer> newRoleNumber = new ArrayList<Integer>();
+		for(int i = 0; i < roleNumber.size(); i++){
+			newRoleNumber.add(roleNumber.get(roleNumber.size() - i - 1));
+		}
+		return transferRoleNumberListToArray(newRoleNumber);
 	}
 }

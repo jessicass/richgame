@@ -14,7 +14,6 @@ public class PlayerChooseGiftInPresentRoomTest {
 	@Before
 	public void setUp(){
 		player =new Player(1);
-		Player.INITIAL_FUNDS = 10000;
 	}
 	
 	@Test

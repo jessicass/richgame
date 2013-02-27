@@ -1,6 +1,10 @@
 package thoughtworks.publicPlace;
 
+import thoughtworks.Game;
 import thoughtworks.MapObject;
+import thoughtworks.players.Player;
+import thoughtworks.tools.Block;
+import thoughtworks.tools.Bomb;
 
 public class Mine implements MapObject {
 	public static final String symbol = "$";
@@ -12,6 +16,8 @@ public class Mine implements MapObject {
 	public static final int position6 = 69;
 	private int position;
 	private int points;
+	private boolean hasBlock;
+	private boolean hasBomb;
 	
 	public Mine(int position){
 		this.position = position;
@@ -46,6 +52,44 @@ public class Mine implements MapObject {
 	}
 	
 	public String getSymbol(){
+		if(hasBlock){
+			return Block.symbol;
+		}
+		if(hasBomb){
+			return Bomb.symbol;
+		}
 		return symbol;
+	}
+	
+	public void setBlock(){
+		hasBlock = true;
+	}
+	
+	public void resetBlock(){
+		hasBlock = false;
+	}
+	
+	public boolean hasBlock(){
+		return hasBlock;
+	}
+	
+	public void setBomb(){
+		hasBomb = true;
+	}
+	
+	public void resetBomb(){
+		hasBomb = false;
+	}
+	
+	public boolean hasBomb(){
+		return hasBomb;
+	}
+
+	public void playerPassOnHere(Player passer, Game game) {
+		passer.obtainPointsFromMine(points);
+	}
+	
+	public MapObject upgrade(){
+		return null;
 	}
 }

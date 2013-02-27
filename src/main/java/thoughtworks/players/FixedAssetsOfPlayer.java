@@ -2,14 +2,15 @@ package thoughtworks.players;
 
 import java.util.ArrayList;
 
+import thoughtworks.MapObject;
 import thoughtworks.fixedAssets.Space;
 
 public class FixedAssetsOfPlayer {
 	private ArrayList<Space> spaces = new ArrayList<Space>();
-	private int numberOfSpaces;
-	private int numberOfCottages;
-	private int numberOfHouses;
-	private int numberOfSkyscrapers;
+	private int numberOfSpaces = 0;
+	private int numberOfCottages = 0;
+	private int numberOfHouses = 0;
+	private int numberOfSkyscrapers = 0;
 	
 	public int getNumberOfSpaces(){
 		return numberOfSpaces;
@@ -27,20 +28,25 @@ public class FixedAssetsOfPlayer {
 		return numberOfSkyscrapers;
 	}
 	
+
+	public int getTotalNumberOfFixedAssets() {
+		return spaces.size();
+	}
+	
 	public ArrayList<Space> getArrayListOfSpaces(){
 		return spaces;
 	}
 	
-	public int getIndexOfSpaceInSpaces(int positionNumber){
+	public int getIndexOfSpaceInSpaces(int position){
 		for(Space space :spaces){
-			if(space.getPositionNumber() == positionNumber)
+			if(space.getPosition() == position)
 				return spaces.indexOf(space);
 		}
 		return -1;
 	}
-	
-	public Space getSpace(int positionNumber){
-		return spaces.get(getIndexOfSpaceInSpaces(positionNumber));
+
+	public Space getSpace(int position){
+		return spaces.get(getIndexOfSpaceInSpaces(position));
 	}
 	
 	public void addNewSpace(Space space){
@@ -48,12 +54,11 @@ public class FixedAssetsOfPlayer {
 		numberOfSpaces++;
 		space.toBeOwned();
 	}
-	
-	public void upgradeSpace(int positionNumber){
-		Space upgradeSpace = getSpace(positionNumber);
-		spaces.remove(upgradeSpace);
-		spaces.add(upgradeSpace.upgrade());
-		switch(upgradeSpace.getLevel()){
+
+	public void upgradeSpace(MapObject mapObject){
+		Space oldSpace = getSpace(mapObject.getPosition());
+		spaces.set(getIndexOfSpaceInSpaces(mapObject.getPosition()), (Space)mapObject);
+		switch(oldSpace.getLevel()){
 	        case 0 :
 	    	    numberOfSpaces--;
 	    	    numberOfCottages++;
@@ -65,6 +70,25 @@ public class FixedAssetsOfPlayer {
 	        case 2 :
 	        	numberOfHouses--;
 	    	    numberOfSkyscrapers++;
+				return;
+		}
+	}
+
+	public void deleteSelledSpace(int position) {
+		Space oldSpace = getSpace(position);
+		spaces.remove(oldSpace);
+		switch(oldSpace.getLevel()){
+	        case 0 :
+	    	    numberOfSpaces--;
+				return;
+	        case 1 :
+	        	numberOfCottages--;
+				return;
+	        case 2 :
+	        	numberOfHouses--;
+				return;
+	        case 3 :
+	        	numberOfSkyscrapers--;
 				return;
 		}
 	}

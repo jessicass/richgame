@@ -18,7 +18,7 @@ public class PlayerBuyToolsInToolRoomTest {
 	public void setUp(){
 		player = new Player(1);
 		mine = new Mine(64);
-		player.obtainPointsFromMine(mine);
+		player.obtainPointsFromMine(mine.getPoints());
 	}
 	
 	@Test
@@ -42,24 +42,24 @@ public class PlayerBuyToolsInToolRoomTest {
 	@Test
 	public void shouldPointsOfPlayerNotEnoughForBomb(){
 		player.buyTool(Bomb.toolNumber);
-		assertThat(ToolRoom.playerBuyTool(player, Bomb.toolNumber), 
-				is("您当前剩余的点数为" + player.getPoints() + 
-					"，不足以购买" + Bomb.toolNumber + "道具"));
+		assertThat(ToolRoom.isPointsEnoughToBuyToolWithNumber(
+				player.getPoints(), Bomb.toolNumber), is(false));
 	}
 	
 	@Test
 	public void shouldPointsOfPlayerNotEnoughForAllTools(){
 		player.buyTool(Bomb.toolNumber);
-		assertThat(ToolRoom.isPointsOfPlayerEnough(player), is(false));
+		assertThat(ToolRoom.isPointsEnoughToBuyAllTool(
+				player.getPoints()), is(false));
 	}
 	
 	@Test
 	public void shouldTotalNumberOfToolsBeyondLimit(){
 		for(int i = 0; i < 10; i++){
 			player.buyTool(Bomb.toolNumber);
-			player.obtainPointsFromMine(mine);
+			player.obtainPointsFromMine(mine.getPoints());
 		}
-		assertThat(ToolRoom.playerBuyTool(player, Bomb.toolNumber), 
-				is(ToolRoom.NUMBER_OF_TOOLS_BEYOND_LIMIT));
+		assertThat(ToolRoom.isNumberOfTotalToolsNotBeyondLimits(
+				player.getToolsOfPlayer().getTotalNumberOfTools()), is(false));
 	}
 }

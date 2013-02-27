@@ -1,17 +1,69 @@
 package thoughtworks.fixedAssets;
 
+import thoughtworks.Game;
+import thoughtworks.Input;
 import thoughtworks.MapObject;
+import thoughtworks.players.Player;
+import thoughtworks.tools.Block;
+import thoughtworks.tools.Bomb;
 
 public class Space implements MapObject{
-	private final String symbol = "0";
-	private final int level = 0;
+	public static final String WHETHER_BUY_SPACE = "是否购买该处空地，";
+	public static final String WHETHER_UPGRADE_SPACE = "是否升级该处地产，";
+	public static final String END_OF_HINT = "元（Y/N）？";
+	
+	public final String symbol = "0";
+	public static final String name = "空地";
+	public final int level = 0;
 	protected int position;
 	private int buyFunds;
 	private int upgradeFunds;
 	private int passToll;
-	protected boolean isOwned;
 	
-	public Space(int position){
+	protected boolean isOwned;
+	protected boolean hasBlock;
+	protected boolean hasBomb;
+	protected int totalCost = 0;
+	
+	public int getTotalCost(){
+		return totalCost;
+	}
+	
+	public String getSymbol(){
+		if(hasBlock){
+			return Block.symbol;
+		}
+		if(hasBomb){
+			return Bomb.symbol;
+		}
+		return symbol;
+	}
+	
+	public int getLevel(){
+		return level;
+	}
+	
+	public int getPosition(){
+		return position;
+	}
+	
+	public int getBuyFunds(){
+		return buyFunds;
+	}
+	
+	public int getUpgradeFunds(){
+		return upgradeFunds;
+	}
+	
+	public int getPassToll(){
+		return passToll;
+	}
+	
+	public void increaseTotalCost(int funds){
+		totalCost += funds;
+	}
+	
+	public Space(int position){ 
 		this.position = position;
 		this.isOwned = false;
 		if((position>0 && position<14)
@@ -30,6 +82,7 @@ public class Space implements MapObject{
 	}
 	
 	public void toBeOwned(){
+		totalCost = buyFunds;		
 		isOwned = true;
 	}
 	
@@ -37,31 +90,98 @@ public class Space implements MapObject{
 		return isOwned;
 	}
 	
-	public String getSymbol(){
-		return symbol;
+	public void playerPassOnHere(Player passer, Game game){
+		if(passer.getFunds() >= buyFunds){
+			System.out.println(WHETHER_BUY_SPACE + 
+					buyFunds + END_OF_HINT);
+			while (true) {
+				if (Input.getChar() == 'Y') {
+					passer.buySpace(this);
+					return;
+				}
+				if (Input.getChar() == 'N') {
+					return;
+				}
+				System.out.println("请输入（Y/N）：");
+			}
+		}
+	}
+
+	public boolean isPlayerToUpgradeOwnSpace(Player passer){
+		if(passer.getFunds() >= upgradeFunds && level < 3){
+			System.out.println(WHETHER_UPGRADE_SPACE + 
+					upgradeFunds + END_OF_HINT);
+			while (true) {
+				if (Input.getChar() == 'Y') {
+					return true;
+				}
+				if (Input.getChar() == 'N') {
+					return false;
+				}
+				System.out.println("请输入（Y/N）：");
+			}
+		}
+		return false;
 	}
 	
-	public int getLevel(){
-		return level;
+	public boolean isSafeForPlayerPassOnOtherSpace(Player passer, Game game){
+		if(passer.isOwnerOfLuck()){
+			System.out.println("福神附身，可免过路费");
+			passer.decreasLuckyTimes();
+			return true;
+		}
+		if(game.getTheOwnerOfSpace(position).isBombed() || 
+				game.getTheOwnerOfSpace(position).isTrappedInPrison()){
+			return true;
+		}
+		while(true){
+			if(passer.getFunds() >= passToll){
+				passer.handInPassTollToOthers(passToll);
+				game.getTheOwnerOfSpace(position).obtainPassTollFromOthers(
+						passToll);
+				return true;
+			}
+		    else{
+			    System.out.println("资金不够付过路费，请选择要出售的房产：");
+			    return false;
+		    }
+		}
 	}
 	
-	public int getPositionNumber(){
-		return position;
+	public void setBlock(){
+		hasBlock = true;
 	}
 	
-	public int getBuyFunds(){
-		return buyFunds;
+	public void resetBlock(){
+		hasBlock = false;
 	}
 	
-	public int getUpgradeFunds(){
-		return upgradeFunds;
+	public boolean hasBlock(){
+		return hasBlock;
 	}
 	
-	public int getPassToll(){
-		return passToll;
+	public void setBomb(){
+		hasBomb = true;
 	}
 	
-	public Space upgrade(){
-		return new Cottage(position);
+	public void resetBomb(){
+		hasBomb = true;
+	}
+	
+	public boolean hasBomb(){
+		return hasBomb;
+	}
+	
+	public MapObject upgrade(){
+		Cottage cottage = new Cottage(position);
+		cottage.totalCost = totalCost + upgradeFunds;
+		cottage.isOwned = isOwned;
+		cottage.hasBlock = hasBlock;
+		cottage.hasBomb = hasBomb;
+		return cottage;
+	}
+	
+	public Space sell(){
+		return new Space(position);
 	}
 }
