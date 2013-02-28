@@ -1,5 +1,7 @@
 package thoughtworks.publicPlace;
 
+import java.util.ArrayList;
+
 import thoughtworks.Game;
 import thoughtworks.MapObject;
 import thoughtworks.players.Player;
@@ -51,7 +53,12 @@ public class Mine implements MapObject {
 		return points;
 	}
 	
-	public String getSymbol(){
+	public String getSymbol(ArrayList<Player> players){
+		for(Player player: players){
+			if(player.getPosition() == position){
+				return player.getShortName();
+			}
+		}
 		if(hasBlock){
 			return Block.symbol;
 		}
@@ -87,6 +94,7 @@ public class Mine implements MapObject {
 
 	public void playerPassOnHere(Player passer, Game game) {
 		passer.obtainPointsFromMine(points);
+		System.out.println("恭喜您在矿地获得" + points + "点数");
 	}
 	
 	public MapObject upgrade(){

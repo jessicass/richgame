@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import thoughtworks.command.Query;
 import thoughtworks.fixedAssets.Cottage;
 import thoughtworks.fixedAssets.House;
 import thoughtworks.fixedAssets.Skyscraper;
@@ -47,7 +48,7 @@ public class PlayerPropertyQueryTest {
 	@Test
 	public void initialPropertyTest(){
 		int[] num = {0,0,0,0};
-		assertThat(player.queryProperty(), is(getString(10000, 0, num, num)));
+		assertThat(Query.queryProperty(player), is(getString(10000, 0, num, num)));
 	}
 	
 	@Test
@@ -57,7 +58,7 @@ public class PlayerPropertyQueryTest {
 		player.buyTool(Block.toolNumber);
 		int[] numOfFixedAssets = {1,0,0,0};
 		int[] numOfTools = {1,0,0};
-		assertThat(player.queryProperty(), is(getString(9800, 10, numOfFixedAssets, numOfTools)));
+		assertThat(Query.queryProperty(player), is(getString(9800, 10, numOfFixedAssets, numOfTools)));
 	}
 	
 	@Test
@@ -68,7 +69,7 @@ public class PlayerPropertyQueryTest {
 		player.buyTool(Bomb.toolNumber);
 		int[] numOfFixedAssets = {0,1,0,0};
 		int[] numOfTools = {0,0,1};
-		assertThat(player.queryProperty(), is(getString(9600, 10, numOfFixedAssets, numOfTools)));
+		assertThat(Query.queryProperty(player), is(getString(9600, 10, numOfFixedAssets, numOfTools)));
 	}
 	
 	@Test
@@ -80,7 +81,7 @@ public class PlayerPropertyQueryTest {
 		player.buyTool(Robot.toolNumber);
 		int[] numOfFixedAssets = {0,0,1,0};
 		int[] numOfTools = {0,1,0};
-		assertThat(player.queryProperty(), is(getString(9400, 30, numOfFixedAssets, numOfTools)));
+		assertThat(Query.queryProperty(player), is(getString(9400, 30, numOfFixedAssets, numOfTools)));
 	}
 	
 	@Test
@@ -91,6 +92,6 @@ public class PlayerPropertyQueryTest {
 		player.upgradeOwnFixedAssets(space.upgrade().upgrade().upgrade());
 		int[] numOfFixedAssets = {0,0,0,1};
 		int[] numOfTools = {0,0,0};
-		assertThat(player.queryProperty(), is(getString(9200, 0, numOfFixedAssets, numOfTools)));
+		assertThat(Query.queryProperty(player), is(getString(9200, 0, numOfFixedAssets, numOfTools)));
 	}
 }

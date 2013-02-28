@@ -1,4 +1,4 @@
-package thoughtworks;
+package thoughtworks.command;
 
 import java.util.ArrayList;
 

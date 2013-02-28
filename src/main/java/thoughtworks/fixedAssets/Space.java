@@ -1,8 +1,10 @@
 package thoughtworks.fixedAssets;
 
+import java.util.ArrayList;
+
 import thoughtworks.Game;
-import thoughtworks.Input;
 import thoughtworks.MapObject;
+import thoughtworks.command.Input;
 import thoughtworks.players.Player;
 import thoughtworks.tools.Block;
 import thoughtworks.tools.Bomb;
@@ -29,7 +31,12 @@ public class Space implements MapObject{
 		return totalCost;
 	}
 	
-	public String getSymbol(){
+	public String getSymbol(ArrayList<Player> players){
+		for(Player player: players){
+			if(player.getPosition() == position){
+				return player.getShortName();
+			}
+		}
 		if(hasBlock){
 			return Block.symbol;
 		}
@@ -95,11 +102,13 @@ public class Space implements MapObject{
 			System.out.println(WHETHER_BUY_SPACE + 
 					buyFunds + END_OF_HINT);
 			while (true) {
-				if (Input.getChar() == 'Y') {
+				String input = Input.getString();
+				if (input.equalsIgnoreCase("Y")) {
 					passer.buySpace(this);
+					System.out.println("购买空地成功！");
 					return;
 				}
-				if (Input.getChar() == 'N') {
+				if (input.equalsIgnoreCase("N")) {
 					return;
 				}
 				System.out.println("请输入（Y/N）：");
@@ -112,13 +121,15 @@ public class Space implements MapObject{
 			System.out.println(WHETHER_UPGRADE_SPACE + 
 					upgradeFunds + END_OF_HINT);
 			while (true) {
-				if (Input.getChar() == 'Y') {
+				String input = Input.getString();
+				if (input.equalsIgnoreCase("Y")) {
 					return true;
 				}
-				if (Input.getChar() == 'N') {
+				if (input.equalsIgnoreCase("N")) {
 					return false;
+				}else {
+					System.out.println("请输入（Y/N）：");
 				}
-				System.out.println("请输入（Y/N）：");
 			}
 		}
 		return false;
@@ -136,13 +147,15 @@ public class Space implements MapObject{
 		}
 		while(true){
 			if(passer.getFunds() >= passToll){
+				System.out.println("支付过路费给" + game.getTheOwnerOfSpace(
+						position).getPlayerName());
 				passer.handInPassTollToOthers(passToll);
 				game.getTheOwnerOfSpace(position).obtainPassTollFromOthers(
 						passToll);
 				return true;
 			}
 		    else{
-			    System.out.println("资金不够付过路费，请选择要出售的房产：");
+			    System.out.println("资金不够付过路费!");
 			    return false;
 		    }
 		}

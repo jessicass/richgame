@@ -1,4 +1,6 @@
-package thoughtworks;
+package thoughtworks.command;
+
+import thoughtworks.Map;
 
 public class PositionUpdate {
 	public static int getSetPositionWithDistance(int position, int distance){

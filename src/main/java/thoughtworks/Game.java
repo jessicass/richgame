@@ -9,17 +9,19 @@ import thoughtworks.publicPlace.Hospital;
 
 public class Game {
 	public static final String HINT_OF_START = "请输入游戏开始指令：";
-	public static final String ERROR_OF_START = "指令错误，请重新输入" + "游戏开始指令：";
+	public static final String ERROR_OF_START = "指令错误，请重新输入游戏开始指令：";
 	public static final String HINT_OF_PLAYER_CHOICE = "请选择2~4位"
-			+ "不重复玩家，输入编号即可。（1.钱夫人；2.阿土伯；3.孙小美；" + "4.金贝贝）：";
+			+ "不重复玩家，输入编号即可。（1.钱夫人；2.阿土伯；3.孙小美；4.金贝贝）：";
 	public static final String HINT_OF_PLAYER_INITIAL = "请输入玩家初始"
-			+ "资金，范围1000~50000（默认10000）：";
+			+ "资金，范围" + Player.INITIAL_MIN_FUNDS + "~" + Player.INITIAL_MAX_FUNDS +
+			"（默认" + Player.INITIAL_FUNDS + "）：";
 	public static final String ERROR_OF_PLAYER_NUMBERS = "玩家编号输入错误，请重新输入！";
 
 	public static final String START_COMMAND = "rich";
 
 	private PlayerList playerList;
 	private Map map = new Map();
+	private CommandManager commandManager = new CommandManager();
 
 	public ArrayList<Player> getPlayers() {
 		return playerList.getPlayers();
@@ -33,6 +35,10 @@ public class Game {
 		return map;
 	}
 	
+	public CommandManager getCommandManager() {
+		return commandManager;
+	}
+	
 	public Player getTheOwnerOfSpace(int spacePosition){
 		return playerList.getTheOwnerOfSpace(spacePosition);
 	}
@@ -41,8 +47,8 @@ public class Game {
 		System.out.println(HINT_OF_START + "\n");
 		while (true) {
 			if (Input.isInputCommandEquals(START_COMMAND)) {
-				obtainInputToCreatPlayerList();
 				obtainInputToInitialFunds();
+				obtainInputToCreatPlayerList();
 				gameProcess();
 				break;
 			} else {
@@ -52,72 +58,98 @@ public class Game {
 	}
 
 	public void gameProcess() {
-		for (Player player : playerList.getPlayers()) {
-			player.decreasHospitalizedTimes();
-			player.decreasLuckyTimes();
-			player.decreasTrappedInPrisonTimes();
-		}
-
-		for (Player player : playerList.getPlayers()) {
-			if (!player.isBombed() && !player.isTrappedInPrison()) {
+		while (true) {			
+			for (Player player : playerList.getPlayers()) {
+				map.drawMap(playerList.getPlayers());
+				if(isWinnerProduced()){
+					System.out.println("恭喜玩家" + getWinner().getPlayerName() + "获胜！");
+					return;
+			    }
+				
+				player.decreasHospitalizedTimes();
+				player.decreasLuckyTimes();
+				player.decreasTrappedInPrisonTimes();
+				
+				if (player.isBombed() || player.isTrappedInPrison() ||
+						player.isBankrupt()) {
+					continue;
+				}
+				
 				while (true) {
 					System.out.println(player.getPlayerName() + ">");
 					String input = Input.getString();
-					if (CommandManager.isCommandRunEnd(input, player, this)) {
+					if (commandManager.isCommandRunEnd(input, player, this)) {
 						break;
 					}
 				}
-				/*
-			    if(map.isSpaceWithPositionOf(player.getPosition())){
-			    	Space space = (Space)map.getMapObjectWithIndex(player.getPosition());
-			    	if(space.isOwned()){
-			    		playerPassOnSpace(player);
-			    	}
+				if (!isPlayerPassOnSpaceOwned(player)) {
+					map.getMapObjectWithIndex(player.getPosition())
+							.playerPassOnHere(player, this);
+					continue;
 				}
-				map.getMapObjectWithIndex(player.getPosition()).playerPassOnHere(player, this);
-				*/
+				if (player.isOwnerOfSpace(player.getPosition())) {
+					playerPassOnOwnSpace(player);
+					continue;
+				}
+				playerPassOnOtherSpace(player);
 			}
-			map.drawMap(playerList.getPlayers());
 		}
-	}
-/*
-	public void playerPassOnMapObject(MapObject mapObject){
-		
 	}
 	
-	public boolean isPlayerPassOnSpaceOwned(MapObject mapObject){
-		
+	public boolean isWinnerProduced() {
+		int playerNumber = 0;
+		for (Player player : playerList.getPlayers()) {
+			if(player.isBankrupt()){
+				continue;
+			}
+			playerNumber++;
+		}
+		if(playerNumber > 1){
+			return false;
+		}
+		return true;
 	}
 	
-	public void playerPassOnSpace(Player player) {
-		Space space = (Space)map.getMapObjectWithIndex(player.getPosition());
-		if(!space.isOwned()){
-			space.playerPassOnHere(player, this);
-			return;
-		}
-		if (player.isOwnerOfSpace(space.getPosition())) {
-			if (space.isPlayerToUpgradeOwnSpace(player)) {
-				upgradeFixedAssetsWithPositionOf(player.getPosition());
+	public Player getWinner() {
+		for (Player player : playerList.getPlayers()) {
+			if(!player.isBankrupt()){
+				return player;
 			}
-			return;
 		}
+		return null;
+	}
+
+	public boolean isPlayerPassOnSpaceOwned(Player player){
+		if(map.isSpaceWithPositionOf(player.getPosition())){
+			Space space = (Space)map.getMapObjectWithIndex(player.getPosition());
+			if(space.isOwned()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void playerPassOnOwnSpace(Player player) {
+		Space space = (Space) map.getMapObjectWithIndex(player.getPosition());
+		if (space.isPlayerToUpgradeOwnSpace(player)) {
+			upgradeFixedAssetsWithPositionOf(player.getPosition());
+		}
+		return;
+	}
+	
+	public void playerPassOnOtherSpace(Player player) {
+		Space space = (Space) map.getMapObjectWithIndex(player.getPosition());
 		while (!space.isSafeForPlayerPassOnOtherSpace(player, this)) {
+			player.testBankrupt(space.getPassToll());
 			if (player.isBankrupt()) {
-
+				System.out.println("玩家" + player.getPlayerName() + "破产");
+				playerList.getPlayers().remove(player);
 			} else {
-
+				System.out.println("请输入要出售的房产编号：");
+				commandManager.sellFixedAssetsWithCommand(Input.getString(), player, this);
 			}
 		}
 	}
-//////	
-	public boolean isPlayerBankrupt(Player player) {
-		if(player.isBankrupt()){
-			
-		}
-		else{
-			
-		}
-	}*/
 
 	public void updatePlayerPosition(Player player, int step) {
 		int position = player.getPosition();
@@ -146,6 +178,7 @@ public class Game {
 			playerList.getTheOwnerOfSpace(position).upgradeOwnFixedAssets(
 					mapObject);
 			map.upgradeFixedAssets(mapObject);
+			System.out.println("房产升级成功！");
 		}
 	}
 	
@@ -166,7 +199,14 @@ public class Game {
 
 	public void obtainInputToInitialFunds() {
 		System.out.println(HINT_OF_PLAYER_INITIAL + "\n");
-		Player.INITIAL_FUNDS = Input.getInteger();
+		while(true){
+			int input = Input.getInteger();
+			if(Input.isIntegerInArea(input, Player.INITIAL_MIN_FUNDS, 
+					Player.INITIAL_MAX_FUNDS)){
+				Player.INITIAL_FUNDS = input;
+				break;
+			}
+		}
 	}
 
 	public void obtainInputToCreatPlayerList() {

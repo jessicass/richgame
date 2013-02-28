@@ -1,8 +1,10 @@
 package thoughtworks.publicPlace;
 
+import java.util.ArrayList;
+
 import thoughtworks.Game;
-import thoughtworks.Input;
 import thoughtworks.MapObject;
+import thoughtworks.command.Input;
 import thoughtworks.players.Player;
 import thoughtworks.tools.*;
 
@@ -10,7 +12,8 @@ public class ToolRoom implements MapObject {
 	public static final String symbol = "T";
 	public static final int position = 28;
 	public static final int LIMIT_NUMBER_OF_TOOLS = 10;
-	public static final String WELCOME = "欢迎光临道具屋，请选择您所需要的道具：";
+	public static final String WELCOME = "欢迎光临道具屋，请输入" +
+			"您所需要的道具的编号：";
 	public static final String NUMBER_OF_TOOLS_BEYOND_LIMIT = "您已经拥有10个道具";
 	public static final String QUIT_TOOLROOM = "f";
 	public static final int MAX_TOOL_NUMBER = 3;
@@ -55,7 +58,12 @@ public class ToolRoom implements MapObject {
 		return false;
 	}
 	
-	public String getSymbol(){
+	public String getSymbol(ArrayList<Player> players){
+		for(Player player: players){
+			if(player.getPosition() == position){
+				return player.getShortName();
+			}
+		}
 		if(hasBlock){
 			return Block.symbol;
 		}
@@ -94,26 +102,29 @@ public class ToolRoom implements MapObject {
 	}
 
 	public void playerPassOnHere(Player passer, Game game) {
-		while (isPointsEnoughToBuyAllTool(passer.getPoints()) && 
-				isNumberOfTotalToolsNotBeyondLimits(passer
+		if (isPointsEnoughToBuyAllTool(passer.getPoints())
+				&& isNumberOfTotalToolsNotBeyondLimits(passer
 						.getToolsOfPlayer().getTotalNumberOfTools())) {
 			System.out.println((new ToolInfo()).toolInfoShow());
 			System.out.println(WELCOME);
-			String input = Input.getString();
-			if (input.matches(QUIT_TOOLROOM)) {
-				return;
-			}
-			if (!Input.isIntegerInArea(Input.getInteger(), 
-					MAX_TOOL_NUMBER, MIN_TOOL_NUMBER)){
-				continue;
-			}
-			if(isPointsEnoughToBuyToolWithNumber(passer.getPoints(), 
-					Integer.valueOf(input))){
-				passer.buyTool(Integer.valueOf(input));
-			}
-			else{
-				System.out.println("您当前剩余的点数为" + passer.getPoints() + 
-						"，不足以购买" + Integer.valueOf(input) + "道具" + "\n");
+			while (true) {
+				String input = Input.getString();
+				if (input.matches(QUIT_TOOLROOM)) {
+					return;
+				}
+				if (!Input.isInputAnIntegerInArea(input, MIN_TOOL_NUMBER,
+						MAX_TOOL_NUMBER)) {
+					continue;
+				}
+				if (isPointsEnoughToBuyToolWithNumber(passer.getPoints(),
+						Integer.valueOf(input))) {
+					passer.buyTool(Integer.valueOf(input));
+					System.out.println("购买道具成功！");
+					return;
+				} else {
+					System.out.println("您当前剩余的点数为" + passer.getPoints()
+							+ "，不足以购买" + Integer.valueOf(input) + "道具" + "\n");
+				}
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 package thoughtworks.publicPlace;
 
+import java.util.ArrayList;
+
 import thoughtworks.Game;
 import thoughtworks.MapObject;
 import thoughtworks.players.Player;
@@ -13,7 +15,12 @@ public class Hospital implements MapObject {
 	private boolean hasBlock;
 	private boolean hasBomb;
 	
-	public String getSymbol(){
+	public String getSymbol(ArrayList<Player> players){
+		for(Player player: players){
+			if(player.getPosition() == position){
+				return player.getShortName();
+			}
+		}
 		if(hasBlock){
 			return Block.symbol;
 		}

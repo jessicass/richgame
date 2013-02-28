@@ -22,7 +22,7 @@ public class MapDrawTest {
 	
 	 @Test
 	public void mapDrawBeforePlayTest(){
-		map.drawMapBeforePlay();
+		map.drawMap(players);
 	}
 	
 	@Test

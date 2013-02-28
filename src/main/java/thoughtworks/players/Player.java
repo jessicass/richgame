@@ -1,13 +1,17 @@
 package thoughtworks.players;
 
+import com.meyling.console.ConsoleForegroundColor;
+
 import thoughtworks.MapObject;
-import thoughtworks.PositionUpdate;
+import thoughtworks.command.PositionUpdate;
 import thoughtworks.fixedAssets.*;
 import thoughtworks.publicPlace.*;
-import thoughtworks.tools.*;
 
 public class Player {
 	public static int INITIAL_FUNDS = 10000;
+	public static int INITIAL_MIN_FUNDS = 500;
+	public static int INITIAL_MAX_FUNDS = 50000;
+	public ConsoleForegroundColor color;
 	private int funds;
 	private int points=0;
 	private String playerName;
@@ -16,6 +20,7 @@ public class Player {
 	private boolean isBombed = false;
 	private boolean isOwnerOfLuck = false;
 	private boolean isTrappedInPrison = false;
+	private boolean isBankrupt = false;
 	private int timesToPauseWhenBeBombed = 
 			Hospital.timesToPauseWhenPlayerBeHospitalized;
 	private int timesForFreeWhenOwnLuck = 5;
@@ -30,6 +35,24 @@ public class Player {
 		playerName = PlayerName.getPlayerName(index);
 		shortName = PlayerName.getShortName(index);
 		funds = Player.INITIAL_FUNDS;
+		switch (index) {
+		case 1:
+			color = ConsoleForegroundColor.DARK_RED;
+			break;
+		case 2:
+			color = ConsoleForegroundColor.DARK_YELLOW;
+			break;
+		case 3:
+			color = ConsoleForegroundColor.DARK_BLUE;
+			break;
+		case 4:
+			color = ConsoleForegroundColor.DARK_GREEN;
+			break;
+		}
+	}
+	
+	public ConsoleForegroundColor getColor(){
+		return color;
 	}
 	
 	public int getFunds(){
@@ -58,23 +81,6 @@ public class Player {
 	
 	public ToolsOfPlayer getToolsOfPlayer(){
 		return toolsOfPlayer;
-	}
-
-	public String queryProperty(){
-		String fundInfo = "资金：" + funds + "元；"; 
-		String pointInfo = "点数：" + points + "点；";
-		String fixedAssetInfo =	"地产：" + 
-		    Space.name + fixedAssetsOfPlayer.getNumberOfSpaces() + "处；" + 
-	        Cottage.name + fixedAssetsOfPlayer.getNumberOfCottages() + "处；" + 
-	        House.name + fixedAssetsOfPlayer.getNumberOfHouses() + "处；" + 
-	        Skyscraper.name + fixedAssetsOfPlayer.getNumberOfSkyscrapers() + "处；";
-		String toolInfo = "道具：";
-		for(Tool tool:(new ToolInfo()).getTools()){
-			toolInfo += tool.getName() + toolsOfPlayer.getNumberOfTools(
-					tool.getToolNumber()) + "个；";
-		}
-		return fundInfo + "\n" + pointInfo + "\n" + fixedAssetInfo + 
-				"\n" + toolInfo + "\n";
 	}
 	
 	public void updatePosition(int position){
@@ -208,11 +214,14 @@ public class Player {
 		toolsOfPlayer.sellToolWithNumberOf(toolNumber);
 	}
 	
-	public boolean isBankrupt() {
+	public void testBankrupt(int passTool) {
 		if((fixedAssetsOfPlayer.getTotalNumberOfFixedAssets() <= 0) && 
-		    (funds <= 0)){
-			return true;
+		    (funds < passTool)){
+			isBankrupt = true;
 		}
-		return false;
+	}
+
+	public boolean isBankrupt() {
+		return isBankrupt;
 	}
 }

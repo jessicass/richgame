@@ -2,6 +2,9 @@ package thoughtworks;
 
 import java.util.ArrayList;
 
+import com.meyling.console.Console;
+import com.meyling.console.ConsoleFactory;
+
 import thoughtworks.fixedAssets.Space;
 import thoughtworks.players.Player;
 import thoughtworks.publicPlace.*;
@@ -55,7 +58,10 @@ public class Map {
 		}
 	}
 
-	public void drawMapBeforePlay() {
+	public void drawMap(ArrayList<Player> players) {
+		final Console console = ConsoleFactory.getConsole();
+	    console.resetColors();
+	     
 		String middleSpace = "";
 		for (int i = 0; i < 27; i++) {
 			middleSpace += " ";
@@ -63,81 +69,38 @@ public class Map {
 
 		System.out.print("\n");
 		for (int i = 0; i < 29; i++) {
-			System.out.print(mapList.get(i).getSymbol());
+			setForegroundColor(i, players, console);
+			System.out.print(mapList.get(i).getSymbol(players));
+			console.resetColors();
 		}
 
 		System.out.print("\n");
 		for (int i = MAX_POSITION, j = 29; i > 63; i--, j++) {
-			System.out.println(mapList.get(i).getSymbol() + middleSpace
-					+ mapList.get(j).getSymbol());
+			System.out.print(mapList.get(i).getSymbol(players) + middleSpace);
+			setForegroundColor(i, players, console);
+			System.out.print(mapList.get(j).getSymbol(players));
+			console.resetColors();
+			System.out.print("\n");
 		}
 
-		for (int i = 35; i < 64; i++) {
-			System.out.print(mapList.get(i).getSymbol());
+		for (int i = 63; i > 34; i--) {
+			setForegroundColor(i, players, console);
+			System.out.print(mapList.get(i).getSymbol(players));
+			console.resetColors();
 		}
-	}
-
-	public void drawMap(ArrayList<Player> players) {
-		String middleSpace = "";
-		for (int i = 0; i < 27; i++) {
-			middleSpace += " ";
-		}
-
 		System.out.print("\n");
-		for (int i = 0; i < 29; i++) {
-			boolean isSymbolDrawed = drawPlayerInMap(players, i);
-			if (!isSymbolDrawed) {
-				System.out.print(mapList.get(i).getSymbol());
-			}
-		}
-
-		System.out.print("\n");
-		for (int i = 69, j = 29; i > 63; i--, j++) {
-			boolean isSymbolDrawed = drawPlayerInMap(players, i, j, middleSpace);
-			if (!isSymbolDrawed) {
-				System.out.println(mapList.get(i).getSymbol() + middleSpace
-						+ mapList.get(j).getSymbol());
-			}
-		}
-
-		for (int i = 35; i < 64; i++) {
-			boolean isSymbolDrawed = drawPlayerInMap(players, i);
-			if (!isSymbolDrawed) {
-				System.out.print(mapList.get(i).getSymbol());
-			}
-		}
 	}
-
-	public boolean drawPlayerInMap(ArrayList<Player> players, int i) {
-		boolean isSymbolDrawed = false;
-		for (Player player : players) {
-			if (i == player.getPosition()) {
-				System.out.print(player.getShortName());
-				isSymbolDrawed = true;
-				break;
+	
+	public void setForegroundColor(int position, ArrayList<Player> players, Console console){
+		if(!isSpaceWithPositionOf(position)){
+			return;
+		}
+		for(Player player: players){
+			if(player.isOwnerOfSpace(position)){
+				 console.setForegroundColor(player.getColor());
+				 return;
 			}
 		}
-		return isSymbolDrawed;
-	}
-
-	public boolean drawPlayerInMap(ArrayList<Player> players, int i, int j,
-			String middleSpace) {
-		boolean isSymbolDrawed = false;
-		for (Player player : players) {
-			if (i == player.getPosition()) {
-				System.out.println(player.getShortName() + middleSpace
-						+ mapList.get(j).getSymbol());
-				isSymbolDrawed = true;
-				break;
-			}
-			if (j == player.getPosition()) {
-				System.out.println(mapList.get(i).getSymbol() + middleSpace
-						+ player.getShortName());
-				isSymbolDrawed = true;
-				break;
-			}
-		}
-		return isSymbolDrawed;
 	}
 
 	public MapObject getMapObjectWithIndex(int index) {

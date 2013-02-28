@@ -3,40 +3,46 @@ package thoughtworks.command;
 import java.util.ArrayList;
 
 import thoughtworks.Game;
-import thoughtworks.Input;
 import thoughtworks.Map;
 import thoughtworks.MapObject;
-import thoughtworks.PositionUpdate;
 import thoughtworks.players.Player;
 import thoughtworks.tools.Block;
 import thoughtworks.tools.Bomb;
 import thoughtworks.tools.Robot;
 
 public class CommandManager {
-	public static boolean isCommandEnd = true ;
+	public boolean isCommandEnd = true ;
 	
-	public static boolean isCommandRunEnd(String command, Player player, Game game){
+	public boolean isCommandRunEnd(String command, Player player, Game game){
 		String[] commandStrings = command.split(" ");
 		if (command.toLowerCase().startsWith("block")) {
 			setBlockWithCommand(commandStrings[1], player, game);
+			return !isCommandEnd;
 		}
 		if (command.toLowerCase().startsWith("bomb")) {
 			setBombWithCommand(commandStrings[1], player, game);
+			return !isCommandEnd;
+			
 		}
 		if (command.equalsIgnoreCase("robot")) {
 			setRobotWithCommand(player, game);
+			return !isCommandEnd;
 		}
     	if (command.toLowerCase().startsWith("sell")) {
     		sellFixedAssetsWithCommand(commandStrings[1], player, game);
+    		return !isCommandEnd;
 		}
     	if (command.toLowerCase().startsWith("sellTool")) {
     		sellRoolsWithCommand(commandStrings[1], player, game);
+    		return !isCommandEnd;
 		}
 		if (command.equalsIgnoreCase("query")) {
-			System.out.println(player.queryProperty());
+			System.out.println(Query.queryProperty(player));
+			return !isCommandEnd;
 		}
 		if (command.equalsIgnoreCase("help")) {
 			System.out.println(Help.COMMAND_TABLE);
+			return !isCommandEnd;
 		}
 		if (command.equalsIgnoreCase("quit")) {
 			System.exit(0);
@@ -47,10 +53,11 @@ public class CommandManager {
 			game.updatePlayerPosition(player, step);
 			return isCommandEnd;
 		}
+		System.out.println("指令输入错误！");
 		return !isCommandEnd;
 	}
     
-	public static void setBlockWithCommand(String parameter, Player player, Game game){
+	public void setBlockWithCommand(String parameter, Player player, Game game){
 		if (isDistanceSetToolRight(parameter, player, game)) {
 			if (player.isOwnToolWithNumberOf(Block.toolNumber)) {
 				player.useTool(Block.toolNumber);
@@ -58,11 +65,12 @@ public class CommandManager {
 				int setPosition = PositionUpdate.getSetPositionWithDistance(
 						player.getPosition(), distance);
 				game.getMapObjectWithIndex(setPosition).setBlock();
+				System.out.println("设置故障成功！");
 			}
 		}
 	}
 	
-	public static void setBombWithCommand(String parameter, Player player, Game game){
+	public void setBombWithCommand(String parameter, Player player, Game game){
 		if (isDistanceSetToolRight(parameter, player, game)) {
 			if (player.isOwnToolWithNumberOf(Bomb.toolNumber)) {
 				player.useTool(Bomb.toolNumber);
@@ -70,11 +78,12 @@ public class CommandManager {
 				int setPosition = PositionUpdate.getSetPositionWithDistance(
 						player.getPosition(), distance);
 				game.getMapObjectWithIndex(setPosition).setBomb();
+				System.out.println("设置炸弹成功！");
 			}
 		}
 	}
 	
-	public static void setRobotWithCommand(Player player, Game game){
+	public void setRobotWithCommand(Player player, Game game){
 		if (player.isOwnToolWithNumberOf(Robot.toolNumber)) {
 			player.useTool(Robot.toolNumber);
 			int backPosition = PositionUpdate.getSetPositionWithDistance(
@@ -90,48 +99,53 @@ public class CommandManager {
 				mapObject = game.getMapObjectWithIndex(PositionUpdate.getNextPosition(
 						mapObject.getPosition()));
 			}
+			System.out.println("清扫道具成功！");
 		}
 	}
 	
-	public static void sellFixedAssetsWithCommand(String parameter, Player player, Game game){
+	public void sellFixedAssetsWithCommand(String parameter, Player player, Game game){
 		if (isFixedAssetPositionRight(parameter, player)) {
 			int position = Integer.parseInt(parameter);
 			game.sellSpaceWithPositionOf(position);
+			System.out.println("出售房产成功！");
 		}
 	}
 	
-	public static void sellRoolsWithCommand(String parameter, Player player, Game game){
+	public void sellRoolsWithCommand(String parameter, Player player, Game game){
 		if (isToolNumberRight(parameter, player)) {
 			int toolNumber = Integer.parseInt(parameter);
 			player.sellToolWithNumberOf(toolNumber);
+			System.out.println("出售道具成功！");
 		}
 	}
 	
-	public static boolean isFixedAssetPositionRight(String positionString,
+	public boolean isFixedAssetPositionRight(String positionString,
 			Player player) {
 		if(!Input.isInputAnIntegerInArea(positionString, 0, Map.MAX_POSITION)){
 			return false;
 		}
 		int position = Integer.parseInt(positionString);
 		if(!player.isOwnerOfSpace(position)){
+			System.out.println("该位置的房产不属于您！");
 			return false;
 		}
 		return true;
 	}
 	
-    public static boolean isToolNumberRight(String toolNumberString,
+    public boolean isToolNumberRight(String toolNumberString,
 			Player player) {
 		if(!Input.isInputAnIntegerInArea(toolNumberString, 1, 3)){
 			return false;
 		}
 		int toolNumber = Integer.parseInt(toolNumberString);
 		if(!player.isOwnToolWithNumberOf(toolNumber)){
+			System.out.println("您没有该编号的道具！");
 			return false;
 		}
 		return true;
 	}
 
-	public static boolean isDistanceSetToolRight(String distanceString, Player player, Game game){
+	public boolean isDistanceSetToolRight(String distanceString, Player player, Game game){
 		if(!Input.isInputAnIntegerInArea(distanceString, Block.setRange, 
 				-Block.setRange)){
 			return false;
@@ -149,7 +163,7 @@ public class CommandManager {
 		return true;
 	}
 
-	public static boolean isPositionEqualPlayersPosition(
+	public boolean isPositionEqualPlayersPosition(
 			ArrayList<Player> players, int position){
 		for(Player player: players){
 			if(player.getPosition() == position){
@@ -160,7 +174,7 @@ public class CommandManager {
 		return false;
 	}
 
-	private static boolean isPositionSetToolAlready(Map map, int setPosition) {
+	private boolean isPositionSetToolAlready(Map map, int setPosition) {
 		if(map.getMapObjectWithIndex(setPosition).hasBlock() || 
 				map.getMapObjectWithIndex(setPosition).hasBomb()){
 			System.out.println("该处已有道具！");

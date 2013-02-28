@@ -1,33 +1,32 @@
-package thoughtworks;
+package thoughtworks.command;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Input {
 	public static String getString(){
-		Scanner scanner = new Scanner(System.in);
-		String input = scanner.next();
-		scanner.close();
-		return input;
-	}
-	
-	public static char getChar(){
-		String input = Input.getString();
-		return (char)(input.charAt(0));
+		BufferedReader stdin =new BufferedReader(new InputStreamReader(System.in));
+		try {
+			return stdin.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static int getInteger() {
 		while (true) {
 			try {
-				int input = Integer.parseInt(getString());
-				return input;
+				return Integer.parseInt(getString());
 			} catch (Exception e) {
 				System.out.println("请输入数字");
 			}
 		}
 	}
 
-	public static boolean isIntegerInArea(int number, int max, int min) {
+	public static boolean isIntegerInArea(int number, int min, int max) {
 		if(number > max || number < min){
 			System.out.println("请输入" + min + "~" + max + "以内的数字");
 			return false;
@@ -38,7 +37,7 @@ public class Input {
 	}
 	
 	public static boolean isInputCommandEquals(String command){
-		if(getString().matches(command)){
+		if(getString().equalsIgnoreCase(command)){
 			return true;
 	    }
 	    else{
@@ -56,9 +55,9 @@ public class Input {
 		}
 	}
 	
-	public static boolean isInputAnIntegerInArea(String input, int max, int min){
+	public static boolean isInputAnIntegerInArea(String input, int min, int max){
 		if(isInputAnInteger(input)){
-			if(isIntegerInArea(Integer.parseInt(input), max, min)){
+			if(isIntegerInArea(Integer.parseInt(input), min, max)){
 				return true;
 			}
 		}

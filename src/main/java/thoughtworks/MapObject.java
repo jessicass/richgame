@@ -1,9 +1,11 @@
 package thoughtworks;
 
+import java.util.ArrayList;
+
 import thoughtworks.players.Player;
 
 public interface MapObject {
-	public String getSymbol();
+	public String getSymbol(ArrayList<Player> players);
 	public boolean hasBlock();
 	public boolean hasBomb();
 	public void setBlock();

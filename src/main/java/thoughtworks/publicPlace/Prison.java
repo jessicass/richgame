@@ -1,5 +1,7 @@
 package thoughtworks.publicPlace;
 
+import java.util.ArrayList;
+
 import thoughtworks.Game;
 import thoughtworks.MapObject;
 import thoughtworks.players.Player;
@@ -13,7 +15,12 @@ public class Prison implements MapObject {
 	private boolean hasBlock;
 	private boolean hasBomb;
 	
-	public String getSymbol(){
+	public String getSymbol(ArrayList<Player> players){
+		for(Player player: players){
+			if(player.getPosition() == position){
+				return player.getShortName();
+			}
+		}
 		if(hasBlock){
 			return Block.symbol;
 		}
@@ -53,6 +60,7 @@ public class Prison implements MapObject {
 
 	public void playerPassOnHere(Player passer, Game game) {
 		passer.toBeTrappedInPrison();
+		System.out.println("非常抱歉，您被困在监狱了");
 	}
 	
 	public MapObject upgrade(){
