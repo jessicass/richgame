@@ -1,4 +1,4 @@
-package thoughtworks.command;
+package thoughtworks.functionClass;
 
 import java.io.BufferedReader;
 import java.io.IOException;

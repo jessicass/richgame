@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import thoughtworks.command.*;
 import thoughtworks.fixedAssets.Space;
+import thoughtworks.functionClass.Input;
+import thoughtworks.functionClass.PositionUpdate;
+import thoughtworks.functionClass.RoleNumberTransfer;
 import thoughtworks.players.*;
 import thoughtworks.publicPlace.Hospital;
 

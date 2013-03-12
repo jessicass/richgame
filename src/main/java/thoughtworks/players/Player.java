@@ -3,8 +3,8 @@ package thoughtworks.players;
 import java.awt.Color;
 
 import thoughtworks.MapObject;
-import thoughtworks.command.PositionUpdate;
 import thoughtworks.fixedAssets.*;
+import thoughtworks.functionClass.PositionUpdate;
 import thoughtworks.publicPlace.*;
 
 public class Player {
@@ -88,7 +88,7 @@ public class Player {
 	}
 
 	public void updatePositionWithStep(int step){
-		position = PositionUpdate.getSetPositionWithDistance(position, step);
+		position = PositionUpdate.getCurrentPositionWithDistance(position, step);
 	}
 	
 	public void buySpace(Space space){

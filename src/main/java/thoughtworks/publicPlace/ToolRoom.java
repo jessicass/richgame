@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import thoughtworks.Game;
 import thoughtworks.MapObject;
-import thoughtworks.command.Input;
+import thoughtworks.functionClass.Input;
 import thoughtworks.players.Player;
 import thoughtworks.tools.*;
 

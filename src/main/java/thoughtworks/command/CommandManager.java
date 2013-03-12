@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import thoughtworks.Game;
 import thoughtworks.Map;
 import thoughtworks.MapObject;
+import thoughtworks.functionClass.Input;
+import thoughtworks.functionClass.PositionUpdate;
 import thoughtworks.players.Player;
 import thoughtworks.tools.Block;
 import thoughtworks.tools.Bomb;
@@ -62,7 +64,7 @@ public class CommandManager {
 			if (player.isOwnToolWithNumberOf(Block.toolNumber)) {
 				player.useTool(Block.toolNumber);
 				int distance = Integer.parseInt(parameter);
-				int setPosition = PositionUpdate.getSetPositionWithDistance(
+				int setPosition = PositionUpdate.getCurrentPositionWithDistance(
 						player.getPosition(), distance);
 				game.getMapObjectWithIndex(setPosition).setBlock();
 				System.out.println("设置故障成功！");
@@ -75,7 +77,7 @@ public class CommandManager {
 			if (player.isOwnToolWithNumberOf(Bomb.toolNumber)) {
 				player.useTool(Bomb.toolNumber);
 				int distance = Integer.parseInt(parameter);
-				int setPosition = PositionUpdate.getSetPositionWithDistance(
+				int setPosition = PositionUpdate.getCurrentPositionWithDistance(
 						player.getPosition(), distance);
 				game.getMapObjectWithIndex(setPosition).setBomb();
 				System.out.println("设置炸弹成功！");
@@ -86,7 +88,7 @@ public class CommandManager {
 	public void setRobotWithCommand(Player player, Game game){
 		if (player.isOwnToolWithNumberOf(Robot.toolNumber)) {
 			player.useTool(Robot.toolNumber);
-			int backPosition = PositionUpdate.getSetPositionWithDistance(
+			int backPosition = PositionUpdate.getCurrentPositionWithDistance(
 					player.getPosition(), -Robot.clearRange);
 			MapObject mapObject = game.getMapObjectWithIndex(backPosition);
 			for (int i = 0; i < Robot.clearRange * 2 + 1; i++) {
@@ -152,7 +154,7 @@ public class CommandManager {
 			return false;
 		}
 		int distance = Integer.parseInt(distanceString);
-		int setPosition = PositionUpdate.getSetPositionWithDistance(
+		int setPosition = PositionUpdate.getCurrentPositionWithDistance(
 				player.getPosition(), distance);
 		if(isPositionEqualPlayersPosition(game.getPlayers(), 
 				setPosition)){

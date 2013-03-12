@@ -31,17 +31,17 @@ public class PlayerPropertyQueryTest {
 	}
 	
 	public String getString(int funds, int points, int[] fixedAssets, int[] tools){
-		String fundInfo = "×Ê½ğ£º" + funds + "Ôª£»"; 
-		String pointInfo = "µãÊı£º" + points + "µã£»";
-		String fixedAssetInfo =	"µØ²ú£º" + 
-		    Space.name + fixedAssets[0] + "´¦£»" + 
-	        Cottage.name + fixedAssets[1] + "´¦£»" + 
-	        House.name + fixedAssets[2] + "´¦£»" + 
-	        Skyscraper.name + fixedAssets[3] + "´¦£»";
-		String toolInfo = "µÀ¾ß£º" + 
-	        Block.name + tools[0] + "¸ö£»" + 
-		    Robot.name + tools[1] + "¸ö£»" + 
-		    Bomb.name + tools[2] + "¸ö£»";
+		String fundInfo = "èµ„é‡‘ï¼š" + funds + "å…ƒï¼›"; 
+		String pointInfo = "ç‚¹æ•°ï¼š" + points + "ç‚¹ï¼›";
+		String fixedAssetInfo =	"åœ°äº§ï¼š" + 
+		    Space.name + fixedAssets[0] + "å¤„ï¼›" + 
+	        Cottage.name + fixedAssets[1] + "å¤„ï¼›" + 
+	        House.name + fixedAssets[2] + "å¤„ï¼›" + 
+	        Skyscraper.name + fixedAssets[3] + "å¤„ï¼›";
+		String toolInfo = "é“å…·ï¼š" + 
+	        Block.name + tools[0] + "ä¸ªï¼›" + 
+		    Robot.name + tools[1] + "ä¸ªï¼›" + 
+		    Bomb.name + tools[2] + "ä¸ªï¼›";
 		return fundInfo + "\n" + pointInfo + "\n" + fixedAssetInfo + 
 				"\n" + toolInfo + "\n";
 	}
