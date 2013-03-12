@@ -1,4 +1,4 @@
-package thoughtworks;
+package thoughtworks.functionalTest;
 
 import org.junit.Test;
 

@@ -1,10 +1,12 @@
-package thoughtworks;
+package thoughtworks.functionalTest;
 
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import thoughtworks.Game;
+import thoughtworks.Map;
 import thoughtworks.fixedAssets.Space;
 import thoughtworks.players.Player;
 

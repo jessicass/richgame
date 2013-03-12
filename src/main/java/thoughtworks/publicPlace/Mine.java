@@ -94,7 +94,7 @@ public class Mine implements MapObject {
 
 	public void playerPassOnHere(Player passer, Game game) {
 		passer.obtainPointsFromMine(points);
-		System.out.println("恭喜您在矿地获得" + points + "点数");
+		System.out.println("鎭枩鎮ㄥ湪鐭垮湴鑾峰緱" + points + "鐐规暟");
 	}
 	
 	public MapObject upgrade(){

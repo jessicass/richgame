@@ -5,7 +5,7 @@ public class Block extends Tool {
 	public static final int buyPoints = 50;
 	public static final String symbol = "#";
 	public static final int setRange = 10;	
-	public static final String name = "Â·ÕÏ";
+	public static final String name = "è·¯éšœ";
 	
 	public String getName(){
 		return name;

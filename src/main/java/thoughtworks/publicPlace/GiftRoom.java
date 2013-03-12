@@ -12,8 +12,8 @@ import thoughtworks.tools.Bomb;
 public class GiftRoom implements MapObject {
 	public static final String symbol = "G";
 	public static final int position = 35;
-	public static final String WELCOME = "»¶Ó­¹âÁÙÀñÆ·Îİ£¬ÇëÊäÈë" +
-			"ÄúËùĞèÒªµÄÀñÆ·µÄ±àºÅ£º";
+	public static final String WELCOME = "æ¬¢è¿å…‰ä¸´ç¤¼å“å±‹ï¼Œè¯·è¾“å…¥" +
+			"æ‚¨æ‰€éœ€è¦çš„ç¤¼å“çš„ç¼–å·ï¼š";
 	public static final int presentFunds = 2000;
 	public static final int presentPoints = 200;
 	public static final int MAX_GIFT_NUMBER = 3;
@@ -41,10 +41,10 @@ public class GiftRoom implements MapObject {
 	}
 	
 	public static String giftInfoShow() {
-		String info = "ÀñÆ·" + "\t" + "±àºÅ" + "\n";
-		info += "½±½ğ" + "\t" + "1" + "\n";
-		info += "µãÊı¿¨" + "\t" + "2" + "\n";
-		info += "¸£Éñ" + "\t" + "3" + "\n";
+		String info = "ç¤¼å“" + "\t" + "ç¼–å·" + "\n";
+		info += "å¥–é‡‘" + "\t" + "1" + "\n";
+		info += "ç‚¹æ•°å¡" + "\t" + "2" + "\n";
+		info += "ç¦ç¥" + "\t" + "3" + "\n";
 		return info;	
 	}
 	
@@ -80,7 +80,7 @@ public class GiftRoom implements MapObject {
 			if(Input.isIntegerInArea(input, MIN_GIFT_NUMBER, 
 					MAX_GIFT_NUMBER)){
 				passer.chooseGift(input);
-				System.out.println("¹§Ï²Äú»ñµÃÀñÆ·£¡");
+				System.out.println("æ­å–œæ‚¨è·å¾—ç¤¼å“ï¼");
 				return;
 			}
 		}

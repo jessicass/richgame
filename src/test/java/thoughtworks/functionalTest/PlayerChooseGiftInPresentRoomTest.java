@@ -1,4 +1,4 @@
-package thoughtworks;
+package thoughtworks.functionalTest;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;

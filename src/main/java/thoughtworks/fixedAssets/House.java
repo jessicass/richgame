@@ -10,7 +10,7 @@ import thoughtworks.tools.Bomb;
 
 public class House extends Space implements MapObject {
 	public final String symbol = "2";
-	public static final String name = "Ñó·¿";
+	public static final String name = "æ´‹æˆ¿";
 	public final int level = 2;
 	private int upgradeFunds;
 	private int passToll;

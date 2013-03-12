@@ -7,17 +7,17 @@ import thoughtworks.tools.ToolInfo;
 
 public class Query {
 	public static String queryProperty(Player player){
-		String fundInfo = "×Ê½ğ£º" + player.getFunds() + "Ôª£»"; 
-		String pointInfo = "µãÊı£º" + player.getPoints() + "µã£»";
-		String fixedAssetInfo =	"µØ²ú£º" + 
-		    Space.name + player.getFixedAssetsOfPlayer().getNumberOfSpaces() + "´¦£»" + 
-	        Cottage.name + player.getFixedAssetsOfPlayer().getNumberOfCottages() + "´¦£»" + 
-	        House.name + player.getFixedAssetsOfPlayer().getNumberOfHouses() + "´¦£»" + 
-	        Skyscraper.name + player.getFixedAssetsOfPlayer().getNumberOfSkyscrapers() + "´¦£»";
-		String toolInfo = "µÀ¾ß£º";
+		String fundInfo = "èµ„é‡‘ï¼š" + player.getFunds() + "å…ƒï¼›"; 
+		String pointInfo = "ç‚¹æ•°ï¼š" + player.getPoints() + "ç‚¹ï¼›";
+		String fixedAssetInfo =	"åœ°äº§ï¼š" + 
+		    Space.name + player.getFixedAssetsOfPlayer().getNumberOfSpaces() + "å¤„ï¼›" + 
+	        Cottage.name + player.getFixedAssetsOfPlayer().getNumberOfCottages() + "å¤„ï¼›" + 
+	        House.name + player.getFixedAssetsOfPlayer().getNumberOfHouses() + "å¤„ï¼›" + 
+	        Skyscraper.name + player.getFixedAssetsOfPlayer().getNumberOfSkyscrapers() + "å¤„ï¼›";
+		String toolInfo = "é“å…·ï¼š";
 		for(Tool tool:(new ToolInfo()).getTools()){
 			toolInfo += tool.getName() + player.getToolsOfPlayer().getNumberOfTools(
-					tool.getToolNumber()) + "¸ö£»";
+					tool.getToolNumber()) + "ä¸ªï¼›";
 		}
 		return fundInfo + "\n" + pointInfo + "\n" + fixedAssetInfo + 
 				"\n" + toolInfo + "\n";

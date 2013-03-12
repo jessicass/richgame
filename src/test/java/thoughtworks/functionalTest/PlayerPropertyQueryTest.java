@@ -1,10 +1,11 @@
-package thoughtworks;
+package thoughtworks.functionalTest;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import thoughtworks.Game;
 import thoughtworks.command.Query;
 import thoughtworks.fixedAssets.Cottage;
 import thoughtworks.fixedAssets.House;

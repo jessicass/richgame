@@ -1,7 +1,7 @@
 package thoughtworks.players;
 
 public enum PlayerName {
-	Q("Ç®·òÈË",1),A("°¢ÍÁ²®",2),S("ËïĞ¡ÃÀ",3),J("½ğ±´±´",4);
+	Q("é’±å¤«äºº",1),A("é˜¿åœŸä¼¯",2),S("å­™å°ç¾",3),J("é‡‘è´è´",4);
 	
 	private String name;
 	private int index;  

@@ -60,7 +60,7 @@ public class Prison implements MapObject {
 
 	public void playerPassOnHere(Player passer, Game game) {
 		passer.toBeTrappedInPrison();
-		System.out.println("非常抱歉，您被困在监狱了");
+		System.out.println("闈炲父鎶辨瓑锛屾偍琚洶鍦ㄧ洃鐙变簡");
 	}
 	
 	public MapObject upgrade(){

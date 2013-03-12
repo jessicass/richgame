@@ -1,10 +1,12 @@
-package thoughtworks;
+package thoughtworks.functionalTest;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import thoughtworks.Game;
+import thoughtworks.Map;
 import thoughtworks.command.CommandManager;
 import thoughtworks.players.Player;
 import thoughtworks.tools.Block;

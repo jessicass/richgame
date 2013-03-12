@@ -10,7 +10,7 @@ import thoughtworks.tools.Bomb;
 
 public class Cottage extends Space implements MapObject {
 	public final String symbol = "1";
-	public static final String name = "Ã©ÎÝ";
+	public static final String name = "èŒ…å±‹";
 	public final int level = 1;
 	private int upgradeFunds;
 	private int passToll;

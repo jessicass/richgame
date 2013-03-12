@@ -12,9 +12,9 @@ public class ToolRoom implements MapObject {
 	public static final String symbol = "T";
 	public static final int position = 28;
 	public static final int LIMIT_NUMBER_OF_TOOLS = 10;
-	public static final String WELCOME = "»¶Ó­¹âÁÙµÀ¾ßÎİ£¬ÇëÊäÈë" +
-			"ÄúËùĞèÒªµÄµÀ¾ßµÄ±àºÅ£º";
-	public static final String NUMBER_OF_TOOLS_BEYOND_LIMIT = "ÄúÒÑ¾­ÓµÓĞ10¸öµÀ¾ß";
+	public static final String WELCOME = "æ¬¢è¿å…‰ä¸´é“å…·å±‹ï¼Œè¯·è¾“å…¥" +
+			"æ‚¨æ‰€éœ€è¦çš„é“å…·çš„ç¼–å·ï¼š";
+	public static final String NUMBER_OF_TOOLS_BEYOND_LIMIT = "æ‚¨å·²ç»æ‹¥æœ‰10ä¸ªé“å…·";
 	public static final String QUIT_TOOLROOM = "f";
 	public static final int MAX_TOOL_NUMBER = 3;
 	public static final int MIN_TOOL_NUMBER = 1;
@@ -119,11 +119,11 @@ public class ToolRoom implements MapObject {
 				if (isPointsEnoughToBuyToolWithNumber(passer.getPoints(),
 						Integer.valueOf(input))) {
 					passer.buyTool(Integer.valueOf(input));
-					System.out.println("¹ºÂòµÀ¾ß³É¹¦£¡");
+					System.out.println("è´­ä¹°é“å…·æˆåŠŸï¼");
 					return;
 				} else {
-					System.out.println("Äúµ±Ç°Ê£ÓàµÄµãÊıÎª" + passer.getPoints()
-							+ "£¬²»×ãÒÔ¹ºÂò" + Integer.valueOf(input) + "µÀ¾ß" + "\n");
+					System.out.println("æ‚¨å½“å‰å‰©ä½™çš„ç‚¹æ•°ä¸º" + passer.getPoints()
+							+ "ï¼Œä¸è¶³ä»¥è´­ä¹°" + Integer.valueOf(input) + "é“å…·" + "\n");
 				}
 			}
 		}

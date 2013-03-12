@@ -16,10 +16,10 @@ public class ToolInfo {
 	}
 	
 	public String toolInfoShow(){
-		String info = "µÀ¾ß" + "\t" + "±àºÅ" + "\t" + "¼ÛÖµ£¨µãÊı£©" + "\t" +
-	                      "ÏÔÊ¾·½Ê½" + "\n";
+		String info = "é“å…·" + "\t\t" + "ç¼–å·" + "\t" + "ä»·å€¼ï¼ˆç‚¹æ•°ï¼‰" + "\t" +
+                "æ˜¾ç¤ºæ–¹å¼" + "\n";
 		for(Tool tool: toolList){
-			info += tool.getName() + "\t" + tool.getToolNumber() + "\t" +
+			info += tool.getName() + "\t\t" + tool.getToolNumber() + "\t" +
 		        tool.getBuyPoints() + "\t" + tool.getSymbol();
 			info += "\n";
 		}

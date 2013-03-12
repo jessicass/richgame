@@ -71,7 +71,7 @@ public class ToolsOfPlayer {
 	    	}
 	    	break;
 	    }
-		System.out.println("µÀ¾ßÊıÁ¿²»×ã£¡");
+		System.out.println("é“å…·æ•°é‡ä¸è¶³ï¼");
 		return false;
 	}
 

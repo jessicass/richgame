@@ -2,8 +2,9 @@ package thoughtworks;
 
 import java.util.ArrayList;
 
-import com.meyling.console.Console;
-import com.meyling.console.ConsoleFactory;
+import java.awt.Color;
+import enigma.console.*;
+import enigma.core.*;
 
 import thoughtworks.fixedAssets.Space;
 import thoughtworks.players.Player;
@@ -12,6 +13,7 @@ import thoughtworks.publicPlace.*;
 public class Map {
 	public static final int MAX_POSITION = 69;
 	private ArrayList<MapObject> mapList = new ArrayList<MapObject>();
+	private static final Console console = Enigma.getConsole("");
 
 	public Map() {
 		for (int i = 0; i <= MAX_POSITION; i++) {
@@ -58,10 +60,7 @@ public class Map {
 		}
 	}
 
-	public void drawMap(ArrayList<Player> players) {
-		final Console console = ConsoleFactory.getConsole();
-	    console.resetColors();
-	     
+	public void drawMap(ArrayList<Player> players) {	     
 		String middleSpace = "";
 		for (int i = 0; i < 27; i++) {
 			middleSpace += " ";
@@ -71,24 +70,25 @@ public class Map {
 		for (int i = 0; i < 29; i++) {
 			setForegroundColor(i, players, console);
 			System.out.print(mapList.get(i).getSymbol(players));
-			console.resetColors();
+			console.setTextAttributes(new TextAttributes(Color.WHITE));
 		}
 
 		System.out.print("\n");
 		for (int i = MAX_POSITION, j = 29; i > 63; i--, j++) {
 			System.out.print(mapList.get(i).getSymbol(players) + middleSpace);
-			setForegroundColor(i, players, console);
+			setForegroundColor(j, players, console);
 			System.out.print(mapList.get(j).getSymbol(players));
-			console.resetColors();
+			console.setTextAttributes(new TextAttributes(Color.WHITE));
 			System.out.print("\n");
 		}
 
 		for (int i = 63; i > 34; i--) {
 			setForegroundColor(i, players, console);
 			System.out.print(mapList.get(i).getSymbol(players));
-			console.resetColors();
+			console.setTextAttributes(new TextAttributes(Color.WHITE));
 		}
 		System.out.print("\n");
+		console.setTextAttributes(new TextAttributes(Color.WHITE));
 	}
 	
 	public void setForegroundColor(int position, ArrayList<Player> players, Console console){
@@ -97,7 +97,7 @@ public class Map {
 		}
 		for(Player player: players){
 			if(player.isOwnerOfSpace(position)){
-				 console.setForegroundColor(player.getColor());
+				 console.setTextAttributes(new TextAttributes(player.getColor()));
 				 return;
 			}
 		}

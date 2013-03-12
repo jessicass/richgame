@@ -5,7 +5,7 @@ public class Bomb extends Tool {
 	public static final int buyPoints = 50;
 	public static final String symbol = "@";
 	public static final int setRange = 10;
-	public static final String name = "Õ¨µ¯";
+	public static final String name = "ç‚¸å¼¹";
 	
 	public String getName(){
 		return name;

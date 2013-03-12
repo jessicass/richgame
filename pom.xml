@@ -22,11 +22,6 @@
       <scope>test</scope>
     </dependency>
     
-    <dependency>
-      <groupId>thoughtworks.com</groupId>
-      <artifactId>jcons</artifactId>
-      <version>0.00.01</version>
-    </dependency>
     
   </dependencies>
 </project>

@@ -1,4 +1,4 @@
-package thoughtworks;
+package thoughtworks.functionalTest;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import thoughtworks.Game;
 import thoughtworks.players.Player;
 
 public class UpdatePlayerPositionTest {

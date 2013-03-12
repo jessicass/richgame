@@ -8,14 +8,14 @@ import thoughtworks.players.*;
 import thoughtworks.publicPlace.Hospital;
 
 public class Game {
-	public static final String HINT_OF_START = "ÇëÊäÈëÓÎÏ·¿ªÊ¼Ö¸Áî£º";
-	public static final String ERROR_OF_START = "Ö¸Áî´íÎó£¬ÇëÖØĞÂÊäÈëÓÎÏ·¿ªÊ¼Ö¸Áî£º";
-	public static final String HINT_OF_PLAYER_CHOICE = "ÇëÑ¡Ôñ2~4Î»"
-			+ "²»ÖØ¸´Íæ¼Ò£¬ÊäÈë±àºÅ¼´¿É¡££¨1.Ç®·òÈË£»2.°¢ÍÁ²®£»3.ËïĞ¡ÃÀ£»4.½ğ±´±´£©£º";
-	public static final String HINT_OF_PLAYER_INITIAL = "ÇëÊäÈëÍæ¼Ò³õÊ¼"
-			+ "×Ê½ğ£¬·¶Î§" + Player.INITIAL_MIN_FUNDS + "~" + Player.INITIAL_MAX_FUNDS +
-			"£¨Ä¬ÈÏ" + Player.INITIAL_FUNDS + "£©£º";
-	public static final String ERROR_OF_PLAYER_NUMBERS = "Íæ¼Ò±àºÅÊäÈë´íÎó£¬ÇëÖØĞÂÊäÈë£¡";
+	public static final String HINT_OF_START = "è¯·è¾“å…¥æ¸¸æˆå¼€å§‹æŒ‡ä»¤ï¼š";
+	public static final String ERROR_OF_START = "æŒ‡ä»¤é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥æ¸¸æˆå¼€å§‹æŒ‡ä»¤ï¼š";
+	public static final String HINT_OF_PLAYER_CHOICE = "è¯·é€‰æ‹©2~4ä½"
+			+ "ä¸é‡å¤ç©å®¶ï¼Œè¾“å…¥ç¼–å·å³å¯ã€‚ï¼ˆ1.é’±å¤«äººï¼›2.é˜¿åœŸä¼¯ï¼›3.å­™å°ç¾ï¼›4.é‡‘è´è´ï¼‰ï¼š";
+	public static final String HINT_OF_PLAYER_INITIAL = "è¯·è¾“å…¥ç©å®¶åˆå§‹"
+			+ "èµ„é‡‘ï¼ŒèŒƒå›´" + Player.INITIAL_MIN_FUNDS + "~" + Player.INITIAL_MAX_FUNDS +
+			"ï¼ˆé»˜è®¤" + Player.INITIAL_FUNDS + "ï¼‰ï¼š";
+	public static final String ERROR_OF_PLAYER_NUMBERS = "ç©å®¶ç¼–å·è¾“å…¥é”™è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥ï¼";
 
 	public static final String START_COMMAND = "rich";
 
@@ -62,7 +62,7 @@ public class Game {
 			for (Player player : playerList.getPlayers()) {
 				map.drawMap(playerList.getPlayers());
 				if(isWinnerProduced()){
-					System.out.println("¹§Ï²Íæ¼Ò" + getWinner().getPlayerName() + "»ñÊ¤£¡");
+					System.out.println("æ­å–œç©å®¶" + getWinner().getPlayerName() + "è·èƒœï¼");
 					return;
 			    }
 				
@@ -142,10 +142,10 @@ public class Game {
 		while (!space.isSafeForPlayerPassOnOtherSpace(player, this)) {
 			player.testBankrupt(space.getPassToll());
 			if (player.isBankrupt()) {
-				System.out.println("Íæ¼Ò" + player.getPlayerName() + "ÆÆ²ú");
+				System.out.println("ç©å®¶" + player.getPlayerName() + "ç ´äº§");
 				playerList.getPlayers().remove(player);
 			} else {
-				System.out.println("ÇëÊäÈëÒª³öÊÛµÄ·¿²ú±àºÅ£º");
+				System.out.println("è¯·è¾“å…¥è¦å‡ºå”®çš„æˆ¿äº§ç¼–å·ï¼š");
 				commandManager.sellFixedAssetsWithCommand(Input.getString(), player, this);
 			}
 		}
@@ -156,13 +156,13 @@ public class Game {
 		for (int i = 0; i < step; i++) {
 			position = PositionUpdate.getNextPosition(position);
 			if (map.getMapObjectWithIndex(position).hasBlock()) {
-				System.out.println("·Ç³£²»ĞÒ£¬±»Â·ÕÏÀ¹½Ø£¡");
+				System.out.println("éå¸¸ä¸å¹¸ï¼Œè¢«è·¯éšœæ‹¦æˆªï¼");
 				player.updatePosition(position);
 				map.getMapObjectWithIndex(position).resetBlock();
 				return;
 			}
 			if (map.getMapObjectWithIndex(position).hasBomb()) {
-				System.out.println("·Ç³£²»ĞÒ£¬±»Õ¨µ¯Õ¨ÉË£¡");
+				System.out.println("éå¸¸ä¸å¹¸ï¼Œè¢«è·¯éšœæ‹¦æˆªï¼");
 				player.updatePosition(Hospital.position);
 				player.toBeBombed();
 				map.getMapObjectWithIndex(position).resetBomb();
@@ -178,7 +178,7 @@ public class Game {
 			playerList.getTheOwnerOfSpace(position).upgradeOwnFixedAssets(
 					mapObject);
 			map.upgradeFixedAssets(mapObject);
-			System.out.println("·¿²úÉı¼¶³É¹¦£¡");
+			System.out.println("æˆ¿äº§å‡çº§æˆåŠŸï¼");
 		}
 	}
 	

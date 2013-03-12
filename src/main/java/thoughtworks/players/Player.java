@@ -1,6 +1,6 @@
 package thoughtworks.players;
 
-import com.meyling.console.ConsoleForegroundColor;
+import java.awt.Color;
 
 import thoughtworks.MapObject;
 import thoughtworks.command.PositionUpdate;
@@ -11,7 +11,7 @@ public class Player {
 	public static int INITIAL_FUNDS = 10000;
 	public static int INITIAL_MIN_FUNDS = 500;
 	public static int INITIAL_MAX_FUNDS = 50000;
-	public ConsoleForegroundColor color;
+	public Color color;
 	private int funds;
 	private int points=0;
 	private String playerName;
@@ -22,10 +22,10 @@ public class Player {
 	private boolean isTrappedInPrison = false;
 	private boolean isBankrupt = false;
 	private int timesToPauseWhenBeBombed = 
-			Hospital.timesToPauseWhenPlayerBeHospitalized;
-	private int timesForFreeWhenOwnLuck = 5;
+			Hospital.timesToPauseWhenPlayerBeHospitalized + 1;
+	private int timesForFreeWhenOwnLuck = 5 + 1;
 	private int timesBeTrappedInPrison = 
-			Prison.timesPlayerBeTrappedInPrison;
+			Prison.timesPlayerBeTrappedInPrison + 1;
 	
     private FixedAssetsOfPlayer fixedAssetsOfPlayer = 
     		new FixedAssetsOfPlayer();
@@ -37,21 +37,21 @@ public class Player {
 		funds = Player.INITIAL_FUNDS;
 		switch (index) {
 		case 1:
-			color = ConsoleForegroundColor.DARK_RED;
+			color = Color.RED;
 			break;
 		case 2:
-			color = ConsoleForegroundColor.DARK_YELLOW;
+			color = Color.YELLOW;
 			break;
 		case 3:
-			color = ConsoleForegroundColor.DARK_BLUE;
+			color = Color.BLUE;
 			break;
 		case 4:
-			color = ConsoleForegroundColor.DARK_GREEN;
+			color = Color.GREEN;
 			break;
 		}
 	}
 	
-	public ConsoleForegroundColor getColor(){
+	public Color getColor(){
 		return color;
 	}
 	

@@ -21,14 +21,14 @@ public class Input {
 			try {
 				return Integer.parseInt(getString());
 			} catch (Exception e) {
-				System.out.println("ÇëÊäÈëÊı×Ö");
+				System.out.println("è¯·è¾“å…¥æ•°å­—");
 			}
 		}
 	}
 
 	public static boolean isIntegerInArea(int number, int min, int max) {
 		if(number > max || number < min){
-			System.out.println("ÇëÊäÈë" + min + "~" + max + "ÒÔÄÚµÄÊı×Ö");
+			System.out.println("è¯·è¾“å…¥" + min + "~" + max + "ä»¥å†…çš„æ•°å­—");
 			return false;
 		}
 		else{
@@ -50,7 +50,7 @@ public class Input {
 			Integer.parseInt(input);
 			return true;
 		} catch (Exception e) {
-			System.out.println("ÇëÊäÈëÊı×Ö");
+			System.out.println("è¯·è¾“å…¥æ•°å­—");
 			return false;
 		}
 	}

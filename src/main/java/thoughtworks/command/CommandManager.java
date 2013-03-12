@@ -49,36 +49,36 @@ public class CommandManager {
 		}
 		if (command.equalsIgnoreCase("roll")) {
 			int step = Input.throwDice();
-			System.out.println("Ç°½ø" + step + "²½");
+			System.out.println("å‰è¿›" + step + "æ­¥");
 			game.updatePlayerPosition(player, step);
 			return isCommandEnd;
 		}
-		System.out.println("Ö¸ÁîÊäÈë´íÎó£¡");
+		System.out.println("æŒ‡ä»¤è¾“å…¥é”™è¯¯ï¼");
 		return !isCommandEnd;
 	}
     
 	public void setBlockWithCommand(String parameter, Player player, Game game){
-		if (isDistanceSetToolRight(parameter, player, game)) {
+		if (isDistanceSetToolRight(parameter, player, game, Block.setRange)) {
 			if (player.isOwnToolWithNumberOf(Block.toolNumber)) {
 				player.useTool(Block.toolNumber);
 				int distance = Integer.parseInt(parameter);
 				int setPosition = PositionUpdate.getSetPositionWithDistance(
 						player.getPosition(), distance);
 				game.getMapObjectWithIndex(setPosition).setBlock();
-				System.out.println("ÉèÖÃ¹ÊÕÏ³É¹¦£¡");
+				System.out.println("è®¾ç½®æ•…éšœæˆåŠŸï¼");
 			}
 		}
 	}
 	
 	public void setBombWithCommand(String parameter, Player player, Game game){
-		if (isDistanceSetToolRight(parameter, player, game)) {
+		if (isDistanceSetToolRight(parameter, player, game, Bomb.setRange)) {
 			if (player.isOwnToolWithNumberOf(Bomb.toolNumber)) {
 				player.useTool(Bomb.toolNumber);
 				int distance = Integer.parseInt(parameter);
 				int setPosition = PositionUpdate.getSetPositionWithDistance(
 						player.getPosition(), distance);
 				game.getMapObjectWithIndex(setPosition).setBomb();
-				System.out.println("ÉèÖÃÕ¨µ¯³É¹¦£¡");
+				System.out.println("è®¾ç½®ç‚¸å¼¹æˆåŠŸï¼");
 			}
 		}
 	}
@@ -99,7 +99,7 @@ public class CommandManager {
 				mapObject = game.getMapObjectWithIndex(PositionUpdate.getNextPosition(
 						mapObject.getPosition()));
 			}
-			System.out.println("ÇåÉ¨µÀ¾ß³É¹¦£¡");
+			System.out.println("æ¸…æ‰«é“å…·æˆåŠŸï¼");
 		}
 	}
 	
@@ -107,7 +107,7 @@ public class CommandManager {
 		if (isFixedAssetPositionRight(parameter, player)) {
 			int position = Integer.parseInt(parameter);
 			game.sellSpaceWithPositionOf(position);
-			System.out.println("³öÊÛ·¿²ú³É¹¦£¡");
+			System.out.println("å‡ºå”®æˆ¿äº§æˆåŠŸï¼");
 		}
 	}
 	
@@ -115,7 +115,7 @@ public class CommandManager {
 		if (isToolNumberRight(parameter, player)) {
 			int toolNumber = Integer.parseInt(parameter);
 			player.sellToolWithNumberOf(toolNumber);
-			System.out.println("³öÊÛµÀ¾ß³É¹¦£¡");
+			System.out.println("å‡ºå”®é“å…·æˆåŠŸï¼");
 		}
 	}
 	
@@ -126,7 +126,7 @@ public class CommandManager {
 		}
 		int position = Integer.parseInt(positionString);
 		if(!player.isOwnerOfSpace(position)){
-			System.out.println("¸ÃÎ»ÖÃµÄ·¿²ú²»ÊôÓÚÄú£¡");
+			System.out.println("è¯¥ä½ç½®çš„æˆ¿äº§ä¸å±äºæ‚¨ï¼");
 			return false;
 		}
 		return true;
@@ -139,15 +139,16 @@ public class CommandManager {
 		}
 		int toolNumber = Integer.parseInt(toolNumberString);
 		if(!player.isOwnToolWithNumberOf(toolNumber)){
-			System.out.println("ÄúÃ»ÓĞ¸Ã±àºÅµÄµÀ¾ß£¡");
+			System.out.println("æ‚¨æ²¡æœ‰è¯¥ç¼–å·çš„é“å…·ï¼");
 			return false;
 		}
 		return true;
 	}
 
-	public boolean isDistanceSetToolRight(String distanceString, Player player, Game game){
-		if(!Input.isInputAnIntegerInArea(distanceString, Block.setRange, 
-				-Block.setRange)){
+	public boolean isDistanceSetToolRight(String distanceString, Player player, Game game,
+			int setRange){
+		if(!Input.isInputAnIntegerInArea(distanceString, -setRange, 
+				setRange)){
 			return false;
 		}
 		int distance = Integer.parseInt(distanceString);
@@ -167,7 +168,7 @@ public class CommandManager {
 			ArrayList<Player> players, int position){
 		for(Player player: players){
 			if(player.getPosition() == position){
-				System.out.println("²»¿É·ÅÖÃÔÚÓĞÍæ¼ÒµÄÎ»ÖÃ£¡");
+				System.out.println("ä¸å¯æ”¾ç½®åœ¨æœ‰ç©å®¶çš„ä½ç½®ï¼");
 				return true;
 			}
 		}
@@ -177,7 +178,7 @@ public class CommandManager {
 	private boolean isPositionSetToolAlready(Map map, int setPosition) {
 		if(map.getMapObjectWithIndex(setPosition).hasBlock() || 
 				map.getMapObjectWithIndex(setPosition).hasBomb()){
-			System.out.println("¸Ã´¦ÒÑÓĞµÀ¾ß£¡");
+			System.out.println("è¯¥å¤„å·²æœ‰é“å…·ï¼");
 			return true;
 		}
 		return false;

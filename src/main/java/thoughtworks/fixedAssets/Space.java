@@ -10,12 +10,12 @@ import thoughtworks.tools.Block;
 import thoughtworks.tools.Bomb;
 
 public class Space implements MapObject{
-	public static final String WHETHER_BUY_SPACE = "ÊÇ·ñ¹ºÂò¸Ã´¦¿ÕµØ£¬";
-	public static final String WHETHER_UPGRADE_SPACE = "ÊÇ·ñÉı¼¶¸Ã´¦µØ²ú£¬";
-	public static final String END_OF_HINT = "Ôª£¨Y/N£©£¿";
+	public static final String WHETHER_BUY_SPACE = "æ˜¯å¦è´­ä¹°è¯¥å¤„ç©ºåœ°ï¼Œ";
+	public static final String WHETHER_UPGRADE_SPACE = "æ˜¯å¦å‡çº§è¯¥å¤„åœ°äº§ï¼Œ";
+	public static final String END_OF_HINT = "å…ƒï¼ˆY/Nï¼‰ï¼Ÿ";
 	
 	public final String symbol = "0";
-	public static final String name = "¿ÕµØ";
+	public static final String name = "ç©ºåœ°";
 	public final int level = 0;
 	protected int position;
 	private int buyFunds;
@@ -105,13 +105,13 @@ public class Space implements MapObject{
 				String input = Input.getString();
 				if (input.equalsIgnoreCase("Y")) {
 					passer.buySpace(this);
-					System.out.println("¹ºÂò¿ÕµØ³É¹¦£¡");
+					System.out.println("è´­ä¹°ç©ºåœ°æˆåŠŸï¼");
 					return;
 				}
 				if (input.equalsIgnoreCase("N")) {
 					return;
 				}
-				System.out.println("ÇëÊäÈë£¨Y/N£©£º");
+				System.out.println("è¯·è¾“å…¥ï¼ˆY/Nï¼‰ï¼š");
 			}
 		}
 	}
@@ -128,7 +128,7 @@ public class Space implements MapObject{
 				if (input.equalsIgnoreCase("N")) {
 					return false;
 				}else {
-					System.out.println("ÇëÊäÈë£¨Y/N£©£º");
+					System.out.println("è¯·è¾“å…¥ï¼ˆY/Nï¼‰ï¼š");
 				}
 			}
 		}
@@ -137,7 +137,7 @@ public class Space implements MapObject{
 	
 	public boolean isSafeForPlayerPassOnOtherSpace(Player passer, Game game){
 		if(passer.isOwnerOfLuck()){
-			System.out.println("¸£Éñ¸½Éí£¬¿ÉÃâ¹ıÂ··Ñ");
+			System.out.println("ç¦ç¥é™„èº«ï¼Œå¯å…è¿‡è·¯è´¹");
 			passer.decreasLuckyTimes();
 			return true;
 		}
@@ -147,7 +147,7 @@ public class Space implements MapObject{
 		}
 		while(true){
 			if(passer.getFunds() >= passToll){
-				System.out.println("Ö§¸¶¹ıÂ··Ñ¸ø" + game.getTheOwnerOfSpace(
+				System.out.println("æ”¯ä»˜è¿‡è·¯è´¹ç»™" + game.getTheOwnerOfSpace(
 						position).getPlayerName());
 				passer.handInPassTollToOthers(passToll);
 				game.getTheOwnerOfSpace(position).obtainPassTollFromOthers(
@@ -155,7 +155,7 @@ public class Space implements MapObject{
 				return true;
 			}
 		    else{
-			    System.out.println("×Ê½ğ²»¹»¸¶¹ıÂ··Ñ!");
+			    System.out.println("èµ„é‡‘ä¸å¤Ÿä»˜è¿‡è·¯è´¹!");
 			    return false;
 		    }
 		}
