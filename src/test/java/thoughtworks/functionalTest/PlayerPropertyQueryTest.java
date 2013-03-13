@@ -55,7 +55,8 @@ public class PlayerPropertyQueryTest {
 	@Test
 	public void queryPropertyWithOneSpaceTest(){
 		mine.playerPassOnHere(player, game);
-		player.buySpace(space);
+		player.buySpace(space.getBuyFunds());
+		space.toBeOwned(player);
 		player.buyTool(Block.toolNumber);
 		int[] numOfFixedAssets = {1,0,0,0};
 		int[] numOfTools = {1,0,0};
@@ -65,8 +66,9 @@ public class PlayerPropertyQueryTest {
 	@Test
 	public void queryPropertyWithOneCottageTest(){
 		mine.playerPassOnHere(player, game);
-		player.buySpace(space);
-		player.upgradeOwnFixedAssets(space.upgrade());
+		player.buySpace(space.getBuyFunds());
+		space.toBeOwned(player);
+		player.upgradeOwnFixedAssets(space);
 		player.buyTool(Bomb.toolNumber);
 		int[] numOfFixedAssets = {0,1,0,0};
 		int[] numOfTools = {0,0,1};
@@ -76,9 +78,10 @@ public class PlayerPropertyQueryTest {
 	@Test
 	public void queryPropertyWithOneHouseTest(){
 		mine.playerPassOnHere(player, game);
-		player.buySpace(space);
-		player.upgradeOwnFixedAssets(space.upgrade());
-		player.upgradeOwnFixedAssets(space.upgrade().upgrade());
+		player.buySpace(space.getBuyFunds());
+		space.toBeOwned(player);
+		player.upgradeOwnFixedAssets(space);
+		player.upgradeOwnFixedAssets((Space)space.upgrade());
 		player.buyTool(Robot.toolNumber);
 		int[] numOfFixedAssets = {0,0,1,0};
 		int[] numOfTools = {0,1,0};
@@ -87,10 +90,11 @@ public class PlayerPropertyQueryTest {
 	
 	@Test
 	public void queryPropertyWithOneSkyscraperTest(){
-		player.buySpace(space);
-		player.upgradeOwnFixedAssets(space.upgrade());
-		player.upgradeOwnFixedAssets(space.upgrade().upgrade());
-		player.upgradeOwnFixedAssets(space.upgrade().upgrade().upgrade());
+		player.buySpace(space.getBuyFunds());
+		space.toBeOwned(player);
+		player.upgradeOwnFixedAssets(space);
+		player.upgradeOwnFixedAssets((Space)space.upgrade());
+		player.upgradeOwnFixedAssets((Space)space.upgrade().upgrade());
 		int[] numOfFixedAssets = {0,0,0,1};
 		int[] numOfTools = {0,0,0};
 		assertThat(Query.queryProperty(player), is(getString(9200, 0, numOfFixedAssets, numOfTools)));

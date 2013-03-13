@@ -11,7 +11,7 @@ import thoughtworks.tools.Bomb;
 public class Cottage extends Space implements MapObject {
 	public final String symbol = "1";
 	public static final String name = "茅屋";
-	public final int level = 1;
+	private final int level = 1;
 	private int upgradeFunds;
 	private int passToll;
 	
@@ -52,7 +52,7 @@ public class Cottage extends Space implements MapObject {
 	public MapObject upgrade(){
 		House house = new House(position);
 		house.totalCost = totalCost + upgradeFunds;
-		house.isOwned = isOwned;
+		house.owner = owner;
 		house.hasBlock = hasBlock;
 		house.hasBomb = hasBomb;
 		return house;

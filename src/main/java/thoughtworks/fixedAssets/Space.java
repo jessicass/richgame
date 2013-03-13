@@ -16,16 +16,16 @@ public class Space implements MapObject{
 	
 	public final String symbol = "0";
 	public static final String name = "空地";
-	public final int level = 0;
-	protected int position;
+	private final int level = 0;
 	private int buyFunds;
 	private int upgradeFunds;
 	private int passToll;
 	
-	protected boolean isOwned;
+	protected int position;
 	protected boolean hasBlock;
 	protected boolean hasBomb;
 	protected int totalCost = 0;
+	protected Player owner;
 	
 	public int getTotalCost(){
 		return totalCost;
@@ -66,13 +66,17 @@ public class Space implements MapObject{
 		return passToll;
 	}
 	
+	public Player getOwner(){
+		return owner;
+	}
+	
 	public void increaseTotalCost(int funds){
 		totalCost += funds;
 	}
 	
 	public Space(int position){ 
 		this.position = position;
-		this.isOwned = false;
+		this.owner = null;
 		if((position>0 && position<14)
 				||(position>14 && position<28)){
 			buyFunds = 200;
@@ -88,13 +92,17 @@ public class Space implements MapObject{
 		passToll = buyFunds / 2;
 	}
 	
-	public void toBeOwned(){
+	public void toBeOwned(Player player){
 		totalCost = buyFunds;		
-		isOwned = true;
+		owner = player;
 	}
 	
 	public boolean isOwned(){
-		return isOwned;
+		return owner != null;
+	}
+	
+	public boolean isOwnedBy(Player player){
+		return owner == player;
 	}
 	
 	public void playerPassOnHere(Player passer, Game game){
@@ -104,7 +112,8 @@ public class Space implements MapObject{
 			while (true) {
 				String input = Input.getString();
 				if (input.equalsIgnoreCase("Y")) {
-					passer.buySpace(this);
+					passer.buySpace(buyFunds);
+					toBeOwned(passer);
 					System.out.println("购买空地成功！");
 					return;
 				}
@@ -135,22 +144,19 @@ public class Space implements MapObject{
 		return false;
 	}
 	
-	public boolean isSafeForPlayerPassOnOtherSpace(Player passer, Game game){
+	public boolean isSafeForPlayerPassOnOtherSpace(Player passer){
 		if(passer.isOwnerOfLuck()){
 			System.out.println("福神附身，可免过路费");
-			passer.decreasLuckyTimes();
 			return true;
 		}
-		if(game.getTheOwnerOfSpace(position).isBombed() || 
-				game.getTheOwnerOfSpace(position).isTrappedInPrison()){
+		if(owner.isBombed() || owner.isTrappedInPrison()){
 			return true;
 		}
 		while(true){
 			if(passer.getFunds() >= passToll){
-				System.out.println("支付过路费给" + game.getTheOwnerOfSpace(
-						position).getPlayerName());
+				System.out.println("支付过路费给" + owner.getPlayerName());
 				passer.handInPassTollToOthers(passToll);
-				game.getTheOwnerOfSpace(position).obtainPassTollFromOthers(
+				owner.obtainPassTollFromOthers(
 						passToll);
 				return true;
 			}
@@ -188,7 +194,7 @@ public class Space implements MapObject{
 	public MapObject upgrade(){
 		Cottage cottage = new Cottage(position);
 		cottage.totalCost = totalCost + upgradeFunds;
-		cottage.isOwned = isOwned;
+		cottage.owner = owner;
 		cottage.hasBlock = hasBlock;
 		cottage.hasBomb = hasBomb;
 		return cottage;

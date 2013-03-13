@@ -1,12 +1,7 @@
 package thoughtworks.players;
 
-import java.util.ArrayList;
-
-import thoughtworks.MapObject;
-import thoughtworks.fixedAssets.Space;
 
 public class FixedAssetsOfPlayer {
-	private ArrayList<Space> spaces = new ArrayList<Space>();
 	private int numberOfSpaces = 0;
 	private int numberOfCottages = 0;
 	private int numberOfHouses = 0;
@@ -27,38 +22,18 @@ public class FixedAssetsOfPlayer {
 	public int getNumberOfSkyscrapers(){
 		return numberOfSkyscrapers;
 	}
-	
 
 	public int getTotalNumberOfFixedAssets() {
-		return spaces.size();
+		return numberOfSpaces + numberOfCottages + 
+				numberOfHouses + numberOfSkyscrapers;
 	}
 	
-	public ArrayList<Space> getArrayListOfSpaces(){
-		return spaces;
-	}
-	
-	public int getIndexOfSpaceInSpaces(int position){
-		for(Space space :spaces){
-			if(space.getPosition() == position)
-				return spaces.indexOf(space);
-		}
-		return -1;
-	}
-
-	public Space getSpace(int position){
-		return spaces.get(getIndexOfSpaceInSpaces(position));
-	}
-	
-	public void addNewSpace(Space space){
-		spaces.add(space);
+	public void addNewSpace(){
 		numberOfSpaces++;
-		space.toBeOwned();
 	}
 
-	public void upgradeSpace(MapObject mapObject){
-		Space oldSpace = getSpace(mapObject.getPosition());
-		spaces.set(getIndexOfSpaceInSpaces(mapObject.getPosition()), (Space)mapObject);
-		switch(oldSpace.getLevel()){
+	public void upgradeSpace(int level){
+		switch(level){
 	        case 0 :
 	    	    numberOfSpaces--;
 	    	    numberOfCottages++;
@@ -74,10 +49,8 @@ public class FixedAssetsOfPlayer {
 		}
 	}
 
-	public void deleteSelledSpace(int position) {
-		Space oldSpace = getSpace(position);
-		spaces.remove(oldSpace);
-		switch(oldSpace.getLevel()){
+	public void sellSpace(int level) {
+		switch(level){
 	        case 0 :
 	    	    numberOfSpaces--;
 				return;

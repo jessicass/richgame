@@ -2,7 +2,6 @@ package thoughtworks.players;
 
 import java.awt.Color;
 
-import thoughtworks.MapObject;
 import thoughtworks.fixedAssets.*;
 import thoughtworks.functionClass.PositionUpdate;
 import thoughtworks.publicPlace.*;
@@ -82,7 +81,7 @@ public class Player {
 	public ToolsOfPlayer getToolsOfPlayer(){
 		return toolsOfPlayer;
 	}
-	
+
 	public void updatePosition(int position){
 		this.position = position;
 	}
@@ -90,28 +89,20 @@ public class Player {
 	public void updatePositionWithStep(int step){
 		position = PositionUpdate.getCurrentPositionWithDistance(position, step);
 	}
-	
-	public void buySpace(Space space){
-		funds -= space.getBuyFunds();
-		fixedAssetsOfPlayer.addNewSpace(space);
-	}
 
-	public void sellSpace(int position){
-		funds += fixedAssetsOfPlayer.getSpace(position).getTotalCost() * 2;
-		fixedAssetsOfPlayer.deleteSelledSpace(position);
+	public void buySpace(int buyFunds){
+		funds -= buyFunds;
+		fixedAssetsOfPlayer.addNewSpace();
+	}
+	
+	public void sellSpace(Space space){
+		funds += space.getTotalCost() * 2;
+		fixedAssetsOfPlayer.sellSpace(space.getLevel());
 	}
 	
 	public void buyTool(int toolNumber) {
 		points -= ToolRoom.buyToolPoints(toolNumber);
 		toolsOfPlayer.buyTool(toolNumber);
-	}
-
-	public void useTool(int toolNumber) {
-		toolsOfPlayer.useTool(toolNumber);
-	}
-	
-	public boolean isOwnToolWithNumberOf(int toolNumber){
-		return toolsOfPlayer.isOwnToolWithNumberOf(toolNumber);
 	}
 	
 	public void chooseGift(int giftNumber){
@@ -128,34 +119,34 @@ public class Player {
 	    }
 	}
 	
-	public void decreasLuckyTimes(){
+	public void decreaseLuckyTimes(){
 		if(isOwnerOfLuck){
-		    timesForFreeWhenOwnLuck--;
+			timesForFreeWhenOwnLuck--;
 		    if(timesForFreeWhenOwnLuck == 0){
 		    	isOwnerOfLuck = false;
-			    timesForFreeWhenOwnLuck = 5;
+		    	timesForFreeWhenOwnLuck = 5 + 1;
 		    }
 		}
 	}
 	
-	public void decreasHospitalizedTimes(){
+	public void decreaseHospitalizedTimes(){
 		if(isBombed){
 			timesToPauseWhenBeBombed--;
 		    if(timesToPauseWhenBeBombed == 0){
-			    isBombed = false;
-			    timesToPauseWhenBeBombed = Hospital.
-			    		timesToPauseWhenPlayerBeHospitalized;
+		    	isBombed = false;
+		    	timesToPauseWhenBeBombed = 
+		    			Hospital.timesToPauseWhenPlayerBeHospitalized + 1;
 		    }
-		}
+		} 
 	}
 	
-	public void decreasTrappedInPrisonTimes(){
+	public void decreaseTrappedInPrisonTimes(){
 		if(isTrappedInPrison){
-	    	timesBeTrappedInPrison--;
+			timesBeTrappedInPrison--;
 		    if(timesBeTrappedInPrison == 0){
-			    isTrappedInPrison = false;
-			    timesBeTrappedInPrison = Prison.
-			    		timesPlayerBeTrappedInPrison;
+		    	isTrappedInPrison = false;
+		    	timesBeTrappedInPrison = 
+		    			Prison.timesPlayerBeTrappedInPrison + 1;
 		    }
 		}
 	}
@@ -181,20 +172,10 @@ public class Player {
 		return isTrappedInPrison;
 	}
 	
-	public boolean isOwnerOfSpace(int spacePosition) {
-		for(Space space: fixedAssetsOfPlayer.getArrayListOfSpaces()){
-			if(space.getPosition() == spacePosition){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public void upgradeOwnFixedAssets(MapObject mapObject){
-		int upgradeFunds = fixedAssetsOfPlayer.getSpace(
-				mapObject.getPosition()).getUpgradeFunds();
+	public void upgradeOwnFixedAssets(Space space){
+		int upgradeFunds = space.getUpgradeFunds();
 		funds -= upgradeFunds;
-		fixedAssetsOfPlayer.upgradeSpace(mapObject);
+		fixedAssetsOfPlayer.upgradeSpace(space.getLevel());
 	}
     
 	public void handInPassTollToOthers(int passToll){
@@ -211,7 +192,7 @@ public class Player {
 
 	public void sellToolWithNumberOf(int toolNumber) {
 		this.points += toolsOfPlayer.getPointsOfToolWithNumberOf(toolNumber);
-		toolsOfPlayer.sellToolWithNumberOf(toolNumber);
+		toolsOfPlayer.decreaseNumberOfTools(toolNumber);
 	}
 	
 	public void testBankrupt(int passTool) {

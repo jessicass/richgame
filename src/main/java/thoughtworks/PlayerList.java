@@ -2,6 +2,7 @@ package thoughtworks;
 
 import java.util.ArrayList;
 
+import thoughtworks.fixedAssets.Space;
 import thoughtworks.players.Player;
 
 public class PlayerList {	
@@ -21,9 +22,9 @@ public class PlayerList {
 		return playerList.get(index-1);
 	}
 	
-	public Player getTheOwnerOfSpace(int spacePosition){
+	public Player getTheOwnerOfSpace(Space space){
 		for(Player player:playerList){
-			if(player.isOwnerOfSpace(spacePosition))
+			if(space.isOwnedBy(player))
 				return player;
 		}
 		return null;

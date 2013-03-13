@@ -44,7 +44,9 @@ public class MapDrawTest {
 	@Test
 	public void mapDrawWithSpaceBeUpdatedTest(){
 		players.get(0).updatePosition(1);
-		players.get(0).buySpace((Space)map.getMapObjectWithIndex(3));
+		Space space = (Space)map.getMapObjectWithIndex(3);
+		players.get(0).buySpace(space.getBuyFunds());
+		space.toBeOwned(players.get(0));
 		game.upgradeFixedAssetsWithPositionOf(3);
 		map.drawMap(players);
 	}

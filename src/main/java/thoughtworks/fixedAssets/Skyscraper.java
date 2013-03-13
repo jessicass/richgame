@@ -11,7 +11,7 @@ import thoughtworks.tools.Bomb;
 public class Skyscraper extends Space implements MapObject {
 	public final String symbol = "3";
 	public static final String name = "摩天楼";
-	public final int level = 3;
+	private final int level = 3;
 	private int passToll;
 	
 	public Skyscraper(int position){

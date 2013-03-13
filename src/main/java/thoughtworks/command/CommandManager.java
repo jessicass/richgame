@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import thoughtworks.Game;
 import thoughtworks.Map;
 import thoughtworks.MapObject;
+import thoughtworks.fixedAssets.Space;
 import thoughtworks.functionClass.Input;
 import thoughtworks.functionClass.PositionUpdate;
 import thoughtworks.players.Player;
@@ -61,8 +62,8 @@ public class CommandManager {
     
 	public void setBlockWithCommand(String parameter, Player player, Game game){
 		if (isDistanceSetToolRight(parameter, player, game, Block.setRange)) {
-			if (player.isOwnToolWithNumberOf(Block.toolNumber)) {
-				player.useTool(Block.toolNumber);
+			if (player.getToolsOfPlayer().isOwnToolWithNumberOf(Block.toolNumber)) {
+				player.getToolsOfPlayer().decreaseNumberOfTools(Block.toolNumber);
 				int distance = Integer.parseInt(parameter);
 				int setPosition = PositionUpdate.getCurrentPositionWithDistance(
 						player.getPosition(), distance);
@@ -74,8 +75,8 @@ public class CommandManager {
 	
 	public void setBombWithCommand(String parameter, Player player, Game game){
 		if (isDistanceSetToolRight(parameter, player, game, Bomb.setRange)) {
-			if (player.isOwnToolWithNumberOf(Bomb.toolNumber)) {
-				player.useTool(Bomb.toolNumber);
+			if (player.getToolsOfPlayer().isOwnToolWithNumberOf(Bomb.toolNumber)) {
+				player.getToolsOfPlayer().decreaseNumberOfTools(Bomb.toolNumber);
 				int distance = Integer.parseInt(parameter);
 				int setPosition = PositionUpdate.getCurrentPositionWithDistance(
 						player.getPosition(), distance);
@@ -86,8 +87,8 @@ public class CommandManager {
 	}
 	
 	public void setRobotWithCommand(Player player, Game game){
-		if (player.isOwnToolWithNumberOf(Robot.toolNumber)) {
-			player.useTool(Robot.toolNumber);
+		if (player.getToolsOfPlayer().isOwnToolWithNumberOf(Robot.toolNumber)) {
+			player.getToolsOfPlayer().decreaseNumberOfTools(Robot.toolNumber);
 			int backPosition = PositionUpdate.getCurrentPositionWithDistance(
 					player.getPosition(), -Robot.clearRange);
 			MapObject mapObject = game.getMapObjectWithIndex(backPosition);
@@ -106,7 +107,7 @@ public class CommandManager {
 	}
 	
 	public void sellFixedAssetsWithCommand(String parameter, Player player, Game game){
-		if (isFixedAssetPositionRight(parameter, player)) {
+		if (isFixedAssetPositionRight(parameter, player, game.getMap())) {
 			int position = Integer.parseInt(parameter);
 			game.sellSpaceWithPositionOf(position);
 			System.out.println("出售房产成功！");
@@ -122,12 +123,13 @@ public class CommandManager {
 	}
 	
 	public boolean isFixedAssetPositionRight(String positionString,
-			Player player) {
+			Player player, Map map) {
 		if(!Input.isInputAnIntegerInArea(positionString, 0, Map.MAX_POSITION)){
 			return false;
 		}
 		int position = Integer.parseInt(positionString);
-		if(!player.isOwnerOfSpace(position)){
+		Space space = (Space)map.getMapObjectWithIndex(position);
+		if(!space.isOwnedBy(player)){
 			System.out.println("该位置的房产不属于您！");
 			return false;
 		}
@@ -140,7 +142,7 @@ public class CommandManager {
 			return false;
 		}
 		int toolNumber = Integer.parseInt(toolNumberString);
-		if(!player.isOwnToolWithNumberOf(toolNumber)){
+		if(!player.getToolsOfPlayer().isOwnToolWithNumberOf(toolNumber)){
 			System.out.println("您没有该编号的道具！");
 			return false;
 		}

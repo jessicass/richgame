@@ -21,7 +21,9 @@ public class PlayerSellFixedAssetsTest {
 		game.isCreatPlayerListSuccess(1234);
 		player = game.getPlayers().get(0);
 		map = game.getMap();
-		player.buySpace((Space)map.getMapObjectWithIndex(1));
+		Space space = (Space)map.getMapObjectWithIndex(1);
+		player.buySpace(space.getBuyFunds());
+		space.toBeOwned(player);
 	}
 	
 	@Test

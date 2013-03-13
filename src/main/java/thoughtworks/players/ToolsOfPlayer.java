@@ -39,20 +39,6 @@ public class ToolsOfPlayer {
 		}
 	}
 	
-	public void useTool(int toolNumber) {
-		switch (toolNumber) {
-		case Block.toolNumber:
-			numberOfBlocks--;
-			break;
-		case Robot.toolNumber:
-			numberOfRobots--;
-			break;
-		case Bomb.toolNumber:
-			numberOfBombs--;
-			break;
-		}
-	}
-
 	public boolean isOwnToolWithNumberOf(int toolNumber){
 		switch(toolNumber){
 	    case Block.toolNumber:
@@ -75,7 +61,7 @@ public class ToolsOfPlayer {
 		return false;
 	}
 
-	public void sellToolWithNumberOf(int toolNumber) {
+	public void decreaseNumberOfTools(int toolNumber) {
 		switch (toolNumber) {
 		case Block.toolNumber:
 			numberOfBlocks--;

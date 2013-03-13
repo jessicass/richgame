@@ -1,6 +1,7 @@
 package thoughtworks;
 
 import java.awt.Color;
+
 import enigma.console.*;
 import enigma.core.*;
 
@@ -11,7 +12,7 @@ import enigma.core.*;
 public class App 
 {
     public static void main( String[] args )
-    {    	
+    {       	
     	TextAttributes attrs = new TextAttributes(Color.BLUE, Color.WHITE);
     	console.setTextAttributes(attrs);
     	System.out.println("Hello,World");

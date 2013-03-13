@@ -96,7 +96,8 @@ public class Map {
 			return;
 		}
 		for(Player player: players){
-			if(player.isOwnerOfSpace(position)){
+			Space space = (Space)getMapObjectWithIndex(position);
+			if(space.isOwnedBy(player)){
 				 console.setTextAttributes(new TextAttributes(player.getColor()));
 				 return;
 			}

@@ -42,8 +42,8 @@ public class Game {
 		return commandManager;
 	}
 	
-	public Player getTheOwnerOfSpace(int spacePosition){
-		return playerList.getTheOwnerOfSpace(spacePosition);
+	public Player getTheOwnerOfSpace(Space space){
+		return playerList.getTheOwnerOfSpace(space);
 	}
 
 	public void start() {
@@ -69,9 +69,9 @@ public class Game {
 					return;
 			    }
 				
-				player.decreasHospitalizedTimes();
-				player.decreasLuckyTimes();
-				player.decreasTrappedInPrisonTimes();
+				player.decreaseHospitalizedTimes();
+				player.decreaseLuckyTimes();
+				player.decreaseTrappedInPrisonTimes();
 				
 				if (player.isBombed() || player.isTrappedInPrison() ||
 						player.isBankrupt()) {
@@ -85,12 +85,14 @@ public class Game {
 						break;
 					}
 				}
+				
 				if (!isPlayerPassOnSpaceOwned(player)) {
 					map.getMapObjectWithIndex(player.getPosition())
 							.playerPassOnHere(player, this);
 					continue;
 				}
-				if (player.isOwnerOfSpace(player.getPosition())) {
+				Space space = (Space)map.getMapObjectWithIndex(player.getPosition());
+				if (space.isOwnedBy(player)) {
 					playerPassOnOwnSpace(player);
 					continue;
 				}
@@ -142,7 +144,7 @@ public class Game {
 	
 	public void playerPassOnOtherSpace(Player player) {
 		Space space = (Space) map.getMapObjectWithIndex(player.getPosition());
-		while (!space.isSafeForPlayerPassOnOtherSpace(player, this)) {
+		while (!space.isSafeForPlayerPassOnOtherSpace(player)) {
 			player.testBankrupt(space.getPassToll());
 			if (player.isBankrupt()) {
 				System.out.println("玩家" + player.getPlayerName() + "破产");
@@ -176,19 +178,21 @@ public class Game {
 	}
 
 	public void upgradeFixedAssetsWithPositionOf(int position){
-		MapObject mapObject = getUpgradeMapObject(map.getMapObjectWithIndex(position));
+		MapObject oldMapObject = map.getMapObjectWithIndex(position);
+		MapObject mapObject = getUpgradeMapObject(oldMapObject);
 		if (mapObject != null) {
-			playerList.getTheOwnerOfSpace(position).upgradeOwnFixedAssets(
-					mapObject);
+			playerList.getTheOwnerOfSpace((Space)oldMapObject).upgradeOwnFixedAssets(
+					(Space)oldMapObject);
 			map.upgradeFixedAssets(mapObject);
 			System.out.println("房产升级成功！");
 		}
 	}
 	
 	public void sellSpaceWithPositionOf(int position){
-		Player player = playerList.getTheOwnerOfSpace(position);
+		MapObject mapObject = getUpgradeMapObject(map.getMapObjectWithIndex(position));
+		Player player = playerList.getTheOwnerOfSpace((Space)mapObject);
 		Space space = getNewSpaceAfterSelled((Space)map.getMapObjectWithIndex(position));
-		player.sellSpace(space.getPosition());
+		player.sellSpace(space);
 		map.upgradeFixedAssets(space);
 	}
 
