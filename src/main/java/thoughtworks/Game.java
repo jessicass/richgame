@@ -207,10 +207,13 @@ public class Game {
 	public void obtainInputToInitialFunds() {
 		System.out.println(HINT_OF_PLAYER_INITIAL + "\n");
 		while(true){
-			int input = Input.getInteger();
-			if(Input.isIntegerInArea(input, Player.INITIAL_MIN_FUNDS, 
+			String input = Input.getString();
+			
+			if(input.matches(""))
+				return;
+			if(Input.isInputAnIntegerInArea(input, Player.INITIAL_MIN_FUNDS, 
 					Player.INITIAL_MAX_FUNDS)){
-				Player.INITIAL_FUNDS = input;
+				Player.INITIAL_FUNDS = Integer.parseInt(input);
 				break;
 			}
 		}
