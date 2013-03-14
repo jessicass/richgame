@@ -11,11 +11,11 @@ import enigma.core.*;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {       	
-    	TextAttributes attrs = new TextAttributes(Color.BLUE, Color.WHITE);
-    	console.setTextAttributes(attrs);
-    	System.out.println("Hello,World");
-    }
-    private static final Console console=Enigma.getConsole("");
+//    public static void main( String[] args )
+//    {
+//    	TextAttributes attrs = new TextAttributes(Color.BLUE, Color.WHITE);
+//    	console.setTextAttributes(attrs);
+//    	System.out.println("Hello,World");
+//    }
+//    private static final Console console=Enigma.getConsole("");
 }

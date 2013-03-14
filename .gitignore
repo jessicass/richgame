@@ -1,3 +1,6 @@
 .project
 .Classpath
 target
+richgame.iml
+richgame.ipr
+richgame.iws
