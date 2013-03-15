@@ -1,11 +1,9 @@
-package thoughtworks.playersTest;
+package thoughtworks.players;
 
 import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
-import thoughtworks.players.FixedAssetsOfPlayer;
 
 public class FixedAssetsOfPlayerTest {
 	private FixedAssetsOfPlayer fixedAssetsOfPlayer;

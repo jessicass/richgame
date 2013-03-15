@@ -31,8 +31,8 @@ public class Player {
 	private ToolsOfPlayer toolsOfPlayer = new ToolsOfPlayer();
 
 	public Player(int index){
-		playerName = PlayerName.getPlayerName(index);
-		shortName = PlayerName.getShortName(index);
+		playerName = DefaultPlayer.getPlayerName(index);
+		shortName = DefaultPlayer.getShortName(index);
 		funds = Player.INITIAL_FUNDS;
 		switch (index) {
 		case 1:

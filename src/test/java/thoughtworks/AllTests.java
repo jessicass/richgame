@@ -13,10 +13,10 @@ import thoughtworks.functionalTest.PlayerPassOnOtherSpaceTest;
 import thoughtworks.functionalTest.PlayerPropertyQueryTest;
 import thoughtworks.functionalTest.PlayerSellToolsTest;
 import thoughtworks.functionalTest.UpdatePlayerPositionTest;
-import thoughtworks.playersTest.FixedAssetsOfPlayerTest;
-import thoughtworks.playersTest.PlayerNameTest;
-import thoughtworks.playersTest.PlayerTest;
-import thoughtworks.playersTest.ToolsOfPlayerTest;
+import thoughtworks.players.FixedAssetsOfPlayerTest;
+import thoughtworks.players.PlayerNameTest;
+import thoughtworks.players.PlayerTest;
+import thoughtworks.players.ToolsOfPlayerTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ PlayerFixedAssetsBuildTest.class, PlayerPropertyQueryTest.class,

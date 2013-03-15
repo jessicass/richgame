@@ -1,4 +1,4 @@
-package thoughtworks.playersTest;
+package thoughtworks.players;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import thoughtworks.fixedAssets.Space;
-import thoughtworks.players.Player;
 import thoughtworks.publicPlace.Mine;
 import thoughtworks.tools.Block;
 import thoughtworks.tools.Bomb;
