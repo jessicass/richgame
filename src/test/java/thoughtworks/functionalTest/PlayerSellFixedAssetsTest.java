@@ -15,19 +15,22 @@ public class PlayerSellFixedAssetsTest {
 	private Game game = new Game();
 	private Player player;
 	private Map map;
+	private Space space;
 	
 	@Before
 	public void setUp(){
 		game.isCreatPlayerListSuccess(1234);
 		player = game.getPlayers().get(0);
 		map = game.getMap();
-		Space space = (Space)map.getMapObjectWithIndex(1);
+		space = (Space)map.getMapObjectWithIndex(1);
 		player.buySpace(space.getBuyFunds());
 		space.toBeOwned(player);
 	}
 	
 	@Test
 	public void shouldSellSpaceObtain400(){
+		assertThat(player.getFunds(), is(9800));
+		assertThat(space.getTotalCost(), is(200));
 		game.sellSpaceWithPositionOf(1);
 		assertThat(player.getFunds(), is(10200));
 		assertThat(player.getFixedAssetsOfPlayer().getNumberOfSpaces(), is(0));	

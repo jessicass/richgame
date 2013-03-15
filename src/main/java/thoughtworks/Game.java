@@ -189,11 +189,11 @@ public class Game {
 	}
 	
 	public void sellSpaceWithPositionOf(int position){
-		MapObject mapObject = getUpgradeMapObject(map.getMapObjectWithIndex(position));
-		Player player = playerList.getTheOwnerOfSpace((Space)mapObject);
-		Space space = getNewSpaceAfterSelled((Space)map.getMapObjectWithIndex(position));
-		player.sellSpace(space);
-		map.upgradeFixedAssets(space);
+		Space oldSpace = (Space)map.getMapObjectWithIndex(position);
+		Player player = playerList.getTheOwnerOfSpace(oldSpace);
+		Space newSpace = getNewSpaceAfterSelled(oldSpace);
+		player.sellSpace(oldSpace);
+		map.upgradeFixedAssets(newSpace);
 	}
 
 	public MapObject getUpgradeMapObject(MapObject mapObject){
