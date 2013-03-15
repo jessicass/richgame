@@ -108,8 +108,8 @@ public class Map {
 		return mapList.get(index);
 	}
 	
-	public void upgradeFixedAssets(MapObject mapObject) {
-		mapList.set(mapObject.getPosition(), mapObject);
+	public void upgradeFixedAssets(Space space) {
+		mapList.set(space.getPosition(), space);
 	}
 	
 	public boolean isSpaceWithPositionOf(int position){

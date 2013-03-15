@@ -13,7 +13,5 @@ public interface MapObject {
 	public void setBomb();
 	public void resetBomb();
 	public int getPosition();
-//修改
-	public MapObject upgrade();
 	public void playerPassOnHere(Player player, Game game);
 }

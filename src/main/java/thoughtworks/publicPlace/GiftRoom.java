@@ -85,8 +85,4 @@ public class GiftRoom implements MapObject {
 			}
 		}
 	}
-	
-	public MapObject upgrade(){
-		return null;
-	}
 }

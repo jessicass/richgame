@@ -62,8 +62,4 @@ public class Prison implements MapObject {
 		passer.toBeTrappedInPrison();
 		System.out.println("非常抱歉，您被困在监狱了");
 	}
-	
-	public MapObject upgrade(){
-		return null;
-	}
 }

@@ -96,8 +96,4 @@ public class Mine implements MapObject {
 		passer.obtainPointsFromMine(points);
 		System.out.println("恭喜您在矿地获得" + points + "点数");
 	}
-	
-	public MapObject upgrade(){
-		return null;
-	}
 }

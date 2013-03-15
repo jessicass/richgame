@@ -191,7 +191,7 @@ public class Space implements MapObject{
 		return hasBomb;
 	}
 	
-	public MapObject upgrade(){
+	public Space upgrade(){
 		Cottage cottage = new Cottage(position);
 		cottage.totalCost = totalCost + upgradeFunds;
 		cottage.owner = owner;

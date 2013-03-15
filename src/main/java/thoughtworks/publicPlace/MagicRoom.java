@@ -58,8 +58,4 @@ public class MagicRoom implements MapObject {
 	}
 
 	public void playerPassOnHere(Player player, Game game) {}
-	
-	public MapObject upgrade(){
-		return null;
-	}
 }

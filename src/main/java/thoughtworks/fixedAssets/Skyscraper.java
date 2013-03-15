@@ -43,7 +43,7 @@ public class Skyscraper extends Space implements MapObject {
 		return this.passToll;
 	}
 	
-	public MapObject upgrade(){
+	public Space upgrade(){
 		return null;
 	}
 	

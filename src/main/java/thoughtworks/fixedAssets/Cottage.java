@@ -49,7 +49,7 @@ public class Cottage extends Space implements MapObject {
 		return this.passToll;
 	}
 	
-	public MapObject upgrade(){
+	public Space upgrade(){
 		House house = new House(position);
 		house.totalCost = totalCost + upgradeFunds;
 		house.owner = owner;

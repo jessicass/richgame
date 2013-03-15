@@ -128,8 +128,4 @@ public class ToolRoom implements MapObject {
 			}
 		}
 	}
-	
-	public MapObject upgrade(){
-		return null;
-	}
 }

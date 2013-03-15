@@ -178,12 +178,12 @@ public class Game {
 	}
 
 	public void upgradeFixedAssetsWithPositionOf(int position){
-		MapObject oldMapObject = map.getMapObjectWithIndex(position);
-		MapObject mapObject = getUpgradeMapObject(oldMapObject);
-		if (mapObject != null) {
-			playerList.getTheOwnerOfSpace((Space)oldMapObject).upgradeOwnFixedAssets(
-					(Space)oldMapObject);
-			map.upgradeFixedAssets(mapObject);
+		Space oldSpace = (Space)map.getMapObjectWithIndex(position);
+		Space newSpace = getUpgradeSpace(oldSpace);
+		if (newSpace != null) {
+			playerList.getTheOwnerOfSpace(oldSpace).upgradeOwnFixedAssets(
+					oldSpace);
+			map.upgradeFixedAssets(newSpace);
 			System.out.println("房产升级成功！");
 		}
 	}
@@ -196,8 +196,8 @@ public class Game {
 		map.upgradeFixedAssets(newSpace);
 	}
 
-	public MapObject getUpgradeMapObject(MapObject mapObject){
-		return mapObject.upgrade();
+	public Space getUpgradeSpace(Space space){
+		return space.upgrade();
 	}
 	
 	public Space getNewSpaceAfterSelled(Space space){
