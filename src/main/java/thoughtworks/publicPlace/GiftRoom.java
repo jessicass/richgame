@@ -11,7 +11,7 @@ import thoughtworks.tools.Bomb;
 
 public class GiftRoom implements MapObject {
 	public static final String symbol = "G";
-	public static final int position = 35;
+	private int position;
 	public static final String WELCOME = "欢迎光临礼品屋，请输入" +
 			"您所需要的礼品的编号：";
 	public static final int presentFunds = 2000;
@@ -21,6 +21,10 @@ public class GiftRoom implements MapObject {
 	private boolean hasBlock;
 	private boolean hasBomb;
 	
+	public GiftRoom(int position) {
+		this.position = position;
+	}
+
 	public String getSymbol(ArrayList<Player> players){
 		for(Player player: players){
 			if(player.getPosition() == position){

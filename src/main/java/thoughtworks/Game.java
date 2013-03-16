@@ -8,7 +8,6 @@ import thoughtworks.functionClass.Input;
 import thoughtworks.functionClass.PositionUpdate;
 import thoughtworks.functionClass.RoleNumberTransfer;
 import thoughtworks.players.*;
-import thoughtworks.publicPlace.Hospital;
 
 public class Game {
 	public static final String HINT_OF_START = "请输入游戏开始指令：";
@@ -168,7 +167,7 @@ public class Game {
 			}
 			if (map.getMapObjectWithIndex(position).hasBomb()) {
 				System.out.println("非常不幸，被路障拦截！");
-				player.updatePosition(Hospital.position);
+				player.updatePosition(Map.HosipitalPosition);
 				player.toBeBombed();
 				map.getMapObjectWithIndex(position).resetBomb();
 				return;

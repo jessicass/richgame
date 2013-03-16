@@ -2,6 +2,7 @@ package thoughtworks.players;
 
 import java.awt.Color;
 
+import thoughtworks.Map;
 import thoughtworks.fixedAssets.*;
 import thoughtworks.functionClass.PositionUpdate;
 import thoughtworks.publicPlace.*;
@@ -153,7 +154,7 @@ public class Player {
 	
 	public void toBeBombed(){
 		isBombed = true;
-		position = Hospital.position;
+		position = Map.HosipitalPosition;
 	}
 	
 	public void toBeTrappedInPrison(){

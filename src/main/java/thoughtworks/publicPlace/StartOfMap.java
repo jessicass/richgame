@@ -10,10 +10,14 @@ import thoughtworks.tools.Bomb;
 
 public class StartOfMap implements MapObject {
 	public static final String symbol = "S";
-	public static final int position = 0;
 	private boolean hasBlock;
 	private boolean hasBomb;
+	private int position;
 	
+	public StartOfMap(int position) {
+		this.position = position;
+	}
+
 	public String getSymbol(ArrayList<Player> players){
 		for(Player player: players){
 			if(player.getPosition() == position){

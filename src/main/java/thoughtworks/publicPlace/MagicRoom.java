@@ -10,10 +10,14 @@ import thoughtworks.tools.Bomb;
 
 public class MagicRoom implements MapObject {
 	public static final String symbol = "M";
-	public static final int position = 63;
 	private boolean hasBlock;
 	private boolean hasBomb;
+	private int position;
 	
+	public MagicRoom(int position) {
+		this.position = position;
+	}
+
 	public String getSymbol(ArrayList<Player> players){
 		for(Player player: players){
 			if(player.getPosition() == position){

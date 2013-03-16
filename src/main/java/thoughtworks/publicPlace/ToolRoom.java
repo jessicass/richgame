@@ -10,7 +10,6 @@ import thoughtworks.tools.*;
 
 public class ToolRoom implements MapObject {
 	public static final String symbol = "T";
-	public static final int position = 28;
 	public static final int LIMIT_NUMBER_OF_TOOLS = 10;
 	public static final String WELCOME = "欢迎光临道具屋，请输入" +
 			"您所需要的道具的编号：";
@@ -20,7 +19,12 @@ public class ToolRoom implements MapObject {
 	public static final int MIN_TOOL_NUMBER = 1;
 	private boolean hasBlock;
 	private boolean hasBomb;
+	private int position;
 	
+	public ToolRoom(int position) {
+		this.position = position;
+	}
+
 	public static int buyToolPoints(int toolNumber) {
 		switch(toolNumber){
 		    case Block.toolNumber:

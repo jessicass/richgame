@@ -27,7 +27,7 @@ public class PlayerPropertyQueryTest {
 	public void setUp(){
 		player = new Player(1);
 		space = new Space(1);
-		mine = new Mine(64);
+		mine = new Mine(64, 60);
 	}
 	
 	public String getString(int funds, int points, int[] fixedAssets, int[] tools){

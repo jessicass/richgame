@@ -10,11 +10,15 @@ import thoughtworks.tools.Bomb;
 
 public class Prison implements MapObject {
 	public static final String symbol = "P";
-	public static final int position = 49;
+	private int position;
 	public static final int timesPlayerBeTrappedInPrison = 2;
 	private boolean hasBlock;
 	private boolean hasBomb;
 	
+	public Prison(int position) {
+		this.position = position;
+	}
+
 	public String getSymbol(ArrayList<Player> players){
 		for(Player player: players){
 			if(player.getPosition() == position){

@@ -21,7 +21,7 @@ public class PlayerTest {
 	public void setUp(){
 		player = new Player(1);
 		space = new Space(1);
-		mine = new Mine(64);
+		mine = new Mine(64, 60);
 		player.obtainPointsFromMine(mine.getPoints());
 	}
 	

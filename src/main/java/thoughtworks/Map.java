@@ -12,51 +12,35 @@ import thoughtworks.publicPlace.*;
 
 public class Map {
 	public static final int MAX_POSITION = 69;
+	public static final int HosipitalPosition = 14;	
 	private ArrayList<MapObject> mapList = new ArrayList<MapObject>();
 	private static final Console console = Enigma.getConsole("");
 
 	public Map() {
 		for (int i = 0; i <= MAX_POSITION; i++) {
-			switch (i) {
-			case StartOfMap.position:
-				mapList.add(new StartOfMap());
-				break;
-			case Hospital.position:
-				mapList.add(new Hospital());
-				break;
-			case ToolRoom.position:
-				mapList.add(new ToolRoom());
-				break;
-			case GiftRoom.position:
-				mapList.add(new GiftRoom());
-				break;
-			case Prison.position:
-				mapList.add(new Prison());
-				break;
-			case MagicRoom.position:
-				mapList.add(new MagicRoom());
-				break;
-			case Mine.position1:
-				mapList.add(new Mine(Mine.position1));
-				break;
-			case Mine.position2:
-				mapList.add(new Mine(Mine.position2));
-				break;
-			case Mine.position3:
-				mapList.add(new Mine(Mine.position3));
-				break;
-			case Mine.position4:
-				mapList.add(new Mine(Mine.position4));
-				break;
-			case Mine.position5:
-				mapList.add(new Mine(Mine.position5));
-				break;
-			case Mine.position6:
-				mapList.add(new Mine(Mine.position6));
-				break;
-			default:
-				mapList.add(new Space(i));
-			}
+			mapList.add(new StartOfMap(0));
+			initialSpace(mapList, 1, 13);
+			mapList.add(new Hospital(14));
+			initialSpace(mapList, 15, 13);
+			mapList.add(new ToolRoom(28));
+			initialSpace(mapList, 29, 6);
+			mapList.add(new GiftRoom(35));
+			initialSpace(mapList, 36, 13);
+			mapList.add(new Prison(49));
+			initialSpace(mapList, 50, 13);
+			mapList.add(new MagicRoom(63));
+			mapList.add(new Mine(64, 60));
+			mapList.add(new Mine(65, 80));
+			mapList.add(new Mine(66, 40));
+			mapList.add(new Mine(67, 100));
+			mapList.add(new Mine(68, 80));
+			mapList.add(new Mine(69, 20));
+		}
+	}
+
+	private void initialSpace(ArrayList<MapObject> mapList, int startNum, int length) {
+		for(int i = startNum; i < startNum + length; i++){
+			mapList.add(new Space(i));
 		}
 	}
 
@@ -113,18 +97,10 @@ public class Map {
 	}
 	
 	public boolean isSpaceWithPositionOf(int position){
-		if((position != StartOfMap.position) && 
-		  (position != Hospital.position) && 
-		  (position != ToolRoom.position) &&
-		  (position != GiftRoom.position) &&
-		  (position != Prison.position) &&
-		  (position != MagicRoom.position) &&
-		  (position != Mine.position1) &&
-		  (position != Mine.position2) &&
-		  (position != Mine.position3) &&
-		  (position != Mine.position4) &&
-		  (position != Mine.position5) &&
-		  (position != Mine.position6) ){
+		if((position != 0) && (position != 14) &&
+				(position != 28) && (position != 35) &&
+				(position != 49) && (position != 63) &&
+				!((position >= 64) && (position <= 69))){
 			  return true;
 		  }
 		return false;
