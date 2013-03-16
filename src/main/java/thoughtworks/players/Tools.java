@@ -4,7 +4,7 @@ import thoughtworks.tools.Block;
 import thoughtworks.tools.Bomb;
 import thoughtworks.tools.Robot;
 
-public class ToolsOfPlayer {
+public class Tools {
 	private int numberOfBlocks;
 	private int numberOfRobots;
 	private int numberOfBombs;

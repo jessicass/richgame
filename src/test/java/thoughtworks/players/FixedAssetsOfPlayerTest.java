@@ -6,11 +6,11 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class FixedAssetsOfPlayerTest {
-	private FixedAssetsOfPlayer fixedAssetsOfPlayer;
+	private FixedAssets fixedAssetsOfPlayer;
 	
 	@Before
 	public void setUp(){
-		fixedAssetsOfPlayer = new FixedAssetsOfPlayer();
+		fixedAssetsOfPlayer = new FixedAssets();
 	}
 	
 	@Test

@@ -24,9 +24,9 @@ public class Player {
     private int timesBeTrappedInPrison =
             Prison.timesPlayerBeTrappedInPrison + 1;
 
-    private FixedAssetsOfPlayer fixedAssetsOfPlayer =
-            new FixedAssetsOfPlayer();
-    private ToolsOfPlayer toolsOfPlayer = new ToolsOfPlayer();
+    private FixedAssets fixedAssetsOfPlayer =
+            new FixedAssets();
+    private Tools toolsOfPlayer = new Tools();
 
     private SystemPlayer info;
 
@@ -59,11 +59,11 @@ public class Player {
         return position;
     }
 
-    public FixedAssetsOfPlayer getFixedAssetsOfPlayer() {
+    public FixedAssets getFixedAssetsOfPlayer() {
         return fixedAssetsOfPlayer;
     }
 
-    public ToolsOfPlayer getToolsOfPlayer() {
+    public Tools getToolsOfPlayer() {
         return toolsOfPlayer;
     }
 

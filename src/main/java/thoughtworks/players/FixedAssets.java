@@ -1,7 +1,7 @@
 package thoughtworks.players;
 
 
-public class FixedAssetsOfPlayer {
+public class FixedAssets {
 	private int numberOfSpaces = 0;
 	private int numberOfCottages = 0;
 	private int numberOfHouses = 0;

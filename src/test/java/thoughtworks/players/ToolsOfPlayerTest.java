@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 public class ToolsOfPlayerTest {
-	private ToolsOfPlayer toolsOfPlayer = new ToolsOfPlayer();
+	private Tools toolsOfPlayer = new Tools();
 	
 	@Test
 	public void shouldAfterBuyBlockNumberOfBlockBe1(){
