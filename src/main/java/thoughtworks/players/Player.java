@@ -2,15 +2,13 @@ package thoughtworks.players;
 
 import java.awt.Color;
 
+import thoughtworks.GlobalSettings;
 import thoughtworks.Map;
 import thoughtworks.fixedAssets.*;
 import thoughtworks.functionClass.PositionUpdate;
 import thoughtworks.publicPlace.*;
 
 public class Player {
-    public static int INITIAL_FUNDS = 10000;
-    public static int INITIAL_MIN_FUNDS = 500;
-    public static int INITIAL_MAX_FUNDS = 50000;
     private int funds;
     private int points = 0;
     private int position;
@@ -32,7 +30,7 @@ public class Player {
 
     public Player(int index) {
         info = SystemPlayer.getPlayer(index);
-        funds = Player.INITIAL_FUNDS;
+        funds = GlobalSettings.INITIAL_FUNDS;
     }
 
     public Color getColor() {

@@ -15,8 +15,8 @@ public class Game {
 	public static final String HINT_OF_PLAYER_CHOICE = "请选择2~4位"
 			+ "不重复玩家，输入编号即可。（1.钱夫人；2.阿土伯；3.孙小美；4.金贝贝）：";
 	public static final String HINT_OF_PLAYER_INITIAL = "请输入玩家初始"
-			+ "资金，范围" + Player.INITIAL_MIN_FUNDS + "~" + Player.INITIAL_MAX_FUNDS +
-			"（默认" + Player.INITIAL_FUNDS + "）：";
+			+ "资金，范围" + GlobalSettings.INITIAL_MIN_FUNDS + "~" + GlobalSettings.INITIAL_MAX_FUNDS +
+			"（默认" + GlobalSettings.INITIAL_FUNDS + "）：";
 	public static final String ERROR_OF_PLAYER_NUMBERS = "玩家编号输入错误，请重新输入！";
 
 	public static final String START_COMMAND = "rich";
@@ -210,9 +210,9 @@ public class Game {
 			
 			if(input.matches(""))
 				return;
-			if(Input.isInputAnIntegerInArea(input, Player.INITIAL_MIN_FUNDS, 
-					Player.INITIAL_MAX_FUNDS)){
-				Player.INITIAL_FUNDS = Integer.parseInt(input);
+			if(Input.isInputAnIntegerInArea(input, GlobalSettings.INITIAL_MIN_FUNDS,
+					GlobalSettings.INITIAL_MAX_FUNDS)){
+				GlobalSettings.INITIAL_FUNDS = Integer.parseInt(input);
 				break;
 			}
 		}
