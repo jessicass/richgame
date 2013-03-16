@@ -11,7 +11,6 @@ public class Player {
     public static int INITIAL_FUNDS = 10000;
     public static int INITIAL_MIN_FUNDS = 500;
     public static int INITIAL_MAX_FUNDS = 50000;
-    public Color color;
     private int funds;
     private int points = 0;
     private int position;
@@ -34,11 +33,10 @@ public class Player {
     public Player(int index) {
         info = SystemPlayer.getPlayer(index);
         funds = Player.INITIAL_FUNDS;
-        color = info.getColor();
     }
 
     public Color getColor() {
-        return color;
+        return info.getColor();
     }
 
     public int getFunds() {
