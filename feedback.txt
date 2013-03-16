@@ -1,0 +1,2 @@
+1.有些类、属性、方法命名含糊不清。比如：enum对象PlayerName其实存储的是系统默认的几个用户，所以我重命名为SystemPlayer.
+2.测试方法没有使用given, when then 方式，一个测试中含有多个assertion.

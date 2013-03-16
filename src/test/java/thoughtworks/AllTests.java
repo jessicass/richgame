@@ -14,7 +14,7 @@ import thoughtworks.functionalTest.PlayerPropertyQueryTest;
 import thoughtworks.functionalTest.PlayerSellToolsTest;
 import thoughtworks.functionalTest.UpdatePlayerPositionTest;
 import thoughtworks.players.FixedAssetsOfPlayerTest;
-import thoughtworks.players.PlayerNameTest;
+import thoughtworks.players.SystemPlayerTest;
 import thoughtworks.players.PlayerTest;
 import thoughtworks.players.ToolsOfPlayerTest;
 
@@ -24,7 +24,7 @@ import thoughtworks.players.ToolsOfPlayerTest;
 	PlayerChooseGiftInPresentRoomTest.class, CreatPlayerListTest.class,
 	MapDrawTest.class, UpdatePlayerPositionTest.class,
 	PlayerSellToolsTest.class,FixedAssetsOfPlayerTest.class,
-	PlayerNameTest.class,PlayerTest.class,ToolsOfPlayerTest.class})
+	SystemPlayerTest.class,PlayerTest.class,ToolsOfPlayerTest.class})
 public class AllTests {
 
 }

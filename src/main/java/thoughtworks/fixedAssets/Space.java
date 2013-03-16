@@ -154,7 +154,7 @@ public class Space implements MapObject{
 		}
 		while(true){
 			if(passer.getFunds() >= passToll){
-				System.out.println("支付过路费给" + owner.getPlayerName());
+				System.out.println("支付过路费给" + owner.getName());
 				passer.handInPassTollToOthers(passToll);
 				owner.obtainPassTollFromOthers(
 						passToll);

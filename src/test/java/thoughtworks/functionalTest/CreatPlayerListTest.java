@@ -24,9 +24,9 @@ public class CreatPlayerListTest {
 	public void shouldPlayerShortNameBeQAndA(){
 		assertThat(game.isCreatPlayerListSuccess(12), is(true));
 		players = game.getPlayers();
-		assertThat(players.get(0).getPlayerName(), is("钱夫人"));
+		assertThat(players.get(0).getName(), is("钱夫人"));
 		assertThat(players.get(0).getShortName(), is("Q"));
-		assertThat(players.get(1).getPlayerName(), is("阿土伯"));
+		assertThat(players.get(1).getName(), is("阿土伯"));
 		assertThat(players.get(1).getShortName(), is("A"));
 	}
 	

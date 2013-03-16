@@ -64,7 +64,7 @@ public class Game {
 			for (Player player : playerList.getPlayers()) {
 				map.drawMap(playerList.getPlayers());
 				if(isWinnerProduced()){
-					System.out.println("恭喜玩家" + getWinner().getPlayerName() + "获胜！");
+					System.out.println("恭喜玩家" + getWinner().getName() + "获胜！");
 					return;
 			    }
 				
@@ -78,7 +78,7 @@ public class Game {
 				}
 				
 				while (true) {
-					System.out.println(player.getPlayerName() + ">");
+					System.out.println(player.getName() + ">");
 					String input = Input.getString();
 					if (commandManager.isCommandRunEnd(input, player, this)) {
 						break;
@@ -146,7 +146,7 @@ public class Game {
 		while (!space.isSafeForPlayerPassOnOtherSpace(player)) {
 			player.testBankrupt(space.getPassToll());
 			if (player.isBankrupt()) {
-				System.out.println("玩家" + player.getPlayerName() + "破产");
+				System.out.println("玩家" + player.getName() + "破产");
 				playerList.getPlayers().remove(player);
 			} else {
 				System.out.println("请输入要出售的房产编号：");
