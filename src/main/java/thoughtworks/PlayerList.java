@@ -21,12 +21,5 @@ public class PlayerList {
 	public Player getPlayer(int index){
 		return playerList.get(index-1);
 	}
-	
-	public Player getTheOwnerOfSpace(Space space){
-		for(Player player:playerList){
-			if(space.isOwnedBy(player))
-				return player;
-		}
-		return null;
-	}
+
 }

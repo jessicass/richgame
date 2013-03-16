@@ -42,8 +42,8 @@ public class Game {
 	}
 	
 	public Player getTheOwnerOfSpace(Space space){
-		return playerList.getTheOwnerOfSpace(space);
-	}
+        return space.getOwner();
+    }
 
 	public void start() {
 		System.out.println(HINT_OF_START + "\n");
@@ -180,8 +180,8 @@ public class Game {
 		Space oldSpace = (Space)map.getMapObjectWithIndex(position);
 		Space newSpace = getUpgradeSpace(oldSpace);
 		if (newSpace != null) {
-			playerList.getTheOwnerOfSpace(oldSpace).upgradeOwnFixedAssets(
-					oldSpace);
+            oldSpace.getOwner().upgradeOwnFixedAssets(
+                    oldSpace);
 			map.upgradeFixedAssets(newSpace);
 			System.out.println("房产升级成功！");
 		}
@@ -189,7 +189,7 @@ public class Game {
 	
 	public void sellSpaceWithPositionOf(int position){
 		Space oldSpace = (Space)map.getMapObjectWithIndex(position);
-		Player player = playerList.getTheOwnerOfSpace(oldSpace);
+        Player player = oldSpace.getOwner();
 		Space newSpace = getNewSpaceAfterSelled(oldSpace);
 		player.sellSpace(oldSpace);
 		map.upgradeFixedAssets(newSpace);
