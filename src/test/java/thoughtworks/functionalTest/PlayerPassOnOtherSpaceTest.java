@@ -18,7 +18,7 @@ public class PlayerPassOnOtherSpaceTest {
 	@Before
 	public void setUp(){
 		game = new Game();
-		game.isCreatPlayerListSuccess(12);
+		game.isCreatPlayerListSuccess("12");
 		owner = game.getPlayers().get(0);
 		passer = game.getPlayers().get(1);
 		space = (Space)game.getMapObjectWithIndex(1);

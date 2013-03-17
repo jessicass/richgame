@@ -4,6 +4,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import thoughtworks.functionClass.PositionUpdateTest;
+import thoughtworks.functionClass.RoleNumberTransferTest;
 import thoughtworks.functionalTest.CreatPlayerListTest;
 import thoughtworks.functionalTest.MapDrawTest;
 import thoughtworks.functionalTest.PlayerBuyToolsInToolRoomTest;
@@ -24,7 +26,8 @@ import thoughtworks.players.ToolsOfPlayerTest;
 	PlayerChooseGiftInPresentRoomTest.class, CreatPlayerListTest.class,
 	MapDrawTest.class, UpdatePlayerPositionTest.class,
 	PlayerSellToolsTest.class,FixedAssetsOfPlayerTest.class,
-	SystemPlayerTest.class,PlayerTest.class,ToolsOfPlayerTest.class})
+	SystemPlayerTest.class,PlayerTest.class,ToolsOfPlayerTest.class,
+	RoleNumberTransferTest.class,PositionUpdateTest.class})
 public class AllTests {
 
 }

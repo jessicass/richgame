@@ -18,7 +18,7 @@ public class UpdatePlayerPositionTest {
 	@Before
 	public void setUp(){
 		game = new Game();
-		game.isCreatPlayerListSuccess(12);
+		game.isCreatPlayerListSuccess("12");
 		players = game.getPlayers();
 	}
 	

@@ -2,7 +2,6 @@ package thoughtworks;
 
 import java.util.ArrayList;
 
-import thoughtworks.fixedAssets.Space;
 import thoughtworks.players.Player;
 
 public class PlayerList {	

@@ -16,28 +16,28 @@ public class RoleNumberTransfer {
 		return roleNumberArray;
 	}
 	
-	public static boolean isNumberOfPlayersWithinTheLimits(int[] roleNumberArray){
-	    if(roleNumberArray.length < MIN_NUMBER_OF_PLAYERS || 
-	    		roleNumberArray.length > MAX_NUMBER_OF_PLAYERS){
+	public static boolean isNumberOfPlayersWithinTheLimits(char[] roleNumbers){
+	    if(roleNumbers.length < MIN_NUMBER_OF_PLAYERS || 
+	    		roleNumbers.length > MAX_NUMBER_OF_PLAYERS){
 				return false;
 		}
 		return true;
 	}
 	
-	public static boolean isRoleNumbersWithinTheLimits(int[] roleNumberArray){
-		for(int i = 0; i < roleNumberArray.length; i++){
-			if(roleNumberArray[i] < MIN_ROLE_NUMBER || 
-					roleNumberArray[i] > MAX_ROLE_NUMBER){
+	public static boolean isRoleNumbersWithinTheLimits(char[] roleNumbers){
+		for(int i = 0; i < roleNumbers.length; i++){
+			if(Integer.valueOf(String.valueOf(roleNumbers[i])) < MIN_ROLE_NUMBER || 
+					Integer.valueOf(String.valueOf(roleNumbers[i])) > MAX_ROLE_NUMBER){
 				return false;
 			}
 		}
 		return true;
 	}
 	
-	public static boolean isRoleNumbersNotRepeat(int[] roleNumberArray){
-		for(int i = 0; i < roleNumberArray.length; i++){
-			for(int j = i + 1; j < roleNumberArray.length; j++){
-				if(roleNumberArray[i] == roleNumberArray[j]){
+	public static boolean isRoleNumbersNotRepeat(char[] roleNumbers){
+		for(int i = 0; i < roleNumbers.length; i++){
+			for(int j = i + 1; j < roleNumbers.length; j++){
+				if(roleNumbers[i] == roleNumbers[j]){
 					return false;
 				}
 			}
@@ -45,16 +45,11 @@ public class RoleNumberTransfer {
 		return true;
 	}
 	
-	public static int[] transferInputToRoleNumberArray(int input){
-		ArrayList<Integer> roleNumber = new ArrayList<Integer>();
-		while(input != 0){
-			roleNumber.add(input % 10);
-			input /= 10;
+	public static int[] transferInputToRoleNumberArray(String input){
+		ArrayList<Integer> roleNumbers = new ArrayList<Integer>();
+		for(int i = 0; i < input.length(); i++){
+			roleNumbers.add(Integer.valueOf(String.valueOf(input.charAt(i))));
 		}
-		ArrayList<Integer> newRoleNumber = new ArrayList<Integer>();
-		for(int i = 0; i < roleNumber.size(); i++){
-			newRoleNumber.add(roleNumber.get(roleNumber.size() - i - 1));
-		}
-		return transferRoleNumberListToArray(newRoleNumber);
+		return transferRoleNumberListToArray(roleNumbers);
 	}
 }

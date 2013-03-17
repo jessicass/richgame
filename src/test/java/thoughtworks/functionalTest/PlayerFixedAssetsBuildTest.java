@@ -19,7 +19,7 @@ public class PlayerFixedAssetsBuildTest {
 	
 	@Before
 	public void setUp(){
-		game.isCreatPlayerListSuccess(1234);
+		game.isCreatPlayerListSuccess("1234");
 		player = game.getPlayers().get(0);
 		map = game.getMap();
 		space = (Space)map.getMapObjectWithIndex(1);
