@@ -36,6 +36,14 @@ public class Player {
     public Color getColor() {
         return info.getColor();
     }
+    
+    public String getName() {
+    	return info.getName();
+    }
+    
+    public String getShortName() {
+    	return info.toString();
+    }
 
     public int getFunds() {
         return funds;
@@ -43,14 +51,6 @@ public class Player {
 
     public int getPoints() {
         return points;
-    }
-
-    public String getName() {
-        return info.getName();
-    }
-
-    public String getShortName() {
-        return info.toString();
     }
 
     public int getPosition() {

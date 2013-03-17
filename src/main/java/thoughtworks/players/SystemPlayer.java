@@ -9,42 +9,22 @@ public enum SystemPlayer {
     private int id;
     private Color color;
 
-    public Color getColor() {
-        return color;
-    }
-
     private SystemPlayer(String name, int id, Color color) {
         this.name = name;
         this.id = id;
         this.color = color;
     }
 
-    public static String getPlayerName(int index) {
-        for (SystemPlayer c : SystemPlayer.values()) {
-            if (c.getId() == index) {
-                return c.getName();
-            }
-        }
-        return null;
+    private int getId() {
+    	return id;
     }
-
-    public static String getShortName(int index) {
-        for (SystemPlayer c : SystemPlayer.values()) {
-            if (c.getId() == index) {
-                return c.toString();
-            }
-        }
-
-
-        return null;
+    
+    public Color getColor() {
+    	return color;
     }
-
-    public int getId() {
-        return id;
-    }
-
+    
     public String getName() {
-        return name;
+    	return name;
     }
 
     public static SystemPlayer getPlayer(final int id) {
