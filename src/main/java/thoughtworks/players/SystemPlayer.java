@@ -1,28 +1,17 @@
 package thoughtworks.players;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Iterables;
-
 import java.awt.*;
-import java.util.*;
-import java.util.List;
-
-import static ch.lambdaj.Lambda.*;
-import static com.google.common.collect.Range.greaterThan;
 
 public enum SystemPlayer {
-    Q("钱夫人", 1, Color.RED), A("阿土伯", 2, Color.yellow), S("孙小美", 3, Color.blue), J("金贝贝", 4, Color.green);
+    Q("钱夫人", 1, Color.red), A("阿土伯", 2, Color.yellow), S("孙小美", 3, Color.blue), J("金贝贝", 4, Color.green);
 
     private String name;
     private int id;
+    private Color color;
 
     public Color getColor() {
         return color;
     }
-
-    private Color color;
 
     private SystemPlayer(String name, int id, Color color) {
         this.name = name;
@@ -64,7 +53,6 @@ public enum SystemPlayer {
                 return systemPlayer;
             }
         }
-
         return null;
     }
 }

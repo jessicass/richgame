@@ -21,7 +21,7 @@ public class ToolsSetRight {
 	
 	@Before
 	public void setUp(){
-		game.isCreatPlayerListSuccess(1234);
+		game.isCreatPlayerListSuccess("1234");
 		game.getPlayers().get(0).updatePosition(3);
 		game.getPlayers().get(1).updatePosition(4);
 		game.getPlayers().get(2).updatePosition(5);

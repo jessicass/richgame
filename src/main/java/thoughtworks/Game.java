@@ -222,18 +222,17 @@ public class Game {
 		System.out.println(HINT_OF_PLAYER_CHOICE + "\n");
 		boolean isSuccess;
 		do {
-			isSuccess = isCreatPlayerListSuccess(Input.getInteger());
+			isSuccess = isCreatPlayerListSuccess(Input.getString());
 		} while (!isSuccess);
 	}
 
-	public boolean isCreatPlayerListSuccess(int input) {
+	public boolean isCreatPlayerListSuccess(String input) {
 		int[] roleNumberArray = RoleNumberTransfer
-				.transferInputToRoleNumberArray(input);
-		if (RoleNumberTransfer
-				.isNumberOfPlayersWithinTheLimits(roleNumberArray)
+				.transferInputToRoleNumberArray(input);		
+		if (RoleNumberTransfer.isNumberOfPlayersWithinTheLimits(input.toCharArray())
 				&& RoleNumberTransfer
-						.isRoleNumbersWithinTheLimits(roleNumberArray)
-				&& RoleNumberTransfer.isRoleNumbersNotRepeat(roleNumberArray)) {
+						.isRoleNumbersWithinTheLimits(input.toCharArray())
+				&& RoleNumberTransfer.isRoleNumbersNotRepeat(input.toCharArray())) {
 			playerList = new PlayerList(roleNumberArray);
 			return true;
 		} else {
