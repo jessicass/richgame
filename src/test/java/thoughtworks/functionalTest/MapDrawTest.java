@@ -17,8 +17,8 @@ public class MapDrawTest {
 	
 	@Before
 	public void setUp(){
-		game.isCreatPlayerListSuccess("1234");
-		players = game.getPlayers();
+		game.CreatPlayerList("1234");
+		players = game.getPlayerList().getPlayers();
 		map = game.getMap();
 	}
 	

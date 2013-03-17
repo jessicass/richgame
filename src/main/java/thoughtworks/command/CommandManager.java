@@ -3,6 +3,7 @@ package thoughtworks.command;
 import java.util.ArrayList;
 
 import thoughtworks.Game;
+import thoughtworks.GlobalSettings;
 import thoughtworks.Map;
 import thoughtworks.MapObject;
 import thoughtworks.fixedAssets.Space;
@@ -14,7 +15,7 @@ import thoughtworks.tools.Bomb;
 import thoughtworks.tools.Robot;
 
 public class CommandManager {
-	public boolean isCommandEnd = true ;
+	private boolean isCommandEnd = true ;
 	
 	public boolean isCommandRunEnd(String command, Player player, Game game){
 		String[] commandStrings = command.split(" ");
@@ -124,7 +125,7 @@ public class CommandManager {
 	
 	public boolean isFixedAssetPositionRight(String positionString,
 			Player player, Map map) {
-		if(!Input.isInputAnIntegerInArea(positionString, 0, Map.MAX_POSITION)){
+		if(!Input.isInputAnIntegerInArea(positionString, 0, GlobalSettings.MAX_POSITION)){
 			return false;
 		}
 		int position = Integer.parseInt(positionString);
@@ -158,7 +159,7 @@ public class CommandManager {
 		int distance = Integer.parseInt(distanceString);
 		int setPosition = PositionUpdate.getCurrentPositionWithDistance(
 				player.getPosition(), distance);
-		if(isPositionEqualPlayersPosition(game.getPlayers(), 
+		if(isPositionEqualPlayersPosition(game.getPlayerList().getPlayers(), 
 				setPosition)){
 			return false;
 		}

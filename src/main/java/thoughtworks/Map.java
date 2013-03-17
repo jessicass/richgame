@@ -11,13 +11,11 @@ import thoughtworks.players.Player;
 import thoughtworks.publicPlace.*;
 
 public class Map {
-	public static final int MAX_POSITION = 69;
-	public static final int HosipitalPosition = 14;	
 	private ArrayList<MapObject> mapList = new ArrayList<MapObject>();
 	private static final Console console = Enigma.getConsole("");
 
 	public Map() {
-		for (int i = 0; i <= MAX_POSITION; i++) {
+		for (int i = 0; i <= GlobalSettings.MAX_POSITION; i++) {
 			mapList.add(new StartOfMap(0));
 			initialSpace(mapList, 1, 13);
 			mapList.add(new Hospital(14));
@@ -58,7 +56,7 @@ public class Map {
 		}
 
 		System.out.print("\n");
-		for (int i = MAX_POSITION, j = 29; i > 63; i--, j++) {
+		for (int i = GlobalSettings.MAX_POSITION, j = 29; i > 63; i--, j++) {
 			System.out.print(mapList.get(i).getSymbol(players) + middleSpace);
 			setForegroundColor(j, players, console);
 			System.out.print(mapList.get(j).getSymbol(players));

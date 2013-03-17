@@ -1,7 +1,5 @@
 package thoughtworks;
 
-import java.util.ArrayList;
-
 import thoughtworks.command.*;
 import thoughtworks.fixedAssets.Space;
 import thoughtworks.functionClass.Input;
@@ -12,21 +10,15 @@ import thoughtworks.players.*;
 public class Game {
 	public static final String HINT_OF_START = "请输入游戏开始指令：";
 	public static final String ERROR_OF_START = "指令错误，请重新输入游戏开始指令：";
-	public static final String HINT_OF_PLAYER_CHOICE = "请选择2~4位"
-			+ "不重复玩家，输入编号即可。（1.钱夫人；2.阿土伯；3.孙小美；4.金贝贝）：";
-	public static final String HINT_OF_PLAYER_INITIAL = "请输入玩家初始"
-			+ "资金，范围" + GlobalSettings.INITIAL_MIN_FUNDS + "~" + GlobalSettings.INITIAL_MAX_FUNDS +
-			"（默认" + GlobalSettings.INITIAL_FUNDS + "）：";
-	public static final String ERROR_OF_PLAYER_NUMBERS = "玩家编号输入错误，请重新输入！";
-
+	
 	public static final String START_COMMAND = "rich";
 
 	private PlayerList playerList;
 	private Map map = new Map();
 	private CommandManager commandManager = new CommandManager();
 
-	public ArrayList<Player> getPlayers() {
-		return playerList.getPlayers();
+	public PlayerList getPlayerList() {
+		return playerList;
 	}
 	
 	public MapObject getMapObjectWithIndex(int index) {
@@ -49,14 +41,19 @@ public class Game {
 		System.out.println(HINT_OF_START + "\n");
 		while (true) {
 			if (Input.isInputCommandEquals(START_COMMAND)) {
-				obtainInputToInitialFunds();
-				obtainInputToCreatPlayerList();
+				playerList.obtainInputToInitialFunds();
+				CreatPlayerList(playerList.obtainInputToCreatePlayerList());
 				gameProcess();
 				break;
 			} else {
 				System.out.println(ERROR_OF_START + "\n");
 			}
 		}
+	}
+
+	public void CreatPlayerList(String input) {
+		playerList = new PlayerList(RoleNumberTransfer.
+				transferInputToRoleNumberArray(input));
 	}
 
 	public void gameProcess() {
@@ -167,7 +164,7 @@ public class Game {
 			}
 			if (map.getMapObjectWithIndex(position).hasBomb()) {
 				System.out.println("非常不幸，被路障拦截！");
-				player.updatePosition(Map.HosipitalPosition);
+				player.updatePosition(GlobalSettings.HosipitalPosition);
 				player.toBeBombed();
 				map.getMapObjectWithIndex(position).resetBomb();
 				return;
@@ -190,54 +187,12 @@ public class Game {
 	public void sellSpaceWithPositionOf(int position){
 		Space oldSpace = (Space)map.getMapObjectWithIndex(position);
         Player player = oldSpace.getOwner();
-		Space newSpace = getNewSpaceAfterSelled(oldSpace);
+		Space newSpace = oldSpace.sell();
 		player.sellSpace(oldSpace);
 		map.upgradeFixedAssets(newSpace);
 	}
 
 	public Space getUpgradeSpace(Space space){
 		return space.upgrade();
-	}
-	
-	public Space getNewSpaceAfterSelled(Space space){
-		return space.sell();
-	}
-
-	public void obtainInputToInitialFunds() {
-		System.out.println(HINT_OF_PLAYER_INITIAL + "\n");
-		while(true){
-			String input = Input.getString();
-			
-			if(input.matches(""))
-				return;
-			if(Input.isInputAnIntegerInArea(input, GlobalSettings.INITIAL_MIN_FUNDS,
-					GlobalSettings.INITIAL_MAX_FUNDS)){
-				GlobalSettings.INITIAL_FUNDS = Integer.parseInt(input);
-				break;
-			}
-		}
-	}
-
-	public void obtainInputToCreatPlayerList() {
-		System.out.println(HINT_OF_PLAYER_CHOICE + "\n");
-		boolean isSuccess;
-		do {
-			isSuccess = isCreatPlayerListSuccess(Input.getString());
-		} while (!isSuccess);
-	}
-
-	public boolean isCreatPlayerListSuccess(String input) {
-		int[] roleNumberArray = RoleNumberTransfer
-				.transferInputToRoleNumberArray(input);		
-		if (RoleNumberTransfer.isNumberOfPlayersWithinTheLimits(input.toCharArray())
-				&& RoleNumberTransfer
-						.isRoleNumbersWithinTheLimits(input.toCharArray())
-				&& RoleNumberTransfer.isRoleNumbersNotRepeat(input.toCharArray())) {
-			playerList = new PlayerList(roleNumberArray);
-			return true;
-		} else {
-			System.out.println(ERROR_OF_PLAYER_NUMBERS + "\n");
-			return false;
-		}
 	}
 }
