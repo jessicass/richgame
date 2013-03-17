@@ -10,10 +10,10 @@ import thoughtworks.tools.Bomb;
 
 public class Hospital implements MapObject {
 	public static final String symbol = "H";
-	private int position;
 	public static final int timesToPauseWhenPlayerBeHospitalized = 3;
 	private boolean hasBlock;
 	private boolean hasBomb;
+	private int position;
 	
 	public Hospital(int position) {
 		this.position = position;

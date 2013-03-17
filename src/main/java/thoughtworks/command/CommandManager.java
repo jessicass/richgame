@@ -3,6 +3,7 @@ package thoughtworks.command;
 import java.util.ArrayList;
 
 import thoughtworks.Game;
+import thoughtworks.GlobalSettings;
 import thoughtworks.Map;
 import thoughtworks.MapObject;
 import thoughtworks.fixedAssets.Space;
@@ -14,7 +15,7 @@ import thoughtworks.tools.Bomb;
 import thoughtworks.tools.Robot;
 
 public class CommandManager {
-	public boolean isCommandEnd = true ;
+	private boolean isCommandEnd = true ;
 	
 	public boolean isCommandRunEnd(String command, Player player, Game game){
 		String[] commandStrings = command.split(" ");
@@ -62,8 +63,8 @@ public class CommandManager {
     
 	public void setBlockWithCommand(String parameter, Player player, Game game){
 		if (isDistanceSetToolRight(parameter, player, game, Block.setRange)) {
-			if (player.getToolsOfPlayer().isOwnToolWithNumberOf(Block.toolNumber)) {
-				player.getToolsOfPlayer().decreaseNumberOfTools(Block.toolNumber);
+			if (player.getTools().isOwnToolWithNumberOf(Block.toolNumber)) {
+				player.getTools().decreaseNumberOfTools(Block.toolNumber);
 				int distance = Integer.parseInt(parameter);
 				int setPosition = PositionUpdate.getCurrentPositionWithDistance(
 						player.getPosition(), distance);
@@ -75,8 +76,8 @@ public class CommandManager {
 	
 	public void setBombWithCommand(String parameter, Player player, Game game){
 		if (isDistanceSetToolRight(parameter, player, game, Bomb.setRange)) {
-			if (player.getToolsOfPlayer().isOwnToolWithNumberOf(Bomb.toolNumber)) {
-				player.getToolsOfPlayer().decreaseNumberOfTools(Bomb.toolNumber);
+			if (player.getTools().isOwnToolWithNumberOf(Bomb.toolNumber)) {
+				player.getTools().decreaseNumberOfTools(Bomb.toolNumber);
 				int distance = Integer.parseInt(parameter);
 				int setPosition = PositionUpdate.getCurrentPositionWithDistance(
 						player.getPosition(), distance);
@@ -87,8 +88,8 @@ public class CommandManager {
 	}
 	
 	public void setRobotWithCommand(Player player, Game game){
-		if (player.getToolsOfPlayer().isOwnToolWithNumberOf(Robot.toolNumber)) {
-			player.getToolsOfPlayer().decreaseNumberOfTools(Robot.toolNumber);
+		if (player.getTools().isOwnToolWithNumberOf(Robot.toolNumber)) {
+			player.getTools().decreaseNumberOfTools(Robot.toolNumber);
 			int backPosition = PositionUpdate.getCurrentPositionWithDistance(
 					player.getPosition(), -Robot.clearRange);
 			MapObject mapObject = game.getMapObjectWithIndex(backPosition);
@@ -117,14 +118,14 @@ public class CommandManager {
 	public void sellRoolsWithCommand(String parameter, Player player, Game game){
 		if (isToolNumberRight(parameter, player)) {
 			int toolNumber = Integer.parseInt(parameter);
-			player.sellToolWithNumberOf(toolNumber);
+			player.sellTool(toolNumber);
 			System.out.println("出售道具成功！");
 		}
 	}
 	
 	public boolean isFixedAssetPositionRight(String positionString,
 			Player player, Map map) {
-		if(!Input.isInputAnIntegerInArea(positionString, 0, Map.MAX_POSITION)){
+		if(!Input.isInputAnIntegerInArea(positionString, 0, GlobalSettings.MAX_POSITION)){
 			return false;
 		}
 		int position = Integer.parseInt(positionString);
@@ -142,7 +143,7 @@ public class CommandManager {
 			return false;
 		}
 		int toolNumber = Integer.parseInt(toolNumberString);
-		if(!player.getToolsOfPlayer().isOwnToolWithNumberOf(toolNumber)){
+		if(!player.getTools().isOwnToolWithNumberOf(toolNumber)){
 			System.out.println("您没有该编号的道具！");
 			return false;
 		}
@@ -158,7 +159,7 @@ public class CommandManager {
 		int distance = Integer.parseInt(distanceString);
 		int setPosition = PositionUpdate.getCurrentPositionWithDistance(
 				player.getPosition(), distance);
-		if(isPositionEqualPlayersPosition(game.getPlayers(), 
+		if(isPositionEqualPlayersPosition(game.getPlayerList().getPlayers(), 
 				setPosition)){
 			return false;
 		}

@@ -60,6 +60,6 @@ public class PlayerBuyToolsInToolRoomTest {
 			player.obtainPointsFromMine(mine.getPoints());
 		}
 		assertThat(ToolRoom.isNumberOfTotalToolsNotBeyondLimits(
-				player.getToolsOfPlayer().getTotalNumberOfTools()), is(false));
+				player.getTools().getTotalNumberOfTools()), is(false));
 	}
 }

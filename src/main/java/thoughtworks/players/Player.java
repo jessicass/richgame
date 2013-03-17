@@ -3,7 +3,6 @@ package thoughtworks.players;
 import java.awt.Color;
 
 import thoughtworks.GlobalSettings;
-import thoughtworks.Map;
 import thoughtworks.fixedAssets.*;
 import thoughtworks.functionClass.PositionUpdate;
 import thoughtworks.publicPlace.*;
@@ -22,9 +21,9 @@ public class Player {
     private int timesBeTrappedInPrison =
             Prison.timesPlayerBeTrappedInPrison + 1;
 
-    private FixedAssets fixedAssetsOfPlayer =
+    private FixedAssets fixedAssets =
             new FixedAssets();
-    private Tools toolsOfPlayer = new Tools();
+    private Tools tools = new Tools();
 
     private SystemPlayer info;
 
@@ -57,12 +56,12 @@ public class Player {
         return position;
     }
 
-    public FixedAssets getFixedAssetsOfPlayer() {
-        return fixedAssetsOfPlayer;
+    public FixedAssets getFixedAssets() {
+        return fixedAssets;
     }
 
-    public Tools getToolsOfPlayer() {
-        return toolsOfPlayer;
+    public Tools getTools() {
+        return tools;
     }
 
     public void updatePosition(int position) {
@@ -75,17 +74,17 @@ public class Player {
 
     public void buySpace(int buyFunds) {
         funds -= buyFunds;
-        fixedAssetsOfPlayer.addNewSpace();
+        fixedAssets.addNewSpace();
     }
 
     public void sellSpace(Space space) {
         funds += space.getTotalCost() * 2;
-        fixedAssetsOfPlayer.sellSpace(space.getLevel());
+        fixedAssets.sellSpace(space.getLevel());
     }
 
     public void buyTool(int toolNumber) {
         points -= ToolRoom.buyToolPoints(toolNumber);
-        toolsOfPlayer.buyTool(toolNumber);
+        tools.buyTool(toolNumber);
     }
 
     public void chooseGift(int giftNumber) {
@@ -136,7 +135,7 @@ public class Player {
 
     public void toBeBombed() {
         isBombed = true;
-        position = Map.HosipitalPosition;
+        position = GlobalSettings.HosipitalPosition;
     }
 
     public void toBeTrappedInPrison() {
@@ -158,7 +157,7 @@ public class Player {
     public void upgradeOwnFixedAssets(Space space) {
         int upgradeFunds = space.getUpgradeFunds();
         funds -= upgradeFunds;
-        fixedAssetsOfPlayer.upgradeSpace(space.getLevel());
+        fixedAssets.upgradeSpace(space.getLevel());
     }
 
     public void handInPassTollToOthers(int passToll) {
@@ -173,13 +172,13 @@ public class Player {
         this.points += points;
     }
 
-    public void sellToolWithNumberOf(int toolNumber) {
-        this.points += toolsOfPlayer.getPointsOfToolWithNumberOf(toolNumber);
-        toolsOfPlayer.decreaseNumberOfTools(toolNumber);
+    public void sellTool(int toolNumber) {
+        this.points += tools.getPointsOfToolWithNumberOf(toolNumber);
+        tools.decreaseNumberOfTools(toolNumber);
     }
 
-    public void testBankrupt(int passTool) {
-        if ((fixedAssetsOfPlayer.getTotalNumberOfFixedAssets() <= 0) &&
+    public void updateBankruptState(int passTool) {
+        if ((fixedAssets.getTotalNumberOfFixedAssets() <= 0) &&
                 (funds < passTool)) {
             isBankrupt = true;
         }

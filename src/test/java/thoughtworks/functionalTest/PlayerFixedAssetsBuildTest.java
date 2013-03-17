@@ -19,8 +19,8 @@ public class PlayerFixedAssetsBuildTest {
 	
 	@Before
 	public void setUp(){
-		game.isCreatPlayerListSuccess("1234");
-		player = game.getPlayers().get(0);
+		game.CreatPlayerList("1234");
+		player = game.getPlayerList().getPlayer(1);
 		map = game.getMap();
 		space = (Space)map.getMapObjectWithIndex(1);
 	}
@@ -31,7 +31,7 @@ public class PlayerFixedAssetsBuildTest {
 		space.toBeOwned(player);
 		assertThat(player.getFunds(), is(9800));
 		assertThat(space.getTotalCost(), is(200));
-		assertThat(player.getFixedAssetsOfPlayer().getNumberOfSpaces(), is(1));
+		assertThat(player.getFixedAssets().getNumberOfSpaces(), is(1));
 	}
 	
 	@Test
@@ -41,8 +41,8 @@ public class PlayerFixedAssetsBuildTest {
 		space = (Space)map.getMapObjectWithIndex(1);
 		assertThat(player.getFunds(), is(9600));
 		assertThat(space.getTotalCost(), is(400));
-		assertThat(player.getFixedAssetsOfPlayer().getNumberOfSpaces(), is(0));
-		assertThat(player.getFixedAssetsOfPlayer().getNumberOfCottages(), is(1));
+		assertThat(player.getFixedAssets().getNumberOfSpaces(), is(0));
+		assertThat(player.getFixedAssets().getNumberOfCottages(), is(1));
 	}
 	
 	@Test
@@ -52,7 +52,7 @@ public class PlayerFixedAssetsBuildTest {
 		space = (Space)map.getMapObjectWithIndex(1);
 		assertThat(player.getFunds(), is(9400));
 		assertThat(space.getTotalCost(), is(600));
-		assertThat(player.getFixedAssetsOfPlayer().getNumberOfHouses(), is(1));
+		assertThat(player.getFixedAssets().getNumberOfHouses(), is(1));
 	}
 	
 	@Test
@@ -62,6 +62,6 @@ public class PlayerFixedAssetsBuildTest {
 		space = (Space)map.getMapObjectWithIndex(1);
 		assertThat(player.getFunds(), is(9200));
 		assertThat(space.getTotalCost(), is(800));
-		assertThat(player.getFixedAssetsOfPlayer().getNumberOfSkyscrapers(), is(1));
+		assertThat(player.getFixedAssets().getNumberOfSkyscrapers(), is(1));
 	}
 }

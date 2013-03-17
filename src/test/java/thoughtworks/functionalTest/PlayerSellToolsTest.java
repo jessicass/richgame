@@ -16,32 +16,32 @@ public class PlayerSellToolsTest {
 	
 	@Before
 	public void setUp(){
-		game.isCreatPlayerListSuccess("1234");
-		player = game.getPlayers().get(0);
+		game.CreatPlayerList("1234");
+		player = game.getPlayerList().getPlayer(1);
 		game.getMapObjectWithIndex(64).playerPassOnHere(player, game);
 	}
 	
 	@Test
 	public void shouldSellBlockObtain50Points(){
 		player.buyTool(Block.toolNumber);
-		player.sellToolWithNumberOf(Block.toolNumber);
+		player.sellTool(Block.toolNumber);
 		assertThat(player.getPoints(), is(60));
-		assertThat(player.getToolsOfPlayer().getNumberOfTools(Block.toolNumber), is(0));	
+		assertThat(player.getTools().getNumberOfTools(Block.toolNumber), is(0));
 	}
 	
 	@Test
 	public void shouldSellRobotObtain30Points(){
 		player.buyTool(Robot.toolNumber);
-		player.sellToolWithNumberOf(Robot.toolNumber);
+		player.sellTool(Robot.toolNumber);
 		assertThat(player.getPoints(), is(60));
-		assertThat(player.getToolsOfPlayer().getNumberOfTools(Robot.toolNumber), is(0));
+		assertThat(player.getTools().getNumberOfTools(Robot.toolNumber), is(0));
 	}
 		
 	@Test
 	public void shouldSellBombObtain50Points(){
 		player.buyTool(Bomb.toolNumber);
-		player.sellToolWithNumberOf(Bomb.toolNumber);
+		player.sellTool(Bomb.toolNumber);
 		assertThat(player.getPoints(), is(60));
-		assertThat(player.getToolsOfPlayer().getNumberOfTools(Bomb.toolNumber), is(0));
+		assertThat(player.getTools().getNumberOfTools(Bomb.toolNumber), is(0));
 	}
 }

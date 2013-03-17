@@ -164,7 +164,7 @@ public class PlayerTest {
         while (player.getFunds() >= 500) {
             player.handInPassTollToOthers(500);
         }
-        player.testBankrupt(500);
+        player.updateBankruptState(500);
         assertThat(player.isBankrupt(), is(true));
     }
 
@@ -174,7 +174,7 @@ public class PlayerTest {
         while (player.getFunds() >= 500) {
             player.handInPassTollToOthers(500);
         }
-        player.testBankrupt(500);
+        player.updateBankruptState(500);
         assertThat(player.isBankrupt(), is(false));
     }
 }

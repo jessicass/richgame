@@ -108,7 +108,7 @@ public class ToolRoom implements MapObject {
 	public void playerPassOnHere(Player passer, Game game) {
 		if (isPointsEnoughToBuyAllTool(passer.getPoints())
 				&& isNumberOfTotalToolsNotBeyondLimits(passer
-						.getToolsOfPlayer().getTotalNumberOfTools())) {
+						.getTools().getTotalNumberOfTools())) {
 			System.out.println((new ToolInfo()).toolInfoShow());
 			System.out.println(WELCOME);
 			while (true) {

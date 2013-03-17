@@ -21,12 +21,12 @@ public class ToolsSetRight {
 	
 	@Before
 	public void setUp(){
-		game.isCreatPlayerListSuccess("1234");
-		game.getPlayers().get(0).updatePosition(3);
-		game.getPlayers().get(1).updatePosition(4);
-		game.getPlayers().get(2).updatePosition(5);
-		game.getPlayers().get(3).updatePosition(6);
-		player = game.getPlayers().get(0);
+		game.CreatPlayerList("1234");
+		game.getPlayerList().getPlayer(1).updatePosition(3);
+		game.getPlayerList().getPlayer(2).updatePosition(4);
+		game.getPlayerList().getPlayer(3).updatePosition(5);
+		game.getPlayerList().getPlayer(4).updatePosition(6);
+		player = game.getPlayerList().getPlayer(1);
 		map = game.getMap();
 		commandManager = game.getCommandManager();
 		map.getMapObjectWithIndex(64).playerPassOnHere(player, game);

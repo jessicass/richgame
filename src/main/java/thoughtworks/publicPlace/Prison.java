@@ -10,10 +10,10 @@ import thoughtworks.tools.Bomb;
 
 public class Prison implements MapObject {
 	public static final String symbol = "P";
-	private int position;
 	public static final int timesPlayerBeTrappedInPrison = 2;
 	private boolean hasBlock;
 	private boolean hasBomb;
+	private int position;
 	
 	public Prison(int position) {
 		this.position = position;

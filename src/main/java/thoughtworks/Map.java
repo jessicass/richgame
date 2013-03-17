@@ -1,7 +1,6 @@
 package thoughtworks;
 
 import java.util.ArrayList;
-
 import java.awt.Color;
 
 import enigma.console.*;
