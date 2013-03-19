@@ -1,12 +1,8 @@
 package thoughtworks.fixedAssets;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import thoughtworks.MapObject;
-import thoughtworks.players.Player;
-import thoughtworks.tools.Block;
-import thoughtworks.tools.Bomb;
 
 public class Cottage extends Space implements MapObject {
 	public final String symbol = "1";
@@ -22,18 +18,8 @@ public class Cottage extends Space implements MapObject {
 				new DecimalFormat("0").format(Math.pow(2, level)));
 	}
 	
-	public String getSymbol(ArrayList<Player> players){
-		for(Player player: players){
-			if(player.getPosition() == position){
-				return player.getShortName();
-			}
-		}
-		if(hasBlock){
-			return Block.symbol;
-		}
-		if(hasBomb){
-			return Bomb.symbol;
-		}
+	@Override
+	public String getSymbol(){
 		return symbol;
 	}
 	

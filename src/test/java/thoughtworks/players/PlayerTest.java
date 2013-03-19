@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import thoughtworks.Game;
 import thoughtworks.fixedAssets.Space;
 import thoughtworks.publicPlace.Mine;
 import thoughtworks.tools.Block;
@@ -22,7 +23,7 @@ public class PlayerTest {
         player = new Player(1);
         space = new Space(1);
         mine = new Mine(64, 60);
-        player.obtainPointsFromMine(mine.getPoints());
+        mine.playerPassOnHere(player, new Game());
     }
 
     @Test

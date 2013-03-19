@@ -1,15 +1,13 @@
 package thoughtworks.fixedAssets;
 
-import java.util.ArrayList;
 
 import thoughtworks.Game;
 import thoughtworks.MapObject;
 import thoughtworks.functionClass.Input;
 import thoughtworks.players.Player;
-import thoughtworks.tools.Block;
-import thoughtworks.tools.Bomb;
+import thoughtworks.publicPlace.Terrain;
 
-public class Space implements MapObject{
+public class Space extends Terrain implements MapObject{
 	public static final String WHETHER_BUY_SPACE = "是否购买该处空地，";
 	public static final String WHETHER_UPGRADE_SPACE = "是否升级该处地产，";
 	public static final String END_OF_HINT = "元（Y/N）？";
@@ -21,9 +19,6 @@ public class Space implements MapObject{
 	private int upgradeFunds;
 	private int passToll;
 	
-	protected int position;
-	protected boolean hasBlock;
-	protected boolean hasBomb;
 	protected int totalCost = 0;
 	protected Player owner;
 	
@@ -31,27 +26,13 @@ public class Space implements MapObject{
 		return totalCost;
 	}
 	
-	public String getSymbol(ArrayList<Player> players){
-		for(Player player: players){
-			if(player.getPosition() == position){
-				return player.getShortName();
-			}
-		}
-		if(hasBlock){
-			return Block.symbol;
-		}
-		if(hasBomb){
-			return Bomb.symbol;
-		}
+	@Override
+	public String getSymbol(){
 		return symbol;
 	}
 	
 	public int getLevel(){
 		return level;
-	}
-	
-	public int getPosition(){
-		return position;
 	}
 	
 	public int getBuyFunds(){
@@ -75,7 +56,7 @@ public class Space implements MapObject{
 	}
 	
 	public Space(int position){ 
-		this.position = position;
+		super(position);
 		this.owner = null;
 		if((position>0 && position<14)
 				||(position>14 && position<28)){
@@ -105,6 +86,7 @@ public class Space implements MapObject{
 		return owner == player;
 	}
 	
+	@Override
 	public void playerPassOnHere(Player passer, Game game){
 		if(passer.getFunds() >= buyFunds){
 			System.out.println(WHETHER_BUY_SPACE + 
@@ -165,30 +147,6 @@ public class Space implements MapObject{
 			    return false;
 		    }
 		}
-	}
-	
-	public void setBlock(){
-		hasBlock = true;
-	}
-	
-	public void resetBlock(){
-		hasBlock = false;
-	}
-	
-	public boolean hasBlock(){
-		return hasBlock;
-	}
-	
-	public void setBomb(){
-		hasBomb = true;
-	}
-	
-	public void resetBomb(){
-		hasBomb = true;
-	}
-	
-	public boolean hasBomb(){
-		return hasBomb;
 	}
 	
 	public Space upgrade(){

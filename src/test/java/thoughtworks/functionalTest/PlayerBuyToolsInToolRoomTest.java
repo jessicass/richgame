@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import thoughtworks.Game;
 import thoughtworks.players.Player;
 import thoughtworks.publicPlace.*;
 import thoughtworks.tools.*;
@@ -18,7 +19,7 @@ public class PlayerBuyToolsInToolRoomTest {
 	public void setUp(){
 		player = new Player(1);
 		mine = new Mine(64, 60);
-		player.obtainPointsFromMine(mine.getPoints());
+		mine.playerPassOnHere(player, new Game());
 	}
 	
 	@Test
@@ -57,7 +58,7 @@ public class PlayerBuyToolsInToolRoomTest {
 	public void shouldTotalNumberOfToolsBeyondLimit(){
 		for(int i = 0; i < 10; i++){
 			player.buyTool(Bomb.toolNumber);
-			player.obtainPointsFromMine(mine.getPoints());
+			mine.playerPassOnHere(player, new Game());
 		}
 		assertThat(ToolRoom.isNumberOfTotalToolsNotBeyondLimits(
 				player.getTools().getTotalNumberOfTools()), is(false));

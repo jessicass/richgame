@@ -16,10 +16,10 @@ public class Player {
     private boolean isTrappedInPrison = false;
     private boolean isBankrupt = false;
     private int timesToPauseWhenBeBombed =
-            Hospital.timesToPauseWhenPlayerBeHospitalized + 1;
+            GlobalSettings.timesToPauseWhenPlayerBeHospitalized + 1;
     private int timesForFreeWhenOwnLuck = 5 + 1;
     private int timesBeTrappedInPrison =
-            Prison.timesPlayerBeTrappedInPrison + 1;
+            GlobalSettings.timesPlayerBeTrappedInPrison + 1;
 
     private FixedAssets fixedAssets =
             new FixedAssets();
@@ -90,10 +90,10 @@ public class Player {
     public void chooseGift(int giftNumber) {
         switch (giftNumber) {
             case 1:
-                funds += GiftRoom.presentFunds;
+                funds += GlobalSettings.presentFunds;
                 return;
             case 2:
-                points += GiftRoom.presentPoints;
+                points += GlobalSettings.presentPoints;
                 return;
             case 3:
                 isOwnerOfLuck = true;
@@ -117,7 +117,7 @@ public class Player {
             if (timesToPauseWhenBeBombed == 0) {
                 isBombed = false;
                 timesToPauseWhenBeBombed =
-                        Hospital.timesToPauseWhenPlayerBeHospitalized + 1;
+                        GlobalSettings.timesToPauseWhenPlayerBeHospitalized + 1;
             }
         }
     }
@@ -128,7 +128,7 @@ public class Player {
             if (timesBeTrappedInPrison == 0) {
                 isTrappedInPrison = false;
                 timesBeTrappedInPrison =
-                        Prison.timesPlayerBeTrappedInPrison + 1;
+                        GlobalSettings.timesPlayerBeTrappedInPrison + 1;
             }
         }
     }

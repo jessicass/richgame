@@ -29,7 +29,7 @@ public class PlayerList {
 		return playerList.get(index-1);
 	}
 
-	public void obtainInputToInitialFunds() {
+	public static void obtainInputToInitialFunds() {
 		System.out.println(HINT_OF_PLAYER_INITIAL + "\n");
 		while(true){
 			String input = Input.getString();
@@ -43,7 +43,7 @@ public class PlayerList {
 		}
 	}
 
-	public boolean isCreatPlayerListSuccess(String input) {
+	public static boolean isCreatPlayerListSuccess(String input) {
 		if (isRoleNumbersBeRight(input.toCharArray())) {
 			return true;
 		}
@@ -51,13 +51,13 @@ public class PlayerList {
 		return false;
 	}
 
-	private boolean isRoleNumbersBeRight(char[] roleNumbers) {
+	private static boolean isRoleNumbersBeRight(char[] roleNumbers) {
 		return RoleNumberTransfer.isNumberOfPlayersWithinTheLimits(roleNumbers)
 				&& RoleNumberTransfer.isRoleNumbersWithinTheLimits(roleNumbers)
 				&& RoleNumberTransfer.isRoleNumbersNotRepeat(roleNumbers);
 	}
 	
-	public String obtainInputToCreatePlayerList() {
+	public static String obtainInputToCreatePlayerList() {
 		System.out.println(PlayerList.HINT_OF_PLAYER_CHOICE + "\n");
 		String input;
 		do {

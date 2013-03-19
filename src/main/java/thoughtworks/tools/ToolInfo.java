@@ -16,10 +16,10 @@ public class ToolInfo {
 	}
 	
 	public String toolInfoShow(){
-		String info = "道具" + "\t\t" + "编号" + "\t" + "价值（点数）" + "\t" +
+		String info = "道具" + "\t" + "编号" + "\t" + "价值（点数）" + "\t" +
                 "显示方式" + "\n";
 		for(Tool tool: toolList){
-			info += tool.getName() + "\t\t" + tool.getToolNumber() + "\t" +
+			info += tool.getName() + "\t" + tool.getToolNumber() + "\t" +
 		        tool.getBuyPoints() + "\t" + tool.getSymbol();
 			info += "\n";
 		}

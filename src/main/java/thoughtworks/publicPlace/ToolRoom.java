@@ -1,14 +1,12 @@
 package thoughtworks.publicPlace;
 
-import java.util.ArrayList;
-
 import thoughtworks.Game;
 import thoughtworks.MapObject;
 import thoughtworks.functionClass.Input;
 import thoughtworks.players.Player;
 import thoughtworks.tools.*;
 
-public class ToolRoom implements MapObject {
+public class ToolRoom extends Terrain implements MapObject {
 	public static final String symbol = "T";
 	public static final int LIMIT_NUMBER_OF_TOOLS = 10;
 	public static final String WELCOME = "欢迎光临道具屋，请输入" +
@@ -17,12 +15,9 @@ public class ToolRoom implements MapObject {
 	public static final String QUIT_TOOLROOM = "f";
 	public static final int MAX_TOOL_NUMBER = 3;
 	public static final int MIN_TOOL_NUMBER = 1;
-	private boolean hasBlock;
-	private boolean hasBomb;
-	private int position;
 	
 	public ToolRoom(int position) {
-		this.position = position;
+		super(position);
 	}
 
 	public static int buyToolPoints(int toolNumber) {
@@ -62,49 +57,12 @@ public class ToolRoom implements MapObject {
 		return false;
 	}
 	
-	public String getSymbol(ArrayList<Player> players){
-		for(Player player: players){
-			if(player.getPosition() == position){
-				return player.getShortName();
-			}
-		}
-		if(hasBlock){
-			return Block.symbol;
-		}
-		if(hasBomb){
-			return Bomb.symbol;
-		}
+	@Override
+	public String getSymbol(){
 		return symbol;
 	}
 	
-	public int getPosition(){
-		return position;
-	}
-	
-	public void setBlock(){
-		hasBlock = true;
-	}
-	
-	public void resetBlock(){
-		hasBlock = false;
-	}
-	
-	public boolean hasBlock(){
-		return hasBlock;
-	}
-	
-	public void setBomb(){
-		hasBomb = true;
-	}
-	
-	public void resetBomb(){
-		hasBomb = false;
-	}
-	
-	public boolean hasBomb(){
-		return hasBomb;
-	}
-
+	@Override
 	public void playerPassOnHere(Player passer, Game game) {
 		if (isPointsEnoughToBuyAllTool(passer.getPoints())
 				&& isNumberOfTotalToolsNotBeyondLimits(passer

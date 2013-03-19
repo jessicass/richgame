@@ -41,8 +41,8 @@ public class Game {
 		System.out.println(HINT_OF_START + "\n");
 		while (true) {
 			if (Input.isInputCommandEquals(START_COMMAND)) {
-				playerList.obtainInputToInitialFunds();
-				CreatPlayerList(playerList.obtainInputToCreatePlayerList());
+				PlayerList.obtainInputToInitialFunds();
+				CreatPlayerList(PlayerList.obtainInputToCreatePlayerList());
 				gameProcess();
 				break;
 			} else {
@@ -163,7 +163,7 @@ public class Game {
 				return;
 			}
 			if (map.getMapObjectWithIndex(position).hasBomb()) {
-				System.out.println("非常不幸，被路障拦截！");
+				System.out.println("非常不幸，被炸弹炸伤！");
 				player.updatePosition(GlobalSettings.HosipitalPosition);
 				player.toBeBombed();
 				map.getMapObjectWithIndex(position).resetBomb();

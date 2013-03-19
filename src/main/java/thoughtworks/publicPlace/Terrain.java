@@ -9,7 +9,6 @@ import thoughtworks.tools.Bomb;
 import java.util.ArrayList;
 
 public abstract class Terrain implements MapObject {
-    public static final String symbol = "";
     public boolean hasBlock;
     public boolean hasBomb;
     public int position;
@@ -19,7 +18,6 @@ public abstract class Terrain implements MapObject {
     }
 
     abstract protected String getSymbol();
-
 
     public String getSymbol(ArrayList<Player> players) {
         for (Player player : players) {
