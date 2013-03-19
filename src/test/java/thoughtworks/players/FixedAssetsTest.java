@@ -3,9 +3,10 @@ package thoughtworks.players;
 import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
-public class FixedAssetsOfPlayerTest {
+public class FixedAssetsTest {
 	private FixedAssets fixedAssetsOfPlayer;
 	
 	@Before
@@ -17,6 +18,7 @@ public class FixedAssetsOfPlayerTest {
 	public void shouldAfterAddNewSpaceNumberOfSpacesBe1(){
 		fixedAssetsOfPlayer.addNewSpace();
 		assertThat(fixedAssetsOfPlayer.getNumberOfSpaces(), is(1));
+		assertThat(fixedAssetsOfPlayer.getNumberOfSpaces(), greaterThan(0));
 	}
 	
 	@Test

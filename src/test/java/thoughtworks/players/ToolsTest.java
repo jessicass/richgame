@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-public class ToolsOfPlayerTest {
+public class ToolsTest {
 	private Tools toolsOfPlayer = new Tools();
 	
 	@Test
