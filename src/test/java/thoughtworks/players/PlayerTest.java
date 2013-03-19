@@ -2,8 +2,6 @@ package thoughtworks.players;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
-import org.junit.Before;
 import org.junit.Test;
 
 import thoughtworks.Game;
@@ -18,164 +16,316 @@ public class PlayerTest {
     private Space space;
     private Mine mine;
 
-    @Before
-    public void setUp() {
-        player = new Player(1);
-        space = new Space(1);
-        mine = new Mine(64, 60);
-        mine.playerPassOnHere(player, new Game());
-    }
-
     @Test
     public void shouldBuySpaceNeed200() {
+    	//given
+    	player = new Player(1);
+    	space = new Space(1);
+
+    	//when
         player.buySpace(space.getBuyFunds());
         space.toBeOwned(player);
+        
+        //then
         assertThat(player.getFunds(), is(9800));
     }
 
     @Test
     public void shouldUpgradeSpaceToCottageNeed200() {
-        shouldBuySpaceNeed200();
-        player.upgradeOwnFixedAssets(space);
+    	//given
+    	player = new Player(1);
+    	space = new Space(1);
+        player.buySpace(space.getBuyFunds());
+        space.toBeOwned(player);       
+        
+    	//when
+    	player.upgradeOwnFixedAssets(space);
+        
+        //then
         assertThat(player.getFunds(), is(9600));
     }
 
     @Test
     public void shouldUpgradeCottageToHouseNeed200() {
-        shouldUpgradeSpaceToCottageNeed200();
-        space = (Space) space.upgrade();
-        player.upgradeOwnFixedAssets(space);
+        //given
+    	player = new Player(1);
+    	space = new Space(1);
+        player.buySpace(space.getBuyFunds());
+        space.toBeOwned(player);       
+    	player.upgradeOwnFixedAssets(space);
+    	space = space.upgrade();
+        
+    	//when
+    	player.upgradeOwnFixedAssets(space);
+        
+        //then
         assertThat(player.getFunds(), is(9400));
-
     }
 
     @Test
     public void shouldUpgradeHouseToSkyscraperNeed200() {
-        shouldUpgradeCottageToHouseNeed200();
-        space = (Space) space.upgrade();
-        player.upgradeOwnFixedAssets(space);
+        //given
+    	player = new Player(1);
+    	space = new Space(1);
+        player.buySpace(space.getBuyFunds());
+        space.toBeOwned(player);       
+    	player.upgradeOwnFixedAssets(space);
+    	space = space.upgrade();
+    	player.upgradeOwnFixedAssets(space);
+    	space = space.upgrade();
+    	
+    	//when
+    	player.upgradeOwnFixedAssets(space);
+        
+        //then
         assertThat(player.getFunds(), is(9200));
     }
 
     @Test
     public void shouldSellSpaceObtain400() {
-        shouldBuySpaceNeed200();
-        player.sellSpace(space);
+    	//given
+    	player = new Player(1);
+    	space = new Space(1);
+        player.buySpace(space.getBuyFunds());
+        space.toBeOwned(player);
+        
+    	//when
+    	player.sellSpace(space);
+        
+        //then
         assertThat(player.getFunds(), is(10200));
     }
 
     @Test
     public void shouldSellCottageObtain800() {
-        shouldUpgradeSpaceToCottageNeed200();
-        space = (Space) space.upgrade();
+        //given
+    	player = new Player(1);
+    	space = new Space(1);
+        player.buySpace(space.getBuyFunds());
+        space.toBeOwned(player);       
+    	player.upgradeOwnFixedAssets(space);
+        space = space.upgrade();
+        
+        //when
         player.sellSpace(space);
+        
+        //then
         assertThat(player.getFunds(), is(10400));
     }
 
     @Test
     public void shouldSellHouseObtain1200() {
-        shouldUpgradeCottageToHouseNeed200();
-        space = (Space) space.upgrade();
+        //given
+    	player = new Player(1);
+    	space = new Space(1);
+        player.buySpace(space.getBuyFunds());
+        space.toBeOwned(player);       
+    	player.upgradeOwnFixedAssets(space);
+    	space = space.upgrade();
+    	player.upgradeOwnFixedAssets(space);
+        space = space.upgrade();
+        
+        //when
         player.sellSpace(space);
+        
+        //then
         assertThat(player.getFunds(), is(10600));
     }
 
     @Test
     public void shouldSellSkyscraperObtain1600() {
-        shouldUpgradeHouseToSkyscraperNeed200();
-        space = (Space) space.upgrade();
+        //given
+    	player = new Player(1);
+    	space = new Space(1);
+        player.buySpace(space.getBuyFunds());
+        space.toBeOwned(player);       
+    	player.upgradeOwnFixedAssets(space);
+    	space = space.upgrade();
+    	player.upgradeOwnFixedAssets(space);
+        space = space.upgrade();
+    	player.upgradeOwnFixedAssets(space);
+        space = space.upgrade();
+        
+        //when
         player.sellSpace(space);
+        
+        //then
         assertThat(player.getFunds(), is(10800));
     }
 
     @Test
     public void shouldBuyBlockNeed50Points() {
-        player.buyTool(Block.toolNumber);
-        assertThat(player.getPoints(), is(10));
+    	//given
+    	player = new Player(1);
+    	mine = new Mine(64, 60);
+        mine.playerPassOnHere(player, new Game());
+    	
+    	//when
+    	player.buyTool(Block.toolNumber);
+        
+    	//then
+    	assertThat(player.getPoints(), is(10));
     }
 
     @Test
     public void shouldBuyRobotNeed30Points() {
+    	//given
+    	player = new Player(1);
+    	mine = new Mine(64, 60);
+        mine.playerPassOnHere(player, new Game());
+    	
+        //when
         player.buyTool(Robot.toolNumber);
+        
+        //then
         assertThat(player.getPoints(), is(30));
     }
 
     @Test
     public void shouldBuyBombNeed50Points() {
+    	//given
+    	player = new Player(1);
+    	mine = new Mine(64, 60);
+        mine.playerPassOnHere(player, new Game());
+        
+        //when
         player.buyTool(Bomb.toolNumber);
+        
+        //then
         assertThat(player.getPoints(), is(10));
     }
 
     @Test
     public void shouldChooseGiftOneFundsAdd2000() {
-        player.chooseGift(1);
-        assertThat(player.getFunds(), is(12000));
+    	//given
+    	player = new Player(1);
+    	
+    	//when
+    	player.chooseGift(1);
+        
+    	//then
+    	assertThat(player.getFunds(), is(12000));
     }
 
     @Test
     public void shouldChooseGiftTwoPointsAdd200() {
-        player.chooseGift(2);
-        assertThat(player.getPoints(), is(260));
+    	//given
+    	player = new Player(1);
+
+    	//when
+    	player.chooseGift(2);
+        
+    	//then
+    	assertThat(player.getPoints(), is(200));
     }
 
     @Test
     public void shouldChooseGiftThreeOwnLuck() {
-        player.chooseGift(3);
-        assertThat(player.isOwnerOfLuck(), is(true));
+    	//given
+    	player = new Player(1);
+    	
+    	//when
+    	player.chooseGift(3);
+        
+    	//then
+    	assertThat(player.isOwnerOfLuck(), is(true));
     }
 
     @Test
     public void shouldPlayerToBeBombed() {
-        player.toBeBombed();
-        assertThat(player.isBombed(), is(true));
+    	//given
+    	player = new Player(1);
+    	
+    	//when
+    	player.toBeBombed();
+        
+    	//then
+    	assertThat(player.isBombed(), is(true));
     }
 
     @Test
     public void shouldPositionBe14WhenBeBombed() {
-        shouldPlayerToBeBombed();
-        assertThat(player.getPosition(), is(14));
+    	//given
+    	player = new Player(1);
+    	
+    	//when
+    	player.toBeBombed();
+        
+    	//then
+    	assertThat(player.getPosition(), is(14));
     }
 
     @Test
     public void shouldPause3TimesWhenBeBombed() {
-        shouldPlayerToBeBombed();
-        for (int i = 0; i < 5; i++)
+    	//given
+    	player = new Player(1);
+    	player.toBeBombed();
+        
+    	//when
+    	for (int i = 0; i < 5; i++)
             player.decreaseHospitalizedTimes();
-        assertThat(player.isBombed(), is(false));
+        
+    	//then
+    	assertThat(player.isBombed(), is(false));
     }
 
     @Test
     public void shouldPause2TimesWhenBeTrappedInPrison() {
-        player.toBeTrappedInPrison();
+        //given
+    	player = new Player(1);
+    	player.toBeTrappedInPrison();
+    	
+    	//when
         for (int i = 0; i < 4; i++)
             player.decreaseTrappedInPrisonTimes();
+        
+        //then
         assertThat(player.isTrappedInPrison(), is(false));
     }
 
     @Test
     public void shouldBeFree5TimesWhenOwnOfLuck() {
-        shouldChooseGiftThreeOwnLuck();
+    	//given
+    	player = new Player(1);
+    	player.chooseGift(3);
+    	
+    	//when
         for (int i = 0; i < 7; i++)
             player.decreaseLuckyTimes();
+
+        //then
         assertThat(player.isOwnerOfLuck(), is(false));
     }
 
     @Test
     public void shouldPlayerBeBankruptWhenFundsBe0() {
-        while (player.getFunds() >= 500) {
+    	//given
+    	player = new Player(1);
+    	
+    	//when
+    	while (player.getFunds() >= 500) {
             player.handInPassTollToOthers(500);
         }
         player.updateBankruptState(500);
+        
+        //then
         assertThat(player.isBankrupt(), is(true));
     }
 
     @Test
     public void shouldPlayerNotBankruptWhenOwnSpace() {
-        player.buySpace(space.getBuyFunds());
-        while (player.getFunds() >= 500) {
+    	//given
+    	player = new Player(1);
+    	space = new Space(1);
+        
+    	//when
+    	player.buySpace(space.getBuyFunds());
+    	while (player.getFunds() >= 500) {
             player.handInPassTollToOthers(500);
         }
         player.updateBankruptState(500);
+
+        //then
         assertThat(player.isBankrupt(), is(false));
     }
 }
