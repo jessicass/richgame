@@ -39,14 +39,14 @@ public class UpdatePlayerPositionTest {
 	
 	@Test
 	public void shouldPlayerPositionBe3(){
-		game.getMapObjectWithIndex(3).setBlock();
+		game.getMap().getMapObjectWithIndex(3).setBlock();
 		game.updatePlayerPosition(players.get(0), 5);
 		assertThat(players.get(0).getPosition(), is(3));
 	}
 	
 	@Test
 	public void shouldPlayerPositionBe14(){
-		game.getMapObjectWithIndex(3).setBomb();
+		game.getMap().getMapObjectWithIndex(3).setBomb();
 		game.updatePlayerPosition(players.get(0), 5);
 		assertThat(players.get(0).getPosition(), is(14));
 	}

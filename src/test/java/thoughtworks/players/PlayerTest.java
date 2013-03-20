@@ -12,9 +12,9 @@ import thoughtworks.tools.Bomb;
 import thoughtworks.tools.Robot;
 
 public class PlayerTest {
-    private Player player;
-    private Space space;
-    private Mine mine;
+    private Player player = new Player(1);
+    private Space space = new Space(1);
+    private Mine mine = new Mine(64, 60);;
 
     @Test
     public void shouldBuySpaceNeed200() {
@@ -30,13 +30,15 @@ public class PlayerTest {
         assertThat(player.getFunds(), is(9800));
     }
 
+    private void playerOwnASpace() {
+        player.buySpace(space.getBuyFunds());
+        space.toBeOwned(player);       
+	}
+    
     @Test
     public void shouldUpgradeSpaceToCottageNeed200() {
     	//given
-    	player = new Player(1);
-    	space = new Space(1);
-        player.buySpace(space.getBuyFunds());
-        space.toBeOwned(player);       
+    	playerOwnASpace();
         
     	//when
     	player.upgradeOwnFixedAssets(space);
@@ -48,12 +50,7 @@ public class PlayerTest {
     @Test
     public void shouldUpgradeCottageToHouseNeed200() {
         //given
-    	player = new Player(1);
-    	space = new Space(1);
-        player.buySpace(space.getBuyFunds());
-        space.toBeOwned(player);       
-    	player.upgradeOwnFixedAssets(space);
-    	space = space.upgrade();
+        playerOwnACottage();
         
     	//when
     	player.upgradeOwnFixedAssets(space);
@@ -62,17 +59,16 @@ public class PlayerTest {
         assertThat(player.getFunds(), is(9400));
     }
 
+	private void playerOwnACottage() {
+		playerOwnASpace();
+    	player.upgradeOwnFixedAssets(space);
+    	space = space.upgrade();
+	}
+
     @Test
     public void shouldUpgradeHouseToSkyscraperNeed200() {
         //given
-    	player = new Player(1);
-    	space = new Space(1);
-        player.buySpace(space.getBuyFunds());
-        space.toBeOwned(player);       
-    	player.upgradeOwnFixedAssets(space);
-    	space = space.upgrade();
-    	player.upgradeOwnFixedAssets(space);
-    	space = space.upgrade();
+        playerOwnAHouse();
     	
     	//when
     	player.upgradeOwnFixedAssets(space);
@@ -81,13 +77,16 @@ public class PlayerTest {
         assertThat(player.getFunds(), is(9200));
     }
 
+	private void playerOwnAHouse() {
+		playerOwnACottage();
+    	player.upgradeOwnFixedAssets(space);
+    	space = space.upgrade();
+	}
+
     @Test
     public void shouldSellSpaceObtain400() {
     	//given
-    	player = new Player(1);
-    	space = new Space(1);
-        player.buySpace(space.getBuyFunds());
-        space.toBeOwned(player);
+    	playerOwnASpace();
         
     	//when
     	player.sellSpace(space);
@@ -99,12 +98,7 @@ public class PlayerTest {
     @Test
     public void shouldSellCottageObtain800() {
         //given
-    	player = new Player(1);
-    	space = new Space(1);
-        player.buySpace(space.getBuyFunds());
-        space.toBeOwned(player);       
-    	player.upgradeOwnFixedAssets(space);
-        space = space.upgrade();
+        playerOwnACottage();
         
         //when
         player.sellSpace(space);
@@ -116,14 +110,7 @@ public class PlayerTest {
     @Test
     public void shouldSellHouseObtain1200() {
         //given
-    	player = new Player(1);
-    	space = new Space(1);
-        player.buySpace(space.getBuyFunds());
-        space.toBeOwned(player);       
-    	player.upgradeOwnFixedAssets(space);
-    	space = space.upgrade();
-    	player.upgradeOwnFixedAssets(space);
-        space = space.upgrade();
+        playerOwnAHouse();
         
         //when
         player.sellSpace(space);
@@ -135,14 +122,7 @@ public class PlayerTest {
     @Test
     public void shouldSellSkyscraperObtain1600() {
         //given
-    	player = new Player(1);
-    	space = new Space(1);
-        player.buySpace(space.getBuyFunds());
-        space.toBeOwned(player);       
-    	player.upgradeOwnFixedAssets(space);
-    	space = space.upgrade();
-    	player.upgradeOwnFixedAssets(space);
-        space = space.upgrade();
+        playerOwnAHouse();
     	player.upgradeOwnFixedAssets(space);
         space = space.upgrade();
         
@@ -156,8 +136,6 @@ public class PlayerTest {
     @Test
     public void shouldBuyBlockNeed50Points() {
     	//given
-    	player = new Player(1);
-    	mine = new Mine(64, 60);
         mine.playerPassOnHere(player, new Game());
     	
     	//when
@@ -170,8 +148,6 @@ public class PlayerTest {
     @Test
     public void shouldBuyRobotNeed30Points() {
     	//given
-    	player = new Player(1);
-    	mine = new Mine(64, 60);
         mine.playerPassOnHere(player, new Game());
     	
         //when
@@ -184,8 +160,6 @@ public class PlayerTest {
     @Test
     public void shouldBuyBombNeed50Points() {
     	//given
-    	player = new Player(1);
-    	mine = new Mine(64, 60);
         mine.playerPassOnHere(player, new Game());
         
         //when
@@ -258,7 +232,6 @@ public class PlayerTest {
     @Test
     public void shouldPause3TimesWhenBeBombed() {
     	//given
-    	player = new Player(1);
     	player.toBeBombed();
         
     	//when
@@ -272,7 +245,6 @@ public class PlayerTest {
     @Test
     public void shouldPause2TimesWhenBeTrappedInPrison() {
         //given
-    	player = new Player(1);
     	player.toBeTrappedInPrison();
     	
     	//when
@@ -286,7 +258,6 @@ public class PlayerTest {
     @Test
     public void shouldBeFree5TimesWhenOwnOfLuck() {
     	//given
-    	player = new Player(1);
     	player.chooseGift(3);
     	
     	//when
@@ -315,11 +286,9 @@ public class PlayerTest {
     @Test
     public void shouldPlayerNotBankruptWhenOwnSpace() {
     	//given
-    	player = new Player(1);
-    	space = new Space(1);
+    	playerOwnASpace();
         
     	//when
-    	player.buySpace(space.getBuyFunds());
     	while (player.getFunds() >= 500) {
             player.handInPassTollToOthers(500);
         }

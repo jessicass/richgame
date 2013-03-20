@@ -45,7 +45,7 @@ public class PlayerPropertyQueryTest {
 		return fundInfo + "\n" + pointInfo + "\n" + fixedAssetInfo + 
 				"\n" + toolInfo + "\n";
 	}
-	
+
 	@Test
 	public void initialPropertyTest(){
 		int[] num = {0,0,0,0};

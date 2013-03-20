@@ -21,10 +21,6 @@ public class Game {
 		return playerList;
 	}
 	
-	public MapObject getMapObjectWithIndex(int index) {
-		return map.getMapObjectWithIndex(index);
-	}
-	
 	public Map getMap() {
 		return map;
 	}
@@ -32,10 +28,6 @@ public class Game {
 	public CommandManager getCommandManager() {
 		return commandManager;
 	}
-	
-	public Player getTheOwnerOfSpace(Space space){
-        return space.getOwner();
-    }
 
 	public void start() {
 		System.out.println(HINT_OF_START + "\n");
@@ -60,14 +52,11 @@ public class Game {
 		while (true) {			
 			for (Player player : playerList.getPlayers()) {
 				map.drawMap(playerList.getPlayers());
-				if(isWinnerProduced()){
-					System.out.println("恭喜玩家" + getWinner().getName() + "获胜！");
+				if(isWinnerProduced()){					
 					return;
 			    }
 				
-				player.decreaseHospitalizedTimes();
-				player.decreaseLuckyTimes();
-				player.decreaseTrappedInPrisonTimes();
+				decreaseTimes(player);
 				
 				if (player.isBombed() || player.isTrappedInPrison() ||
 						player.isBankrupt()) {
@@ -96,22 +85,29 @@ public class Game {
 			}
 		}
 	}
+
+	private void decreaseTimes(Player player) {
+		player.decreaseHospitalizedTimes();
+		player.decreaseLuckyTimes();
+		player.decreaseTrappedInPrisonTimes();
+	}
 	
-	public boolean isWinnerProduced() {
+	private boolean isWinnerProduced() {
 		int playerNumber = 0;
 		for (Player player : playerList.getPlayers()) {
+			if(playerNumber > 1){
+				return false;
+			}
 			if(player.isBankrupt()){
 				continue;
 			}
 			playerNumber++;
 		}
-		if(playerNumber > 1){
-			return false;
-		}
+		System.out.println("恭喜玩家" + getWinner().getName() + "获胜！");
 		return true;
 	}
 	
-	public Player getWinner() {
+	private Player getWinner() {
 		for (Player player : playerList.getPlayers()) {
 			if(!player.isBankrupt()){
 				return player;

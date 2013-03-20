@@ -68,4 +68,8 @@ public class Input {
 		Random random = new Random();
 		return random.nextInt(5) + 1;
 	}
+
+	public static boolean isInputAnIntegerInArea(String parameter, int setrange) {
+		return isInputAnIntegerInArea(parameter, -setrange, setrange);
+	}
 }

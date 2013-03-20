@@ -18,7 +18,7 @@ public class PlayerSellToolsTest {
 	public void setUp(){
 		game.CreatPlayerList("1234");
 		player = game.getPlayerList().getPlayer(1);
-		game.getMapObjectWithIndex(64).playerPassOnHere(player, game);
+		game.getMap().getMapObjectWithIndex(64).playerPassOnHere(player, game);
 	}
 	
 	@Test
