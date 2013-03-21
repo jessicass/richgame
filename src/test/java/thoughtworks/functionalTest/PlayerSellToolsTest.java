@@ -23,24 +23,24 @@ public class PlayerSellToolsTest {
 	
 	@Test
 	public void shouldSellBlockObtain50Points(){
-		player.buyTool(Block.toolNumber);
-		player.sellTool(Block.toolNumber);
+		player.buyTool(Tool.createTool(Block.toolNumber));
+		player.sellTool(Tool.createTool(Block.toolNumber));
 		assertThat(player.getPoints(), is(60));
 		assertThat(player.getTools().getNumberOfTools(Block.toolNumber), is(0));
 	}
 	
 	@Test
 	public void shouldSellRobotObtain30Points(){
-		player.buyTool(Robot.toolNumber);
-		player.sellTool(Robot.toolNumber);
+		player.buyTool(Tool.createTool(Robot.toolNumber));
+		player.sellTool(Tool.createTool(Robot.toolNumber));
 		assertThat(player.getPoints(), is(60));
 		assertThat(player.getTools().getNumberOfTools(Robot.toolNumber), is(0));
 	}
 		
 	@Test
 	public void shouldSellBombObtain50Points(){
-		player.buyTool(Bomb.toolNumber);
-		player.sellTool(Bomb.toolNumber);
+		player.buyTool(Tool.createTool(Bomb.toolNumber));
+		player.sellTool(Tool.createTool(Bomb.toolNumber));
 		assertThat(player.getPoints(), is(60));
 		assertThat(player.getTools().getNumberOfTools(Bomb.toolNumber), is(0));
 	}

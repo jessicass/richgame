@@ -79,19 +79,4 @@ public class ToolsTest {
 		shouldAfterBuyBombNumberOfBombBe1();
 		assertThat(toolsOfPlayer.isOwnToolWithNumberOf(3), is(true));
 	}
-	
-	@Test
-	public void shouldBuyBlockNeed50Points(){
-		assertThat(toolsOfPlayer.getPointsOfToolWithNumberOf(1), is(50));
-	}
-	
-	@Test
-	public void shouldBuyRobotNeed30Points(){
-		assertThat(toolsOfPlayer.getPointsOfToolWithNumberOf(2), is(30));
-	}
-	
-	@Test
-	public void shouldBuyBombNeed50Points(){
-		assertThat(toolsOfPlayer.getPointsOfToolWithNumberOf(3), is(50));
-	}
 }

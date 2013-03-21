@@ -16,6 +16,7 @@ import thoughtworks.publicPlace.Mine;
 import thoughtworks.tools.Block;
 import thoughtworks.tools.Bomb;
 import thoughtworks.tools.Robot;
+import thoughtworks.tools.Tool;
 
 public class PlayerPropertyQueryTest {
 	private Player player;
@@ -57,7 +58,7 @@ public class PlayerPropertyQueryTest {
 		mine.playerPassOnHere(player, game);
 		player.buySpace(space.getBuyFunds());
 		space.toBeOwned(player);
-		player.buyTool(Block.toolNumber);
+		player.buyTool(Tool.createTool(Block.toolNumber));
 		int[] numOfFixedAssets = {1,0,0,0};
 		int[] numOfTools = {1,0,0};
 		assertThat(Query.queryProperty(player), is(getString(9800, 10, numOfFixedAssets, numOfTools)));
@@ -69,7 +70,7 @@ public class PlayerPropertyQueryTest {
 		player.buySpace(space.getBuyFunds());
 		space.toBeOwned(player);
 		player.upgradeOwnFixedAssets(space);
-		player.buyTool(Bomb.toolNumber);
+		player.buyTool(Tool.createTool(Bomb.toolNumber));
 		int[] numOfFixedAssets = {0,1,0,0};
 		int[] numOfTools = {0,0,1};
 		assertThat(Query.queryProperty(player), is(getString(9600, 10, numOfFixedAssets, numOfTools)));
@@ -82,7 +83,7 @@ public class PlayerPropertyQueryTest {
 		space.toBeOwned(player);
 		player.upgradeOwnFixedAssets(space);
 		player.upgradeOwnFixedAssets((Space)space.upgrade());
-		player.buyTool(Robot.toolNumber);
+		player.buyTool(Tool.createTool(Robot.toolNumber));
 		int[] numOfFixedAssets = {0,0,1,0};
 		int[] numOfTools = {0,1,0};
 		assertThat(Query.queryProperty(player), is(getString(9400, 30, numOfFixedAssets, numOfTools)));

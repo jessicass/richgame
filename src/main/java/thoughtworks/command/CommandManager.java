@@ -13,6 +13,7 @@ import thoughtworks.players.Player;
 import thoughtworks.tools.Block;
 import thoughtworks.tools.Bomb;
 import thoughtworks.tools.Robot;
+import thoughtworks.tools.Tool;
 
 public class CommandManager {
 	private boolean isCommandEnd = true;
@@ -132,7 +133,7 @@ public class CommandManager {
 	public void sellRoolsWithCommand(String parameter, Player player) {
 		if (isToolNumberRight(parameter, player)) {
 			int toolNumber = Integer.parseInt(parameter);
-			player.sellTool(toolNumber);
+			player.sellTool(Tool.createTool(toolNumber));
 			System.out.println("出售道具成功！");
 		}
 	}

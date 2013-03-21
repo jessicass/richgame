@@ -2,6 +2,9 @@ package thoughtworks.players;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+
+import java.io.IOException;
+
 import org.junit.Test;
 
 import thoughtworks.Game;
@@ -10,6 +13,7 @@ import thoughtworks.publicPlace.Mine;
 import thoughtworks.tools.Block;
 import thoughtworks.tools.Bomb;
 import thoughtworks.tools.Robot;
+import thoughtworks.tools.Tool;
 
 public class PlayerTest {
     private Player player = new Player(1);
@@ -139,19 +143,19 @@ public class PlayerTest {
         mine.playerPassOnHere(player, new Game());
     	
     	//when
-    	player.buyTool(Block.toolNumber);
+    	player.buyTool(Tool.createTool(Block.toolNumber));
         
     	//then
     	assertThat(player.getPoints(), is(10));
     }
 
     @Test
-    public void shouldBuyRobotNeed30Points() {
+    public void shouldBuyRobotNeed30Points() throws IOException {
     	//given
         mine.playerPassOnHere(player, new Game());
     	
         //when
-        player.buyTool(Robot.toolNumber);
+        player.buyTool(Tool.createTool(Robot.toolNumber));
         
         //then
         assertThat(player.getPoints(), is(30));
@@ -163,7 +167,7 @@ public class PlayerTest {
         mine.playerPassOnHere(player, new Game());
         
         //when
-        player.buyTool(Bomb.toolNumber);
+        player.buyTool(Tool.createTool(Bomb.toolNumber));
         
         //then
         assertThat(player.getPoints(), is(10));

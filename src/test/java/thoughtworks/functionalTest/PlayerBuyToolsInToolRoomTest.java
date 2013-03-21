@@ -24,32 +24,32 @@ public class PlayerBuyToolsInToolRoomTest {
 	
 	@Test
 	public void shouldBuyBlockNeed50Points(){
-		player.buyTool(Block.toolNumber);
+		player.buyTool(Tool.createTool(Block.toolNumber));
 		assertThat(player.getPoints(), is(10));
 	}
 	
 	@Test
 	public void shouldBuyRobotNeed30Points(){
-		player.buyTool(Robot.toolNumber);
+		player.buyTool(Tool.createTool(Robot.toolNumber));
 		assertThat(player.getPoints(), is(30));
 	}
 	
 	@Test
 	public void shouldBuyBombNeed50Points(){
-		player.buyTool(Bomb.toolNumber);
+		player.buyTool(Tool.createTool(Bomb.toolNumber));
 		assertThat(player.getPoints(), is(10));
 	}
 	
 	@Test
 	public void shouldPointsOfPlayerNotEnoughForBomb(){
-		player.buyTool(Bomb.toolNumber);
+		player.buyTool(Tool.createTool(Bomb.toolNumber));
 		assertThat(ToolRoom.isPointsEnoughToBuyToolWithNumber(
-				player.getPoints(), Bomb.toolNumber), is(false));
+				player.getPoints(), Tool.createTool(Bomb.toolNumber)), is(false));
 	}
 	
 	@Test
 	public void shouldPointsOfPlayerNotEnoughForAllTools(){
-		player.buyTool(Bomb.toolNumber);
+		player.buyTool(Tool.createTool(Bomb.toolNumber));
 		assertThat(ToolRoom.isPointsEnoughToBuyAllTool(
 				player.getPoints()), is(false));
 	}
@@ -57,7 +57,7 @@ public class PlayerBuyToolsInToolRoomTest {
 	@Test
 	public void shouldTotalNumberOfToolsBeyondLimit(){
 		for(int i = 0; i < 10; i++){
-			player.buyTool(Bomb.toolNumber);
+			player.buyTool(Tool.createTool(Bomb.toolNumber));
 			mine.playerPassOnHere(player, new Game());
 		}
 		assertThat(ToolRoom.isNumberOfTotalToolsNotBeyondLimits(

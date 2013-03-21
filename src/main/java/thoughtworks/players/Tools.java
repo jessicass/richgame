@@ -1,89 +1,49 @@
 package thoughtworks.players;
 
-import thoughtworks.tools.Block;
-import thoughtworks.tools.Bomb;
-import thoughtworks.tools.Robot;
+import java.util.ArrayList;
+import thoughtworks.functionClass.Input;
 
 public class Tools {
-	private int numberOfBlocks;
-	private int numberOfRobots;
-	private int numberOfBombs;
+	private ArrayList<Integer> numberOfTools = new ArrayList<Integer>();
+	
+	public Tools(){
+		numberOfTools.add(new Integer(0));
+		numberOfTools.add(new Integer(0));
+		numberOfTools.add(new Integer(0));
+	}
 	
 	public int getNumberOfTools(int toolNumber){
-		switch(toolNumber){
-		    case Block.toolNumber:
-		    	return numberOfBlocks;
-		    case Robot.toolNumber:
-		    	return numberOfRobots;
-		    case Bomb.toolNumber:
-		    	return numberOfBombs;
-		}
+		if(Input.isIntegerInArea(toolNumber, 1, 3))
+			return numberOfTools.get(toolNumber - 1);
 		return -1;
 	}
 	
 	public int getTotalNumberOfTools(){
-		return numberOfBlocks + numberOfRobots + numberOfBombs;
+		int totalNumber = 0;
+		for(int number:numberOfTools){
+			totalNumber += number;
+		}
+		return totalNumber;
 	}
 	
 	public void buyTool(int toolNumber) {
-		switch(toolNumber){
-		    case Block.toolNumber:
-		    	numberOfBlocks++;
-	    	    return;
-	        case Robot.toolNumber:
-	        	numberOfRobots++;
-	        	return;
-	        case Bomb.toolNumber:
-	        	numberOfBombs++;
-	        	return;
-		}
+		if(!Input.isIntegerInArea(toolNumber, 1, 3))
+			return;
+		numberOfTools.set(toolNumber - 1, numberOfTools.get(toolNumber - 1) + 1);
 	}
 	
 	public boolean isOwnToolWithNumberOf(int toolNumber){
-		switch(toolNumber){
-	    case Block.toolNumber:
-	    	if(numberOfBlocks > 0){
-	    		return true;
-	    	}
-	    	break;
-        case Robot.toolNumber:
-        	if(numberOfRobots > 0){
-	    		return true;
-	    	}
-	    	break;
-        case Bomb.toolNumber:
-        	if(numberOfBombs > 0){
-	    		return true;
-	    	}
-	    	break;
-	    }
+		if(!Input.isIntegerInArea(toolNumber, 1, 3))
+			return false;
+		if(numberOfTools.get(toolNumber - 1) > 0)
+			return true;
 		System.out.println("道具数量不足！");
 		return false;
 	}
 
 	public void decreaseNumberOfTools(int toolNumber) {
-		switch (toolNumber) {
-		case Block.toolNumber:
-			numberOfBlocks--;
-			break;
-		case Robot.toolNumber:
-			numberOfRobots--;
-			break;
-		case Bomb.toolNumber:
-			numberOfBombs--;
-			break;
-		}
-	}
-
-	public int getPointsOfToolWithNumberOf(int toolNumber) {
-		switch (toolNumber) {
-		case Block.toolNumber:
-			return Block.buyPoints;
-		case Robot.toolNumber:
-			return Robot.buyPoints;
-		case Bomb.toolNumber:
-			return Bomb.buyPoints;
-		}
-		return 0;
+		if(!Input.isIntegerInArea(toolNumber, 1, 3))
+			return;
+		numberOfTools.set(toolNumber - 1, numberOfTools.get(toolNumber - 1) - 1);
 	}
 }

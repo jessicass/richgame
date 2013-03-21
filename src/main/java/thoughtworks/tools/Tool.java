@@ -16,6 +16,19 @@ public class Tool {
 		this.setRange = setRange;
 	}
 	
+	public static Tool createTool(int toolNumber) {
+		switch (toolNumber) {
+		case Block.toolNumber:
+			return new Block();
+		case Robot.toolNumber:
+			return new Robot();
+		case Bomb.toolNumber:
+			return new Bomb();
+		default:
+			return null;
+		}
+	}
+	
 	public String getName(){
 		return name;
 	}

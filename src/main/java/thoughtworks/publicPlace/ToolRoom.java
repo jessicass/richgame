@@ -19,22 +19,11 @@ public class ToolRoom extends Terrain implements MapObject {
 	public ToolRoom(int position) {
 		super(position);
 	}
-
-	public static int buyToolPoints(int toolNumber) {
-		switch(toolNumber){
-		    case Block.toolNumber:
-	    	    return Block.buyPoints;
-	        case Robot.toolNumber:
-	        	return Robot.buyPoints;
-	        case Bomb.toolNumber:
-	        	return Bomb.buyPoints;
-		}
-		return -1;
-	}
 	
 	public static boolean isPointsEnoughToBuyAllTool(int points){
-		for(int i = 0; i < MAX_TOOL_NUMBER; i++){
-			if(points > buyToolPoints(i + 1)){
+		for(int toolNumber = 1; toolNumber < MAX_TOOL_NUMBER; toolNumber++){
+			Tool tool = Tool.createTool(toolNumber);
+			if(points > tool.getBuyPoints()){
 				return true;
 			}
 		}
@@ -42,8 +31,8 @@ public class ToolRoom extends Terrain implements MapObject {
 	}
 	
 	public static boolean isPointsEnoughToBuyToolWithNumber(
-			int points, int toolNumber){
-		if(points < buyToolPoints(toolNumber)){
+			int points, Tool tool){
+		if(points < tool.getBuyPoints()){
 			return false;
 		}
 		return true;
@@ -79,8 +68,8 @@ public class ToolRoom extends Terrain implements MapObject {
 					continue;
 				}
 				if (isPointsEnoughToBuyToolWithNumber(passer.getPoints(),
-						Integer.valueOf(input))) {
-					passer.buyTool(Integer.valueOf(input));
+						Tool.createTool(Integer.valueOf(input)))) {
+					passer.buyTool(Tool.createTool(Integer.valueOf(input)));
 					System.out.println("购买道具成功！");
 					return;
 				} else {

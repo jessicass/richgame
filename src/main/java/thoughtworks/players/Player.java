@@ -5,7 +5,7 @@ import java.awt.Color;
 import thoughtworks.GlobalSettings;
 import thoughtworks.fixedAssets.*;
 import thoughtworks.functionClass.PositionUpdate;
-import thoughtworks.publicPlace.*;
+import thoughtworks.tools.Tool;
 
 public class Player {
     private int funds;
@@ -82,9 +82,9 @@ public class Player {
         fixedAssets.sellSpace(space.getLevel());
     }
 
-    public void buyTool(int toolNumber) {
-        points -= ToolRoom.buyToolPoints(toolNumber);
-        tools.buyTool(toolNumber);
+    public void buyTool(Tool tool) {
+        points -= tool.getBuyPoints();
+        tools.buyTool(tool.getToolNumber());
     }
 
     public void chooseGift(int giftNumber) {
@@ -172,9 +172,9 @@ public class Player {
         this.points += points;
     }
 
-    public void sellTool(int toolNumber) {
-        this.points += tools.getPointsOfToolWithNumberOf(toolNumber);
-        tools.decreaseNumberOfTools(toolNumber);
+    public void sellTool(Tool tool) {
+        this.points += tool.getBuyPoints();
+        tools.decreaseNumberOfTools(tool.getToolNumber());
     }
 
     public void updateBankruptState(int passTool) {

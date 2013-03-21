@@ -12,6 +12,7 @@ import thoughtworks.players.Player;
 import thoughtworks.tools.Block;
 import thoughtworks.tools.Bomb;
 import thoughtworks.tools.Robot;
+import thoughtworks.tools.Tool;
 
 public class ToolsSetRight {
 	private Game game = new Game();
@@ -36,9 +37,9 @@ public class ToolsSetRight {
 	
 	@Test
 	public void shouldToolSetRight(){
-		player.buyTool(Block.toolNumber);
-		player.buyTool(Block.toolNumber);
-		player.buyTool(Bomb.toolNumber);
+		player.buyTool(Tool.createTool(Block.toolNumber));
+		player.buyTool(Tool.createTool(Block.toolNumber));
+		player.buyTool(Tool.createTool(Bomb.toolNumber));
 		commandManager.isCommandRunEnd("block 1", player, game);
 		assertThat(map.getMapObjectWithIndex(4).hasBlock(), is(false));
 		commandManager.isCommandRunEnd("block 4", player, game);
@@ -49,8 +50,8 @@ public class ToolsSetRight {
 	
 	@Test
 	public void shouldToolClearRight(){
-		player.buyTool(Block.toolNumber);
-		player.buyTool(Robot.toolNumber);
+		player.buyTool(Tool.createTool(Block.toolNumber));
+		player.buyTool(Tool.createTool(Robot.toolNumber));
 		commandManager.isCommandRunEnd("block 4", player, game);
 		commandManager.isCommandRunEnd("robot", player, game);
 		assertThat(map.getMapObjectWithIndex(7).hasBlock(), is(false));
