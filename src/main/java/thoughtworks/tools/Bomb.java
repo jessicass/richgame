@@ -7,19 +7,7 @@ public class Bomb extends Tool {
 	public static final int setRange = 10;
 	public static final String name = "炸弹";
 	
-	public String getName(){
-		return name;
-	}
-	
-	public int getToolNumber() {
-		return toolNumber;
-	}
-
-	public int getBuyPoints() {
-		return buyPoints;
-	}
-
-	public String getSymbol() {
-		return symbol;
+	public Bomb(){
+		super(name, symbol, toolNumber, buyPoints, setRange);
 	}
 }

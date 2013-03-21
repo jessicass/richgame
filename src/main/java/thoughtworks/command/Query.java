@@ -10,10 +10,10 @@ public class Query {
 		String fundInfo = "资金：" + player.getFunds() + "元；"; 
 		String pointInfo = "点数：" + player.getPoints() + "点；";
 		String fixedAssetInfo =	"地产：" + 
-		    Space.name + player.getFixedAssets().getNumberOfSpaces() + "处；" +
-	        Cottage.name + player.getFixedAssets().getNumberOfCottages() + "处；" +
-	        House.name + player.getFixedAssets().getNumberOfHouses() + "处；" +
-	        Skyscraper.name + player.getFixedAssets().getNumberOfSkyscrapers() + "处；";
+		    Space.name + player.getFixedAssets().getNumberOfSpaces(0) + "处；" +
+	        Cottage.name + player.getFixedAssets().getNumberOfSpaces(1) + "处；" +
+	        House.name + player.getFixedAssets().getNumberOfSpaces(2) + "处；" +
+	        Skyscraper.name + player.getFixedAssets().getNumberOfSpaces(3) + "处；";
 		String toolInfo = "道具：";
 		for(Tool tool:(new ToolInfo()).getTools()){
 			toolInfo += tool.getName() + player.getTools().getNumberOfTools(

@@ -1,68 +1,45 @@
 package thoughtworks.players;
 
+import java.util.ArrayList;
 
 public class FixedAssets {
-	private int numberOfSpaces = 0;
-	private int numberOfCottages = 0;
-	private int numberOfHouses = 0;
-	private int numberOfSkyscrapers = 0;
+	private ArrayList<Integer> numberOfSpaces = new ArrayList<Integer>();
 	
-	public int getNumberOfSpaces(){
-		return numberOfSpaces;
+	public FixedAssets(){
+		numberOfSpaces.add(new Integer(0));
+		numberOfSpaces.add(new Integer(0));
+		numberOfSpaces.add(new Integer(0));
+		numberOfSpaces.add(new Integer(0));
 	}
 	
-	public int getNumberOfCottages(){
-		return numberOfCottages;
-	}
-	
-	public int getNumberOfHouses(){
-		return numberOfHouses;
-	}
-	
-	public int getNumberOfSkyscrapers(){
-		return numberOfSkyscrapers;
+	public int getNumberOfSpaces(int level){
+		if(level > 3)
+			return -1;
+		return numberOfSpaces.get(level);
 	}
 
 	public int getTotalNumberOfFixedAssets() {
-		return numberOfSpaces + numberOfCottages + 
-				numberOfHouses + numberOfSkyscrapers;
+		int totalNumber = 0;
+		for(int number:numberOfSpaces){
+			totalNumber += number;
+		}
+		return totalNumber;
 	}
 	
 	public void addNewSpace(){
-		numberOfSpaces++;
+		numberOfSpaces.set(0, numberOfSpaces.get(0) + 1);
 	}
 
 	public void upgradeSpace(int level){
-		switch(level){
-	        case 0 :
-	    	    numberOfSpaces--;
-	    	    numberOfCottages++;
-				return;
-	        case 1 :
-	        	numberOfCottages--;
-	    	    numberOfHouses++;
-				return;
-	        case 2 :
-	        	numberOfHouses--;
-	    	    numberOfSkyscrapers++;
-				return;
-		}
+		if(level > 2)
+			return;
+		numberOfSpaces.set(level, numberOfSpaces.get(level) - 1);
+		numberOfSpaces.set(level + 1, numberOfSpaces.get(level + 1) + 1);
 	}
 
 	public void sellSpace(int level) {
-		switch(level){
-	        case 0 :
-	    	    numberOfSpaces--;
-				return;
-	        case 1 :
-	        	numberOfCottages--;
-				return;
-	        case 2 :
-	        	numberOfHouses--;
-				return;
-	        case 3 :
-	        	numberOfSkyscrapers--;
-				return;
-		}
+		if(level > 3)
+			return;
+		numberOfSpaces.set(level, numberOfSpaces.get(level) - 1);
 	}
 }

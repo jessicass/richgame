@@ -1,8 +1,38 @@
 package thoughtworks.tools;
 
-public abstract class Tool {
-	public abstract String getName();
-	public abstract String getSymbol();
-	public abstract int getToolNumber();
-    public abstract int getBuyPoints();
+public class Tool {
+	private String name;
+	private String symbol;
+	private int toolNumber;
+	private int buyPoints;
+	private int setRange;
+	
+	public Tool(String name, String symbol, int toolNumber, 
+			int buyPoints, int setRange) {
+		this.name = name;
+		this.symbol = symbol;
+		this.toolNumber = toolNumber;
+		this.buyPoints = buyPoints;
+		this.setRange = setRange;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public String getSymbol(){
+		return symbol;
+	}
+	
+	public int getToolNumber(){
+		return toolNumber;
+	}
+	
+    public int getBuyPoints(){
+    	return buyPoints;
+    }
+    
+    public int getSetRange(){
+    	return setRange;
+    }
 }

@@ -33,7 +33,7 @@ public class PlayerSellFixedAssetsTest {
 		assertThat(space.getTotalCost(), is(200));
 		game.sellSpaceWithPositionOf(1);
 		assertThat(player.getFunds(), is(10200));
-		assertThat(player.getFixedAssets().getNumberOfSpaces(), is(0));
+		assertThat(player.getFixedAssets().getNumberOfSpaces(0), is(0));
 	}
 	
 	@Test
@@ -41,7 +41,7 @@ public class PlayerSellFixedAssetsTest {
 		game.upgradeFixedAssetsWithPositionOf(1);
 		game.sellSpaceWithPositionOf(1);
 		assertThat(player.getFunds(), is(10400));
-		assertThat(player.getFixedAssets().getNumberOfCottages(), is(0));
+		assertThat(player.getFixedAssets().getNumberOfSpaces(1), is(0));
 	}
 		
 	@Test
@@ -50,7 +50,7 @@ public class PlayerSellFixedAssetsTest {
 		game.upgradeFixedAssetsWithPositionOf(1);
 		game.sellSpaceWithPositionOf(1);
 		assertThat(player.getFunds(), is(10600));
-		assertThat(player.getFixedAssets().getNumberOfHouses(), is(0));
+		assertThat(player.getFixedAssets().getNumberOfSpaces(2), is(0));
 	}
 	
 	@Test
@@ -60,6 +60,6 @@ public class PlayerSellFixedAssetsTest {
 		game.upgradeFixedAssetsWithPositionOf(1);
 		game.sellSpaceWithPositionOf(1);
 		assertThat(player.getFunds(), is(10800));
-		assertThat(player.getFixedAssets().getNumberOfSkyscrapers(), is(0));
+		assertThat(player.getFixedAssets().getNumberOfSpaces(3), is(0));
 	}
 }
