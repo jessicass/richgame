@@ -37,12 +37,7 @@ public class Input {
 	}
 	
 	public static boolean isInputCommandEquals(String command){
-		if(getString().equalsIgnoreCase(command)){
-			return true;
-	    }
-	    else{
-	    	return false;
-	    }
+		return getString().equalsIgnoreCase(command);
 	}
 	
 	public static boolean isInputAnInteger(String input){
@@ -56,17 +51,11 @@ public class Input {
 	}
 	
 	public static boolean isInputAnIntegerInArea(String input, int min, int max){
-		if(isInputAnInteger(input)){
-			if(isIntegerInArea(Integer.parseInt(input), min, max)){
-				return true;
-			}
-		}
-		return false;
+		return isInputAnInteger(input) && isIntegerInArea(Integer.parseInt(input), min, max); 
 	}
 	
 	public static int throwDice() {
-		Random random = new Random();
-		return random.nextInt(5) + 1;
+		return new Random().nextInt(5) + 1;
 	}
 
 	public static boolean isInputAnIntegerInArea(String parameter, int setrange) {
