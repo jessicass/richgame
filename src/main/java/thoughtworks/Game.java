@@ -141,7 +141,8 @@ public class Game {
 				System.out.println("玩家" + player.getName() + "破产");
 			} else {
 				System.out.println("请输入要出售的房产编号：");
-				commandManager.sellFixedAssetsWithCommand(Input.getString(), player, this);
+				Command command = new SellFixedAsset();
+				command.commandExecute(Input.getString(), player, this);
 			}
 		}
 	}

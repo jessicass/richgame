@@ -1,11 +1,12 @@
 package thoughtworks.command;
 
+import thoughtworks.Game;
 import thoughtworks.fixedAssets.*;
 import thoughtworks.players.Player;
 import thoughtworks.tools.Tool;
 import thoughtworks.tools.ToolInfo;
 
-public class Query {
+public class Query extends Command {
 	public static String queryProperty(Player player){
 		String fundInfo = "资金：" + player.getFunds() + "元；"; 
 		String pointInfo = "点数：" + player.getPoints() + "点；";
@@ -21,5 +22,10 @@ public class Query {
 		}
 		return fundInfo + "\n" + pointInfo + "\n" + fixedAssetInfo + 
 				"\n" + toolInfo + "\n";
+	}
+
+	@Override
+	public void commandExecute(String parameter, Player player, Game game) {
+		System.out.println(queryProperty(player));
 	}
 }

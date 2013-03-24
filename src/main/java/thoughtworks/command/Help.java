@@ -1,6 +1,9 @@
 package thoughtworks.command;
 
-public class Help {
+import thoughtworks.Game;
+import thoughtworks.players.Player;
+
+public class Help extends Command {
 	public static final String COMMAND_TABLE = 
 			"roll" + "\t\t" + "掷骰子命令，行走1~6步。" + "\n" +  
 			"block n" + "\t\t" + "玩家拥有路障，可将路障放置到离当前位置" +
@@ -17,4 +20,9 @@ public class Help {
 			"query" + "\t\t" + "显示自家资产信息。" + "\n" + 
 			"help" + "\t\t" + "查看命令帮助。" + "\n" +
 			"quit" + "\t\t" + "强制退出。" + "\n";
+
+	@Override
+	public void commandExecute(String parameter, Player player, Game game) {
+		System.out.println(COMMAND_TABLE);		
+	}
 }
