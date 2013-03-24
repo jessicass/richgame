@@ -27,7 +27,6 @@ public class CommandManager {
 		if (command.toLowerCase().startsWith("bomb")) {
 			setBombWithCommand(commandStrings[1], player, game);
 			return !isCommandEnd;
-
 		}
 		if (command.equalsIgnoreCase("robot")) {
 			setRobotWithCommand(player, game);
@@ -144,7 +143,12 @@ public class CommandManager {
 				GlobalSettings.MAX_POSITION)) {
 			return false;
 		}
+		
 		int position = Integer.parseInt(positionString);
+		if (!map.isSpaceWithPositionOf(position)) {
+			return false;
+		}
+			
 		Space space = (Space) map.getMapObjectWithIndex(position);
 		if (!space.isOwnedBy(player)) {
 			System.out.println("该位置的房产不属于您！");

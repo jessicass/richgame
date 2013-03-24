@@ -1,6 +1,7 @@
 package thoughtworks.publicPlace;
 
 import thoughtworks.Game;
+import thoughtworks.GlobalSettings;
 import thoughtworks.MapObject;
 import thoughtworks.functionClass.Input;
 import thoughtworks.players.Player;
@@ -8,20 +9,13 @@ import thoughtworks.tools.*;
 
 public class ToolRoom extends Terrain implements MapObject {
 	public static final String symbol = "T";
-	public static final int LIMIT_NUMBER_OF_TOOLS = 10;
-	public static final String WELCOME = "欢迎光临道具屋，请输入" +
-			"您所需要的道具的编号：";
-	public static final String NUMBER_OF_TOOLS_BEYOND_LIMIT = "您已经拥有10个道具";
-	public static final String QUIT_TOOLROOM = "f";
-	public static final int MAX_TOOL_NUMBER = 3;
-	public static final int MIN_TOOL_NUMBER = 1;
 	
 	public ToolRoom(int position) {
 		super(position);
 	}
 	
 	public static boolean isPointsEnoughToBuyAllTool(int points){
-		for(int toolNumber = 1; toolNumber < MAX_TOOL_NUMBER; toolNumber++){
+		for(int toolNumber = 1; toolNumber < GlobalSettings.MAX_TOOL_NUMBER; toolNumber++){
 			Tool tool = Tool.createTool(toolNumber);
 			if(points > tool.getBuyPoints()){
 				return true;
@@ -40,7 +34,7 @@ public class ToolRoom extends Terrain implements MapObject {
 	
 	public static boolean isNumberOfTotalToolsNotBeyondLimits(
 			int NumberOfTotalTools) {
-		if (NumberOfTotalTools < LIMIT_NUMBER_OF_TOOLS) {
+		if (NumberOfTotalTools < GlobalSettings.LIMIT_NUMBER_OF_TOOLS) {
 			return true;
 		}
 		return false;
@@ -57,14 +51,14 @@ public class ToolRoom extends Terrain implements MapObject {
 				&& isNumberOfTotalToolsNotBeyondLimits(passer
 						.getTools().getTotalNumberOfTools())) {
 			System.out.println((new ToolInfo()).toolInfoShow());
-			System.out.println(WELCOME);
+			System.out.println(GlobalSettings.WELCOME_TO_TOOLROOM);
 			while (true) {
 				String input = Input.getString();
-				if (input.matches(QUIT_TOOLROOM)) {
+				if (input.matches(GlobalSettings.QUIT_TOOLROOM)) {
 					return;
 				}
-				if (!Input.isInputAnIntegerInArea(input, MIN_TOOL_NUMBER,
-						MAX_TOOL_NUMBER)) {
+				if (!Input.isInputAnIntegerInArea(input, GlobalSettings.MIN_TOOL_NUMBER,
+						GlobalSettings.MAX_TOOL_NUMBER)) {
 					continue;
 				}
 				if (isPointsEnoughToBuyToolWithNumber(passer.getPoints(),

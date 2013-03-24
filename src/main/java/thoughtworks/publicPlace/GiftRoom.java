@@ -8,8 +8,6 @@ import thoughtworks.players.Player;
 
 public class GiftRoom extends Terrain implements MapObject {
 	public static final String symbol = "G";
-	public static final String WELCOME = "欢迎光临礼品屋，请输入" +
-			"您所需要的礼品的编号：";
 	
 	public GiftRoom(int position) {
 		super(position);
@@ -31,7 +29,7 @@ public class GiftRoom extends Terrain implements MapObject {
 	@Override
 	public void playerPassOnHere(Player passer, Game game) {
 		System.out.println(giftInfoShow());
-		System.out.println(WELCOME);
+		System.out.println(GlobalSettings.WELCOME_TO_GIFTROOM);
 		while(true){
 			int input = Input.getInteger();
 			if(Input.isIntegerInArea(input, GlobalSettings.MIN_GIFT_NUMBER, 

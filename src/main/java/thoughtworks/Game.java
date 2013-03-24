@@ -10,7 +10,6 @@ import thoughtworks.players.*;
 public class Game {
 	public static final String HINT_OF_START = "请输入游戏开始指令：";
 	public static final String ERROR_OF_START = "指令错误，请重新输入游戏开始指令：";
-	
 	public static final String START_COMMAND = "rich";
 
 	private PlayerList playerList;
@@ -140,7 +139,6 @@ public class Game {
 			player.updateBankruptState(space.getPassToll());
 			if (player.isBankrupt()) {
 				System.out.println("玩家" + player.getName() + "破产");
-				playerList.getPlayers().remove(player);
 			} else {
 				System.out.println("请输入要出售的房产编号：");
 				commandManager.sellFixedAssetsWithCommand(Input.getString(), player, this);
