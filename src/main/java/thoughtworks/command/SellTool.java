@@ -5,9 +5,14 @@ import thoughtworks.players.Player;
 import thoughtworks.tools.Tool;
 
 public class SellTool extends Command {
+	private String parameter;
+	
+	public SellTool(String paremeter){
+		this.parameter = paremeter;
+	}
 
 	@Override
-	public void commandExecute(String parameter, Player player, Game game) {
+	public void commandExecute(Player player, Game game) {
 		if (CommandManager.isToolNumberRight(parameter, player)) {
 			int toolNumber = Integer.parseInt(parameter);
 			player.sellTool(Tool.createTool(toolNumber));

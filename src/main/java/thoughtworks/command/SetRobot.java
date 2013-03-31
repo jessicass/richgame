@@ -8,7 +8,7 @@ import thoughtworks.tools.Robot;
 
 public class SetRobot extends Command {
 	@Override
-	public void commandExecute(String command, Player player, Game game) {
+	public void commandExecute(Player player, Game game) {
 		if (player.getTools().isOwnToolWithNumberOf(Robot.toolNumber)) {
 			player.getTools().decreaseNumberOfTools(Robot.toolNumber);
 			int backPosition = PositionUpdate.getCurrentPositionWithDistance(

@@ -7,9 +7,14 @@ import thoughtworks.players.Player;
 import thoughtworks.tools.Bomb;
 
 public class SetBomb extends Command {
-
+	private String parameter;
+	
+	public SetBomb(String paremeter){
+		this.parameter = paremeter;
+	}
+	
 	@Override
-	public void commandExecute(String parameter, Player player, Game game) {
+	public void commandExecute(Player player, Game game) {
 		if (!player.getTools().isOwnToolWithNumberOf(Bomb.toolNumber)) {
 			System.out.println("您并不拥有该道具！");
 			return;

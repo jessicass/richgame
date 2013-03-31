@@ -16,11 +16,15 @@ public class CommandManager {
 
 	public boolean isCommandRunEnd(String commandString, Player player, Game game) {
 		String[] commandStrings = commandString.split(" ");
-		command = CommandFactory.createCommand(commandStrings[0].toLowerCase());
+		
+		if(!CommandFactory.isCommandStringLengthRight(commandStrings)){
+			return !isCommandEnd;
+		}
+		command = CommandFactory.createCommand(commandStrings);
 		if (command == null) {
 			return !isCommandEnd;
 		}
-		command.commandExecute(commandStrings[1], player, game);
+		command.commandExecute(player, game);
 		if (command instanceof Roll) {
 			return isCommandEnd;
 		}

@@ -7,8 +7,14 @@ import thoughtworks.players.Player;
 import thoughtworks.tools.Block;
 
 public class SetBlock extends Command {
+	private String parameter;
+	
+	public SetBlock(String paremeter){
+		this.parameter = paremeter;
+	}
+
 	@Override
-	public void commandExecute(String parameter, Player player, Game game) {
+	public void commandExecute(Player player, Game game) {
 			if (!player.getTools().isOwnToolWithNumberOf(Block.toolNumber)) {
 				System.out.println("您并不拥有该道具！");
 				return;

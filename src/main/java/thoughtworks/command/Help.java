@@ -22,7 +22,7 @@ public class Help extends Command {
 			"quit" + "\t\t" + "强制退出。" + "\n";
 
 	@Override
-	public void commandExecute(String parameter, Player player, Game game) {
+	public void commandExecute(Player player, Game game) {
 		System.out.println(COMMAND_TABLE);		
 	}
 }
